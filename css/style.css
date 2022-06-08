@@ -1760,4 +1760,8 @@ body.light hr.separator {
   .separator.mt-1 {
     margin-top: 35px !important;
   }
+
+  .separatorProt {
+    margin-top: 10px !important;
+  }
 }
