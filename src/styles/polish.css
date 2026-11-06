@@ -1018,3 +1018,8 @@ html .brand-symbol img { display: block; width: 100%; height: 100%; }
 html .year-field::after { content: none; }
 .year-field .year-chevron { position: absolute; right: 14px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--muted); pointer-events: none; transition: color .2s; }
 .year-field:hover .year-chevron, .year-field:focus-within .year-chevron { color: var(--purple); }
+
+/* Honors: the award on one line, where / what it covered on the next. */
+.honor-group .honor-item .honor-detail { position: relative; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.honor-group .honor-item .honor-detail .ko { font-size: 13px; }
+.honor-group:hover .honor-item .title { color: var(--purple); }

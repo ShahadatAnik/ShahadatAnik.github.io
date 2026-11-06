@@ -87,6 +87,7 @@ export function Journey() {
                   {honors.filter((honor) => honor.year === year).map((honor) => (
                     <div key={honor.title.en} className="honor-item">
                       <div className="title"><B value={honor.title} /></div>
+                      <div className="honor-detail"><B value={honor.detail} /></div>
                     </div>
                   ))}
                 </div>

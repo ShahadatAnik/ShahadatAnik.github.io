@@ -145,7 +145,10 @@ export const PROFILE_DATA = {
   },
   publications,
   education,
-  honors: siteConfig.honors.map((h) => ({ year: h.year, title: bi(h.title) })),
+  // Newest first, whatever order they are written in the config (equal years keep their written order).
+  honors: [...siteConfig.honors]
+    .sort((a, b) => b.year - a.year)
+    .map((h) => ({ year: h.year, title: bi(h.title), detail: bi(h.detail) })),
   experience,
   skills: siteConfig.skills.flatMap((g) => g.items.map((name) => ({ name, level: bi(g.group) }))),
   interests: {

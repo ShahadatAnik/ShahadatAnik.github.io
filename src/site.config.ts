@@ -129,7 +129,7 @@ export const siteConfig = {
 			ko: '공동 연구 환영',
 		} satisfies Text,
 		bio: {
-			en: 'I am a combined M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. I build brain–AI interfaces and a brainwave-language model that help people communicate without speaking.',
+			en: 'I am a combined M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. I build brain-AI interfaces and a brainwave-language model that help people communicate without speaking.',
 			ko: '경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생입니다. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
 		} satisfies Text,
 		/** Line under the portrait. */
@@ -172,7 +172,7 @@ export const siteConfig = {
 			ko: 'Md Shahadat Anik Sheikh | 경희대학교 | 뇌-AI & BCI',
 		} satisfies Text,
 		description: {
-			en: 'M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. Building brain–AI interfaces and a brainwave-language model for non-verbal communication.',
+			en: 'M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. Building brain-AI interfaces and a brainwave-language model for non-verbal communication.',
 			ko: '경희대학교 산업AI연구실 연구조교, 석박사 통합과정. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
 		} satisfies Text,
 		jobTitle: 'Research Assistant, M.S.+Ph.D. student',
@@ -186,9 +186,22 @@ export const siteConfig = {
 			'Multimodal learning',
 		],
 		/** Words search engines and social cards may pick up. */
-		keywords: ['Brain-AI', 'BCI', 'EEG', 'Kyung Hee University', 'Industrial AI Lab', 'deep learning', 'computer vision'],
+		keywords: [
+			'Brain-AI',
+			'BCI',
+			'EEG',
+			'Kyung Hee University',
+			'Industrial AI Lab',
+			'deep learning',
+			'computer vision',
+		],
 		/** Link-preview images in /public/assets (regenerate with `bun scripts/make-og-image.mjs`). */
-		image: { en: '/assets/og-image.png', ko: '/assets/og-image-kr.png', width: 1200, height: 630 },
+		image: {
+			en: '/assets/og-image.png',
+			ko: '/assets/og-image-kr.png',
+			width: 1200,
+			height: 630,
+		},
 		firstName: 'Md Shahadat',
 		lastName: 'Sheikh',
 	},
@@ -439,24 +452,35 @@ export const siteConfig = {
 
 	honors: [
 		{
-			year: 2025,
-			title: { en: 'IELTS · Overall Band 7.0', ko: 'IELTS · 종합 밴드 7.0' },
-		},
-		{
-			year: 2024,
-			title: {
-				en: 'Cum Laude · East West University',
-				ko: 'Cum Laude · 이스트웨스트대학교',
+			year: 2026,
+			title: { en: 'President’s Scholarship', ko: '총장 장학금' },
+			detail: {
+				en: 'Full tuition waiver · Kyung Hee University',
+				ko: '등록금 전액 면제 · 경희대학교',
 			},
 		},
 		{
 			year: 2022,
-			title: {
-				en: 'Merit Scholarship, 100% tuition · East West University',
-				ko: '성적우수 장학금(등록금 100%) · 이스트웨스트대학교',
+			title: { en: 'Merit Scholarship', ko: '성적우수 장학금' },
+			detail: {
+				en: 'Full tuition waiver · East West University',
+				ko: '등록금 전액 면제 · 이스트웨스트대학교',
 			},
 		},
-	] satisfies { year: number; title: Text }[],
+		{
+			year: 2025,
+			title: { en: 'IELTS', ko: 'IELTS' },
+			detail: { en: 'Overall band 7.0', ko: '종합 밴드 7.0' },
+		},
+		{
+			year: 2024,
+			title: { en: 'Cum Laude', ko: 'Cum Laude' },
+			detail: {
+				en: 'CGPA 3.7+, no retakes · East West University',
+				ko: 'CGPA 3.7 이상, 재수강 없음 · 이스트웨스트대학교',
+			},
+		},
+	] satisfies { year: number; title: Text; detail: Text }[],
 
 	experience: [
 		{
