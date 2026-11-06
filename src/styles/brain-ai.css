@@ -1,0 +1,26 @@
+/* A living conversation between neural structure and machine intelligence. */
+.research-map .map-center{width:146px;height:146px;gap:0;border-color:color-mix(in srgb,var(--purple) 24%,var(--paper));background:var(--paper);box-shadow:0 0 0 8px color-mix(in srgb,var(--lavender) 42%,transparent),0 12px 30px color-mix(in srgb,var(--purple) 10%,transparent)}
+.research-map .map-center .brain-ai-visual{width:139px;height:115px;overflow:visible;stroke-width:1.65;flex:none}
+.research-map .map-center>span{font-size:9px;letter-spacing:1.6px;margin-top:-3px;font-weight:650;white-space:nowrap}
+.brain-ai-aura{fill:color-mix(in srgb,var(--lavender) 55%,transparent);stroke:none}
+.brain-ai-orbit{fill:none;stroke:color-mix(in srgb,var(--purple) 21%,transparent);stroke-width:1;stroke-dasharray:2 6}
+.brain-ai-hemisphere{fill:color-mix(in srgb,var(--purple) 12%,var(--paper));stroke:var(--purple);stroke-width:2}
+.brain-ai-folds{fill:none;stroke:var(--purple);opacity:.8}
+.brain-ai-circuit{fill:none;stroke:#738454;stroke-width:1.8}
+.brain-ai-chip{fill:color-mix(in srgb,var(--sage) 40%,var(--paper));stroke-width:2}
+.brain-ai-chip-inner{fill:var(--paper);stroke:color-mix(in srgb,#738454 55%,transparent);stroke-width:1}
+.brain-ai-bridges{fill:none;stroke:var(--purple);stroke-width:1.7}
+.brain-ai-transmission{stroke:#8b9f61;stroke-width:3;stroke-dasharray:4 62;animation:brain-ai-flow 3.6s linear infinite;animation-play-state:paused}
+.brain-ai-chip-label{font-family:inherit;font-size:17px;font-weight:750;letter-spacing:-.5px;fill:#637647;stroke:none}
+.brain-ai-neurons{fill:var(--purple);stroke:var(--paper);stroke-width:1.4}
+.brain-ai-terminals{fill:var(--paper);stroke:#738454;stroke-width:1.5}
+.brain-ai-spark{fill:var(--purple);stroke:none;opacity:.2;animation:brain-ai-synapse 3.6s ease-in-out infinite;animation-play-state:paused;transform-box:fill-box;transform-origin:center}
+.brain-ai-spark-two{fill:#8b9f61;animation-delay:1.2s}.brain-ai-spark-three{animation-delay:2.4s}
+.research-map.motion-active .brain-ai-transmission,.research-map.motion-active .brain-ai-spark{animation-play-state:running}
+html[data-theme=dark] .brain-ai-circuit,html[data-theme=dark] .brain-ai-terminals{stroke:var(--sage)}
+html[data-theme=dark] .brain-ai-chip-label{fill:var(--sage)}
+@keyframes brain-ai-flow{to{stroke-dashoffset:-66}}
+@keyframes brain-ai-synapse{0%,80%,100%{opacity:.12;transform:scale(.7)}35%{opacity:.48;transform:scale(1.65)}}
+@media(max-width:650px){.research-map{min-height:430px}.research-map .map-links{height:430px}.research-map .map-center{width:111px;height:111px;box-shadow:0 0 0 6px color-mix(in srgb,var(--lavender) 42%,transparent)}.research-map .map-center .brain-ai-visual{width:107px;height:88px}.research-map .map-center>span{font-size:8px;letter-spacing:1px;margin-top:-1px}}
+@media(prefers-reduced-motion:reduce){.brain-ai-transmission,.brain-ai-spark{animation:none!important}.brain-ai-transmission{stroke-dasharray:none;opacity:.55}.brain-ai-spark{display:none}}
+@media print{.brain-ai-spark{display:none}.brain-ai-transmission{animation:none!important}}

@@ -1,0 +1,26 @@
+/* Decorative signal motion. The portrait itself remains still. */
+.motion-orbits>.orbit-dot{opacity:.28}
+.motion-particle{stroke:none}
+.motion-particle-core{fill:var(--purple);stroke:var(--paper);stroke-width:2;stroke-dasharray:none}
+.motion-particle-halo{fill:var(--purple);opacity:.13;stroke:none;stroke-dasharray:none}
+.motion-particle-2 .motion-particle-core{fill:#8c9d65;stroke:var(--paper)}
+html[data-theme=dark] .motion-particle-2 .motion-particle-core{fill:var(--sage)}
+.signal-line svg>.motion-wave{stroke:var(--purple);stroke-width:2.4;stroke-dasharray:15 85;stroke-dashoffset:110;animation:signal-trace 3.8s linear infinite;animation-play-state:paused;opacity:.95}
+.portrait-surface.motion-active .motion-wave{animation-play-state:running}
+@keyframes signal-trace{to{stroke-dashoffset:-100}}
+.motion-controls{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding-top:10px;color:var(--muted)}
+.motion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:34px;padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--muted);font-size:12px;line-height:1.4;white-space:nowrap}
+.motion-toggle:hover{color:var(--purple);border-color:var(--purple)}
+.motion-toggle:disabled{color:var(--muted);border-color:var(--line);cursor:default}
+.motion-toggle svg{height:15px;width:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.motion-toggle .motion-play-icon{display:none}
+.motion-toggle[data-paused=true] .motion-play-icon{display:block}
+.motion-toggle[data-paused=true] .motion-pause-icon{display:none}
+.motion-toggle-label{display:inline-flex;gap:6px}
+.motion-toggle-label .zh{font-size:11px}
+.map-links>.motion-route{fill:none;stroke:var(--purple);stroke-width:3;stroke-linecap:round;stroke-dasharray:16 100;opacity:0;filter:drop-shadow(0 0 3px color-mix(in srgb,var(--purple) 35%,transparent));pointer-events:none}
+.research-map:not(.motion-active) .motion-route{visibility:hidden}
+@media(max-width:650px){.motion-controls{padding-top:10px;gap:7px}.motion-toggle{min-height:36px;font-size:11px;padding-inline:8px}.motion-toggle-label .zh{font-size:11px}}
+
+@media(prefers-reduced-motion:reduce){.motion-particle,.signal-line svg>.motion-wave,.map-links>.motion-route{display:none!important}.motion-orbits>.orbit-dot{opacity:1}}
+@media print{.motion-controls,.motion-particle,.signal-line svg>.motion-wave,.map-links>.motion-route{display:none!important}}
