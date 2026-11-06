@@ -107,6 +107,6 @@ export const NAV_ITEMS = [
   { hash: 'publications', label: T.navPublications },
   { hash: 'journey', label: T.navJourney },
   { hash: 'experience', label: T.navExperience },
-  { hash: 'gallery', label: T.navGallery },
+  // { hash: 'gallery', label: T.navGallery }, // uncomment together with <Gallery /> in HomePage.tsx
   { hash: 'contact', label: T.navContact },
 ] as const
