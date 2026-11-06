@@ -7,7 +7,7 @@ import { useLang } from './shared'
 /** Comma-separated author list; the site owner is bold and corresponding authors carry an asterisk. */
 export function Authors({ paper, query = '' }: { paper: Publication; query?: string }) {
   const lang = useLang()
-  const label = localized(lang, 'Corresponding author', '通讯作者')
+  const label = localized(lang, 'Corresponding author', '교신저자')
   const names = paper.authors.split(',').map((name) => name.trim())
   return (
     <>
@@ -15,7 +15,7 @@ export function Authors({ paper, query = '' }: { paper: Publication; query?: str
         <Fragment key={name}>
           {index > 0 && ', '}
           <span className="publication-author">
-            {name === 'Zihan Zhang' ? <strong><Highlight text={name} query={query} /></strong> : <Highlight text={name} query={query} />}
+            {name === 'Md Shahadat Anik Sheikh' ? <strong><Highlight text={name} query={query} /></strong> : <Highlight text={name} query={query} />}
             {(paper.correspondingAuthors as string[]).includes(name) && (
               <sup className="author-mark" title={label} aria-label={label}>*</sup>
             )}

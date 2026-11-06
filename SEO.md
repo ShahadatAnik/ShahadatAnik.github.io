@@ -1,57 +1,72 @@
-# Homepage SEO maintenance
+# Site maintenance and SEO
 
-The public site is https://zhangzihan-is-good.github.io/.
+Public site: https://shahadatanik.github.io/ (Md Shahadat Anik Sheikh).
 
 ## Generated pages
 
-- `/`: bilingual homepage.
-- `/en/` and `/zh/`: fixed English and Chinese homepages.
-- `/publications/{id}/`, `/en/publications/{id}/`, and `/zh/publications/{id}/`: publication details.
-- `/sitemap.xml`: canonical page URLs.
-- `/robots.txt`: allows crawling and points to the sitemap.
+- `/` — English homepage (default).
+- `/kr/` — Korean homepage.
+- `/publications/{id}/` and `/kr/publications/{id}/` — one page per publication.
+- `/sitemap.xml` — canonical page URLs.
+- `/robots.txt` — allows crawling and points to the sitemap.
 
-Every page has a self canonical, reciprocal language alternatives, a descriptive title, and JSON-LD. The core text and publication links are present before JavaScript runs. JavaScript enhances filtering, modal previews, theme controls and animations.
+Every page has a self canonical URL, reciprocal `hreflang` alternates (`en`, `ko`, `x-default` → English), a descriptive title, and JSON-LD (Person, WebSite, ProfilePage / ScholarlyArticle). Core text and publication links are in the HTML before JavaScript runs; JavaScript only adds filtering, dialogs, theme and motion controls.
 
-## Updating content
+## How the site is built
 
-The site is a TanStack Start (React, Tailwind, Bun) app that prerenders every page to static HTML in `dist/client`.
-
-- Per-page titles, descriptions, canonical/hreflang links and JSON-LD live in `src/legacy/pages.json`; routes read them via `src/lib/pages.ts`.
-- Page markup is in `src/legacy/bodies/`; profile and publication data is in `public/legacy/content.js`, translations in `public/legacy/app.js`.
-- Routes are in `src/routes/`. Add new pages there and list them in the `pages` array in `vite.config.ts` so they are prerendered.
+TanStack Start (React, Tailwind, Bun) prerenders every page to static HTML in `dist/client`.
 
 ```bash
 bun install
-bun run dev     # local development
-bun run build   # prerender to dist/client
-bun run test    # game logic tests
+bun run dev -- --force   # local development (http://localhost:3000)
+bun run typecheck        # TypeScript check
+bun run build            # prerender to dist/client
 ```
 
-Keep `public/sitemap.xml` in sync with the routes. Do not change dates merely to imply freshness.
+Run only one dev server at a time. Two servers on port 3000 make the browser mix them up and break React ("Invalid hook call").
+
+## Where content lives
+
+| What | File |
+| --- | --- |
+| Name, email, GitHub / LinkedIn / Scholar links | `src/data/content.ts` → `profile` |
+| Publications, education, honors, experience, skills, research areas | `src/data/content.ts` |
+| Korean text for the entries above (looked up by exact English string) | `src/data/ko.ts` |
+| UI strings (nav, headings, buttons, bio) in English and Korean | `src/data/i18n.ts` |
+| Titles, descriptions, canonical / hreflang links, JSON-LD, site URL | `src/data/seo.ts` |
+| Routes (`/`, `/kr/`, publication pages) | `src/routes/` |
+| Pages to prerender | `pages` / `paperIds` in `vite.config.ts` |
+| Sitemap and robots | `public/sitemap.xml`, `public/robots.txt` |
+| Favicon | `public/assets/favicon.svg` |
+| Portrait | `public/assets/portrait.jpg` |
+
+The Korean language is stored under the internal key `zh` (the second language slot). It holds Korean text and is served at `/kr/`.
+
+### Adding or removing a publication
+
+1. Add or delete the entry in `publications` in `src/data/content.ts` (unique `id`, English `summary`, `bibtex`).
+2. Add Korean text for any new `b("…")` string in `src/data/ko.ts`.
+3. Add or remove the `id` in `paperIds` in `vite.config.ts`.
+4. Add or remove its `/publications/{id}/` and `/kr/publications/{id}/` lines in `public/sitemap.xml`.
+5. Run `bun run typecheck` and `bun run build`.
+
+Keep `public/sitemap.xml` in sync with the routes. Do not change dates just to imply freshness.
 
 ## Search platform verification
 
-Search Console, Bing Webmaster Tools and Baidu Search Resource Platform require the owner's authenticated account. Register the exact HTTPS homepage as the site. For Google, use a URL-prefix property and an HTML tag or verification file. Keep the issued verification tag or file after verification. Add the exact issued tag to the homepage metadata in `src/legacy/pages.json`, rebuild and publish, or publish the exact issued verification file.
+Search Console and Bing Webmaster Tools need the owner's own account.
 
-Submit `https://zhangzihan-is-good.github.io/sitemap.xml` after successful ownership verification, then inspect the homepage and an example publication page. Review crawl/indexing errors and search queries in the platform dashboards.
+1. Register `https://shahadatanik.github.io/` as a URL-prefix property.
+2. Choose the HTML tag method and copy the exact issued tag content.
+3. Put it in `GOOGLE_VERIFICATION` in `src/data/seo.ts` (currently empty, so no tag is emitted), rebuild and publish. Keep the tag after verification.
+4. Submit `https://shahadatanik.github.io/sitemap.xml`, then inspect the homepage and one publication page.
 
-Do not add placeholder verification tokens. Publication metadata uses existing confirmed details and short research summaries; it does not assert that full texts are hosted here or that Google Scholar has indexed the pages.
+Never add placeholder verification tokens.
 
-## External profile links
+## Open items
 
-The Chisco and AI-breast-cancer repository READMEs link to the homepage. Google Scholar, GitHub profile website fields, and any school or laboratory profile should use the same canonical homepage when the owner can edit them.
-
-## Hobby experiences
-
-The four hobby cards live in `templates/homepage.html`, with translations in `app.js` and shared styling in `hobbies.css`. `hobbies.js` imports a single game or gallery when its card is opened; closing the panel disposes that experience. Game state and scores remain in memory and are never persisted. Fitness uses four falling-arrow lanes with slow, medium and fast settings; arena gameplay pauses only when requested or when the document is hidden.
-
-Add the owner's photography to the `photographs` array in `hobbies-photos.js`, using local image files and bilingual titles/alt text. Five owner-supplied photographs currently use small ring previews and larger files loaded on opening; each keeps its original aspect ratio. See that file for the data format.
-
-When updating homepage content only, use `--home-lastmod YYYY-MM-DD`. The existing `--lastmod` option controls publication-page dates. Bump the homepage asset version in the generator and lazy-module version in `hobbies.js` when releasing changed code. When adding photographs, also update the photos-data import version in `hobbies-gallery.js`.
-
-
-## Writing collection
-
-The writing card is in the left column of the experience section. Its technical-writing button opens `#writing-dialog`; the 44 article titles and original links are static HTML in `templates/homepage.html`, grouped by their original publication. `writing.js` adds dialog behavior and a local title filter; `writing.css` styles it. This replaces the former Feishu navigation. Update the template and regenerate all three homepages when changing the collection.
-
-Hobby card artwork is in `assets/hobbies/`; its README records the generated asset prompts and official game-icon source. Experience accordions start collapsed in both app rendering and pre-rendered HTML.
+- Full co-author lists for the rice panicle and biodegradable-waste papers (Scholar truncates them) — update `authors` and `bibtex`.
+- CV PDF download button (add the file under `public/assets/` and a link in the hero).
+- Research-area counts show 0 for Brain-AI & BCI and Multimodal learning until papers are tagged with those topics.
+- Korean wording has not been reviewed by a native speaker.
+- Not deployed yet: publish `dist/client` to the `ShahadatAnik.github.io` repository.

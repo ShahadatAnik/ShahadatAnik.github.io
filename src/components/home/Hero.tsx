@@ -14,8 +14,8 @@ function ellipsePath(angle: number) {
   const radians = (angle * Math.PI) / 180
   const dx = 191 * Math.cos(radians)
   const dy = 191 * Math.sin(radians)
-  const start = `${210 + dx} ${200 + dy}`
-  const end = `${210 - dx} ${200 - dy}`
+  const start = `${(210 + dx).toFixed(2)} ${(200 + dy).toFixed(2)}`
+  const end = `${(210 - dx).toFixed(2)} ${(200 - dy).toFixed(2)}`
   return `M ${start} A 191 125 ${angle} 1 0 ${end} A 191 125 ${angle} 1 0 ${start}`
 }
 
@@ -23,6 +23,7 @@ const SOCIAL_ICONS = {
   scholar: 'M2 6.5 8 3l6 3.5L8 10 2 6.5ZM4 8v3.5c2 1.5 6 1.5 8 0V8M14 7v5',
   github: 'm5.5 4-4 4 4 4M10.5 4l4 4-4 4M9 2 7 14',
   email: 'M2 3.5h12v9H2v-9Zm0 1L8 9l6-4.5',
+  linkedin: 'M3 6.5v6M3 3.5v.01M6.5 12.5v-6m0 3c0-1.7 1-3 2.5-3s2.5 1.2 2.5 3v3',
 }
 
 function SocialIcon({ d }: { d: string }) {
@@ -52,14 +53,14 @@ function HeroStatement() {
   return (
     <h2 ref={ref} className="hero-statement">
       <span className="en" lang="en">
-        <Fragments words={[{ text: 'Learning' }, { text: 'from' }, { text: 'the' }, { text: 'brain.', em: true }]} />
+        <Fragments words={[{ text: 'Reading' }, { text: 'the' }, { text: 'brain.', em: true }]} />
         <br />
-        <Fragments words={[{ text: 'Building' }, { text: 'for' }, { text: 'intelligence.', em: true }]} />
+        <Fragments words={[{ text: 'Building' }, { text: 'intelligent' }, { text: 'interfaces.', em: true }]} />
       </span>
-      <span className="zh" lang="zh-CN">
-        <span className="headline-fragment">向大脑学习，</span>
+      <span className="zh" lang="ko">
+        <span className="headline-fragment">뇌를 읽고,</span>
         <br className="zh-break" />
-        <span className="headline-fragment">探索智能的可能。</span>
+        <span className="headline-fragment">지능형 인터페이스를 만듭니다.</span>
       </span>
     </h2>
   )
@@ -114,17 +115,17 @@ export function Hero() {
 
   const paused = userPaused || reduced
   const label = reduced
-    ? { en: 'Motion off', zh: '动画已关闭' }
+    ? { en: 'Motion off', zh: '애니메이션 꺼짐' }
     : userPaused
-      ? { en: 'Play motion', zh: '播放动画' }
-      : { en: 'Pause motion', zh: '暂停动画' }
+      ? { en: 'Play motion', zh: '애니메이션 재생' }
+      : { en: 'Pause motion', zh: '애니메이션 일시정지' }
 
   return (
     <>
       <section className="hero page-width" id="home">
         <div className="hero-copy">
           <div className="eyebrow"><span className="status-dot" /><span><T k="heroEyebrow" /></span></div>
-          <h1>Zihan Zhang<span className="chinese-name">张梓寒<span className="name-period">.</span></span></h1>
+          <h1>Anik<span className="chinese-name">Md Shahadat Anik Sheikh<span className="name-period">.</span></span></h1>
           <a className="job-status" href="#contact">
             <span className="job-status-indicator" aria-hidden="true" />
             <span><T k="jobStatus" /></span>
@@ -138,6 +139,7 @@ export function Hero() {
           <div className="social-links">
             <a id="hero-scholar" target="_blank" rel="noopener" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar ↗</a>
             <a id="hero-github" target="_blank" rel="noopener" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub ↗</a>
+            <a id="hero-linkedin" target="_blank" rel="noopener" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn ↗</a>
             <a href={`mailto:${profile.email}`}><SocialIcon d={SOCIAL_ICONS.email} /><T k="emailLink" /></a>
           </div>
         </div>
@@ -183,7 +185,7 @@ export function Hero() {
               <span className="portrait-energy-ring portrait-energy-ring-two"><i /></span>
               <span className="portrait-energy-dust" />
             </div>
-            <div className="portrait-topline"><span className="tiny-cross">+</span><span>THE HUMAN BEHIND THE RESEARCH</span><span className="tiny-cross">+</span></div>
+            <div className="portrait-topline"><span className="tiny-cross">+</span><span><Dual en="THE HUMAN BEHIND THE RESEARCH" zh="연구 뒤의 사람" /></span><span className="tiny-cross">+</span></div>
             <svg ref={orbitRef} className="portrait-orbits motion-orbits" viewBox="0 0 420 420" aria-hidden="true">
               <ellipse cx="210" cy="200" rx="191" ry="125" transform="rotate(-34 210 200)" />
               <ellipse cx="210" cy="200" rx="191" ry="125" transform="rotate(34 210 200)" />
@@ -199,24 +201,24 @@ export function Hero() {
               ))}
             </svg>
             <motion.figure className="portrait" style={{ x: '-50%', rotate: -3, rotateX, rotateY }}>
-              <img src="/assets/portrait.jpg" alt="张梓寒 Zihan Zhang" width={335} height={447} fetchPriority="high" />
-              <figcaption><span className="portrait-name">Zihan Zhang</span><span>RESEARCHER / EXPLORER</span></figcaption>
+              <img src="/assets/portrait.jpg" alt="Md Shahadat Anik Sheikh" width={335} height={447} fetchPriority="high" />
+              <figcaption><span className="portrait-name">Md Shahadat Anik Sheikh</span><span><Dual en="RESEARCHER / ENGINEER" zh="연구자 / 엔지니어" /></span></figcaption>
             </motion.figure>
-            <span className="floating-label label-one">Human cognition</span>
-            <span className="floating-label label-two">Artificial intelligence</span>
+            <span className="floating-label label-one"><Dual en="Human cognition" zh="인간의 인지" /></span>
+            <span className="floating-label label-two"><Dual en="Artificial intelligence" zh="인공지능" /></span>
             <div className="signal-line">
               <svg viewBox="0 0 400 45" aria-hidden="true">
                 <path d="M0 22h25l7-6 8 12 10-24 9 35 9-17h30l7-8 7 17 9-23 8 20 6-6h48l7-10 9 24 10-33 8 30 8-11h35l7-6 8 13 9-24 8 31 8-14h50" />
                 <path className="motion-wave" pathLength="100" d="M0 22h25l7-6 8 12 10-24 9 35 9-17h30l7-8 7 17 9-23 8 20 6-6h48l7-10 9 24 10-33 8 30 8-11h35l7-6 8 13 9-24 8 31 8-14h50" />
               </svg>
-              <span>BRAIN → SIGNAL → INTELLIGENCE</span>
+              <span><Dual en="BRAIN → SIGNAL → INTELLIGENCE" zh="뇌 → 신호 → 지능" /></span>
             </div>
             <div className="signal-stage-legend" aria-hidden="true">
               <span>EEG</span>
-              <span><Dual en="Representation" zh="表征" /></span>
-              <span><Dual en="Language" zh="语言" /></span>
+              <span><Dual en="Representation" zh="표현" /></span>
+              <span><Dual en="Language" zh="언어" /></span>
             </div>
-            <span className="signal-word-label" aria-hidden="true"><Dual en="Hello." zh="你好。" /></span>
+            <span className="signal-word-label" aria-hidden="true"><Dual en="Hello." zh="안녕하세요." /></span>
           </div>
           <div className="portrait-foot"><span><T k="portraitFoot" /></span></div>
           <div className="motion-controls">
@@ -227,7 +229,7 @@ export function Hero() {
               aria-pressed={paused}
               data-paused={String(paused)}
               aria-label={`${label.en} / ${label.zh}`}
-              title={reduced ? 'Reduced motion preference is enabled / 已遵循系统减少动态效果设置' : ''}
+              title={reduced ? 'Reduced motion preference is enabled / 시스템의 동작 줄이기 설정을 따릅니다' : ''}
               onClick={toggle}
             >
               <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -241,15 +243,15 @@ export function Hero() {
       </section>
       <div className="affiliation-strip page-width">
         <div className="affiliation">
-          <span className="institution-mark">HIT<span>1920</span></span>
+          <span className="institution-mark">KHU<span>SEOUL</span></span>
           <div><strong><T k="hit" /></strong><span><T k="hitDetail" /></span></div>
         </div>
         <span className="affiliation-connector">↔</span>
         <div className="affiliation">
-          <span className="institution-mark ntu">NTU<span>SINGAPORE</span></span>
-          <div><strong><T k="ntu" /></strong><span><T k="ntuDetail" /></span></div>
+          <span className="institution-mark ntu">ST<span>DHAKA</span></span>
+          <div><strong><a className="affiliation-link" href="https://synaptech.cloud/" target="_blank" rel="noopener"><T k="ntu" /></a></strong><span><T k="ntuDetail" /></span></div>
         </div>
-        <div className="research-keywords"><span>BCI</span><span>Brain-inspired AI</span><span>Language &amp; cognition</span><span>Medical AI</span></div>
+        <div className="research-keywords"><span>Brain-AI</span><span>BCI</span><span>Computer vision</span><span>Multimodal learning</span></div>
       </div>
     </>
   )

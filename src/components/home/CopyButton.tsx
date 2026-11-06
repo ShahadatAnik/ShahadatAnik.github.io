@@ -29,7 +29,7 @@ export function CopyButton({ text, message, className, id, ariaLabel, children }
       setCopied(true)
       timer.current = setTimeout(() => setCopied(false), 1900)
     }
-    toast.show(ok ? message : localized(lang, 'Copy unavailable. Select the text in the overview.', '无法自动复制，请在研究介绍中手动选择文本。'))
+    toast.show(ok ? message : localized(lang, 'Copy unavailable. Select the text in the overview.', '자동 복사가 되지 않습니다. 개요에서 텍스트를 직접 선택하세요.'))
   }
 
   return (
@@ -37,13 +37,13 @@ export function CopyButton({ text, message, className, id, ariaLabel, children }
       type="button"
       id={id}
       className={[className, copied ? 'is-copied' : ''].filter(Boolean).join(' ') || undefined}
-      aria-label={copied ? localized(lang, 'Copied', '已复制') : ariaLabel}
+      aria-label={copied ? localized(lang, 'Copied', '복사됨') : ariaLabel}
       onClick={onClick}
     >
       {copied ? (
         <>
           <span aria-hidden="true">✓</span>
-          <span><Dual en="Copied" zh="已复制" /></span>
+          <span><Dual en="Copied" zh="복사됨" /></span>
         </>
       ) : (
         children

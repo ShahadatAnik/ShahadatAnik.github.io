@@ -125,13 +125,13 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
     >
       <div className="dialog-top">
         <span className="eyebrow"><T k="paperDetails" /></span>
-        <button ref={closeRef} id="close-dialog" type="button" className="icon-button" aria-label="Close / 关闭" onClick={close}>×</button>
+        <button ref={closeRef} id="close-dialog" type="button" className="icon-button" aria-label="Close / 닫기" onClick={close}>×</button>
       </div>
       <div id="dialog-body">
         {paper && (
           <>
             <h2 id="dialog-title" className="en" lang="en">{paper.title}</h2>
-            <h2 id="dialog-zh-label" className="dialog-zh-title zh" lang="zh-CN">{paper.zhTitle}</h2>
+            <h2 id="dialog-zh-label" className="dialog-zh-title zh" lang="ko">{paper.zhTitle}</h2>
             <p className="dialog-authors"><Authors paper={paper} /></p>
             {corresponding && <p className="author-legend"><span aria-hidden="true">*</span> <T k="correspondingAuthor" /></p>}
             <p className="dialog-venue">{paper.venue} · {paper.year}</p>
@@ -154,10 +154,10 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
                 )}
               </div>
               <div className="dialog-secondary-actions">
-                <CopyButton className="text-button" text={paper.bibtex} message={localized(lang, 'BibTeX copied', '已复制 BibTeX 引用')}>
+                <CopyButton className="text-button" text={paper.bibtex} message={localized(lang, 'BibTeX copied', 'BibTeX를 복사했습니다')}>
                   <T k="copyBibtex" /> <span aria-hidden="true">⧉</span>
                 </CopyButton>
-                <CopyButton className="text-button" text={SITE_ORIGIN + paperPath(lang, paper.id)} message={localized(lang, 'Paper link copied', '已复制论文链接')}>
+                <CopyButton className="text-button" text={SITE_ORIGIN + paperPath(lang, paper.id)} message={localized(lang, 'Paper link copied', '논문 링크를 복사했습니다')}>
                   <T k="copyLink" /> <span aria-hidden="true">↗</span>
                 </CopyButton>
               </div>

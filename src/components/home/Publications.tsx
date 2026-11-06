@@ -124,7 +124,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
           </a>
         </div>
         <div className="publication-toolbar">
-          <div ref={tabsRef} id="topic-filters" className="filter-tabs" role="group" aria-label="Filter by research topic / 按研究方向筛选">
+          <div ref={tabsRef} id="topic-filters" className="filter-tabs" role="group" aria-label="Filter by research topic / 연구 분야별 필터">
             <span className="filter-active-indicator" aria-hidden="true" />
             {TOPICS.map((topic) => (
               <button
@@ -147,8 +147,8 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                 id="paper-search"
                 type="search"
                 value={filters.query}
-                placeholder={localized(lang, 'Search papers', '搜索论文')}
-                aria-label="Search publications / 搜索论文"
+                placeholder={localized(lang, 'Search papers', '논문 검색')}
+                aria-label="Search publications / 논문 검색"
                 onChange={(event) => set({ query: event.target.value })}
               />
               <kbd>/</kbd>
@@ -157,7 +157,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                 type="button"
                 className="search-clear"
                 hidden={!filters.query}
-                aria-label={localized(lang, 'Clear search', '清除搜索')}
+                aria-label={localized(lang, 'Clear search', '검색어 지우기')}
                 onClick={() => {
                   set({ query: '' })
                   searchRef.current?.focus()
@@ -168,28 +168,28 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
             </div>
             <label className="year-field">
               <span className="sr-only"><T k="year" /></span>
-              <select id="year-filter" value={filters.year} aria-label="Filter by year / 按年份筛选" onChange={(event) => set({ year: event.target.value })}>
-                <option value="all">{localized(lang, 'All years', '全部年份')}</option>
+              <select id="year-filter" value={filters.year} aria-label="Filter by year / 연도별 필터" onChange={(event) => set({ year: event.target.value })}>
+                <option value="all">{localized(lang, 'All years', '전체 연도')}</option>
                 {YEARS.map((year) => <option key={year} value={year}>{year}</option>)}
               </select>
             </label>
           </div>
         </div>
-        <div id="active-filters" className="active-filters" aria-label="Active filters / 当前筛选条件" hidden={filters.topic === 'all' && filters.year === 'all'}>
+        <div id="active-filters" className="active-filters" aria-label="Active filters / 적용된 필터" hidden={filters.topic === 'all' && filters.year === 'all'}>
           {filters.topic !== 'all' && (
-            <button type="button" className="filter-chip" data-clear-filter="topic" aria-label={localized(lang, 'Remove topic filter', '取消研究方向筛选')} onClick={() => set({ topic: 'all' })}>
+            <button type="button" className="filter-chip" data-clear-filter="topic" aria-label={localized(lang, 'Remove topic filter', '연구 분야 필터 해제')} onClick={() => set({ topic: 'all' })}>
               <B value={topicLabel(filters.topic)} /><span aria-hidden="true">×</span>
             </button>
           )}
           {filters.year !== 'all' && (
-            <button type="button" className="filter-chip" data-clear-filter="year" aria-label={localized(lang, 'Remove year filter', '取消年份筛选')} onClick={() => set({ year: 'all' })}>
+            <button type="button" className="filter-chip" data-clear-filter="year" aria-label={localized(lang, 'Remove year filter', '연도 필터 해제')} onClick={() => set({ year: 'all' })}>
               {filters.year}<span aria-hidden="true">×</span>
             </button>
           )}
         </div>
         <div className="result-summary">
           <span id="paper-count" aria-live="polite">
-            <Dual en={`${matches.length} of ${publications.length} works`} zh={`显示 ${matches.length} / ${publications.length} 项成果`} />
+            <Dual en={`${matches.length} of ${publications.length} works`} zh={`${publications.length}건 중 ${matches.length}건`} />
           </span>
           <button id="reset-filters" type="button" className="text-button" hidden={isDefault} onClick={reset}><T k="resetFilters" /></button>
           <span className="publication-note"><T k="publicationNote" /></span>
@@ -210,7 +210,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                     className="pub-title-button"
                     href={paperPath(lang, paper.id)}
                     data-open={paper.id}
-                    aria-label={localized(lang, `Explore: ${paper.title}`, `查看：${paper.zhTitle}`)}
+                    aria-label={localized(lang, `Explore: ${paper.title}`, `보기: ${paper.zhTitle}`)}
                     onClick={(event) => {
                       if (!plainClick(event)) return
                       event.preventDefault()
@@ -218,7 +218,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                     }}
                   >
                     <h3 className="en" lang="en"><Highlight text={paper.title} query={query} /></h3>
-                    <p className="pub-title-zh zh" lang="zh-CN"><Highlight text={paper.zhTitle} query={query} /></p>
+                    <p className="pub-title-zh zh" lang="ko"><Highlight text={paper.zhTitle} query={query} /></p>
                   </a>
                   <p className="pub-authors"><Authors paper={paper} query={query} /></p>
                   <p className="pub-citation"><Highlight text={paper.venue} query={query} /> · <Highlight text={paper.year} query={query} /></p>
@@ -243,7 +243,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                     <button type="button" data-open={paper.id} onClick={(event) => openPaper(paper, event.currentTarget)}>
                       <T k="overview" /><span className="action-symbol" aria-hidden="true">+</span>
                     </button>
-                    <CopyButton text={paper.bibtex} message={localized(lang, 'BibTeX copied', '已复制 BibTeX 引用')}>
+                    <CopyButton text={paper.bibtex} message={localized(lang, 'BibTeX copied', 'BibTeX를 복사했습니다')}>
                       <T k="cite" /><span className="action-symbol" aria-hidden="true">⧉</span>
                     </CopyButton>
                   </div>

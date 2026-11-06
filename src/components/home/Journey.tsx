@@ -16,7 +16,13 @@ function EducationItem({ entry, current, onReach }: { entry: (typeof education)[
   return (
     <article ref={ref} className={['education-item', reached ? 'is-reached' : '', current ? 'is-current' : ''].filter(Boolean).join(' ')}>
       <p className="period"><Period text={entry.period} /></p>
-      <h4><B value={entry.school} /></h4>
+      <h4>
+        {entry.url ? (
+          <a href={entry.url} target="_blank" rel="noopener" className="school-link"><B value={entry.school} /> <span aria-hidden="true">↗</span></a>
+        ) : (
+          <B value={entry.school} />
+        )}
+      </h4>
       <p className="degree"><B value={entry.degree} /></p>
       <p className="detail"><B value={entry.detail} /></p>
     </article>

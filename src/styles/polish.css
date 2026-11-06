@@ -535,3 +535,24 @@ html[data-scrolling=true] .research-map *,
 html[data-scrolling=true] .hobbies-section *,
 html[data-scrolling=true] .hobbies-section *::before,
 html[data-scrolling=true] .hobbies-section *::after { animation-play-state: paused !important; }
+
+
+.education-list .education-item h4 a.school-link,
+.education-list .education-item h4 a.school-link .en { font-family: var(--display); font-size: 19px; font-weight: 650; line-height: 1.5; letter-spacing: normal; color: var(--ink); text-decoration: none; }
+.education-list .education-item h4 a.school-link { transition: color .2s; }
+.education-list .education-item h4 a.school-link:is(:hover, :focus-visible),
+.education-list .education-item h4 a.school-link:is(:hover, :focus-visible) .en { color: var(--purple); }
+.education-list .education-item h4 a.school-link span[aria-hidden] { font-size: 13px; font-weight: 500; vertical-align: super; opacity: .6; margin-left: 4px; }
+@media (max-width: 650px) { .education-list .education-item h4 a.school-link, .education-list .education-item h4 a.school-link .en { font-size: 18px; } }
+/* Education links: same left-to-right underline as the hero social links. */
+.education-list .education-item h4 a.school-link { position: relative; display: inline-block; padding-bottom: 3px; }
+.education-list .education-item h4 a.school-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .22s var(--ease-out); }
+.education-list .education-item h4 a.school-link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) { .education-list .education-item h4 a.school-link::after { transition: none; } }
+
+/* Affiliation + experience links: same left-to-right underline as the social links. */
+.affiliation-link, .experience-link { position: relative; display: inline-block; padding-bottom: 3px; color: inherit; }
+.experience-link { margin-top: 10px; display: block; width: fit-content; font-size: 13px; color: var(--purple); }
+.affiliation-link::after, .experience-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .22s var(--ease-out); }
+.affiliation-link:is(:hover, :focus-visible)::after, .experience-link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) { .affiliation-link::after, .experience-link::after { transition: none; } }

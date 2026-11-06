@@ -10,20 +10,31 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [{ charSet: 'utf-8' }, { name: 'viewport', content: 'width=device-width,initial-scale=1' }, { name: 'theme-color', content: '#f7f7f2' }],
     links: [
-      { rel: 'icon', href: '/assets/favicon.svg', type: 'image/svg+xml' },
+      { rel: 'icon', href: '/assets/favicon.svg?v=2', type: 'image/svg+xml' },
       { rel: 'stylesheet', href: appCss },
     ],
     scripts: [{ children: THEME_INIT }],
   }),
   component: RootDocument,
+  notFoundComponent: NotFound,
 })
+
+function NotFound() {
+  return (
+    <main style={{ minHeight: '100vh', display: 'grid', placeContent: 'center', gap: 12, textAlign: 'center', padding: 24 }}>
+      <h1>Page not found</h1>
+      <p>That page doesn’t exist.</p>
+      <a href="/" style={{ textDecoration: 'underline' }}>Back to home</a>
+    </main>
+  )
+}
 
 function RootDocument() {
   const { pathname } = useLocation()
   const lang = langFromPath(pathname)
   return (
     <html
-      lang={lang === 'zh' ? 'zh-CN' : 'en'}
+      lang={lang === 'zh' ? 'ko' : 'en'}
       data-language={lang}
       data-route-language={lang}
       data-theme="dark"

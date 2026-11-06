@@ -5,7 +5,7 @@ export function Dual({ en, zh }: { en: ReactNode; zh: ReactNode }) {
   return (
     <>
       <span className="en" lang="en">{en}</span>
-      <span className="zh" lang="zh-CN">{zh}</span>
+      <span className="zh" lang="ko">{zh}</span>
     </>
   )
 }

@@ -2,7 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import { PaperPage } from '../../../components/paper/PaperPage'
 import { PAPER_IDS, paperHead } from '../../../data/seo'
 
-export const Route = createFileRoute('/zh/publications/$id')({
+export const Route = createFileRoute('/kr/publications/$id')({
   beforeLoad: ({ params }) => {
     if (!PAPER_IDS.includes(params.id)) throw notFound()
   },

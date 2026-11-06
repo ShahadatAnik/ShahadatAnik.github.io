@@ -164,7 +164,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
         <p className="section-intro"><T k="researchIntro" /></p>
       </Reveal>
       <Reveal className="research-explorer">
-        <div ref={mapRef} className={`research-map${active ? ' motion-active' : ''}`} data-visual-mode={direction} aria-label="Interactive research directions / 交互研究方向">
+        <div ref={mapRef} className={`research-map${active ? ' motion-active' : ''}`} data-visual-mode={direction} aria-label="Interactive research directions / 연구 분야 탐색">
           <div className="map-grid" aria-hidden="true" />
           <svg className="map-links" viewBox="0 0 640 400" preserveAspectRatio="none" aria-hidden="true">
             <path d="M320 200C250 200 210 95 145 95M320 200C390 200 420 95 500 95M320 200C250 200 210 305 145 305M320 200C390 200 420 305 500 305" />
@@ -209,7 +209,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
           <h3 id="direction-title"><B value={current.title} /></h3>
           <p id="direction-detail"><B value={current.detail} /></p>
           <div className="direction-papers" id="direction-papers">
-            <Dual en={`${countText} related works in this portfolio`} zh={`本站收录 ${relatedCount} 项相关成果`} />
+            <Dual en={`${countText} related works in this portfolio`} zh={`관련 연구 ${relatedCount}건`} />
           </div>
           <button id="explore-direction" type="button" className="text-button" onClick={() => onExplore(direction)}>
             <span><T k="relatedWork" /></span>

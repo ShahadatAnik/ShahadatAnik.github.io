@@ -1,9 +1,8 @@
 import { langPrefix, type Lang } from '../../lib/lang'
 
 const LANGS: { lang: Lang; label: string; aria: string }[] = [
-  { lang: 'zh', label: '中', aria: '中文' },
   { lang: 'en', label: 'EN', aria: 'English' },
-  { lang: 'both', label: '对照', aria: '中英文对照' },
+  { lang: 'zh', label: 'KR', aria: '한국어' },
 ]
 
 type Props = { id: string; lang: Lang; theme: 'dark' | 'light'; onToggleTheme: () => void }
@@ -14,14 +13,14 @@ export function PaperHeader({ id, lang, theme, onToggleTheme }: Props) {
       <div className="header-inner">
         <a className="brand" href={`${langPrefix(lang)}/`}>
           <span className="brand-symbol" aria-hidden="true">
-            z<span>·</span>
+            a<span>·</span>
           </span>
           <span>
-            Zihan Zhang<span className="brand-zh">张梓寒</span>
+            Md Shahadat Anik Sheikh
           </span>
         </a>
         <div className="header-tools">
-          <nav className="paper-language" aria-label="Language / 语言">
+          <nav className="paper-language" aria-label="Language / 언어">
             <span className="language-active-indicator" aria-hidden="true"></span>
             {LANGS.map((l) => (
               <a
@@ -40,7 +39,7 @@ export function PaperHeader({ id, lang, theme, onToggleTheme }: Props) {
             id="paper-theme"
             className="paper-theme"
             type="button"
-            aria-label="Switch color theme / 切换深浅主题"
+            aria-label="Switch color theme / 테마 전환"
             aria-pressed={theme === 'dark'}
             onClick={onToggleTheme}
           >

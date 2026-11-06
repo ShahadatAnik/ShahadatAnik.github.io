@@ -6,7 +6,7 @@ import type { Publication } from '../../data/content'
 import type { Lang } from '../../lib/lang'
 import { useReveal } from '../../hooks/useReveal'
 
-export const LangContext = createContext<Lang>('both')
+export const LangContext = createContext<Lang>('en')
 export const useLang = () => useContext(LangContext)
 
 /** Renders a UI string from the i18n table. */
@@ -52,9 +52,9 @@ type PaperExtras = { links?: PaperLink[]; linkLabel?: Bilingual; codeUrl?: strin
 
 export function paperLinks(paper: Publication): PaperLink[] {
   const p = paper as Publication & PaperExtras
-  return p.links ?? [{ url: p.url, label: p.linkLabel ?? { en: 'Paper', zh: '论文' } }]
+  return p.links ?? [{ url: p.url, label: p.linkLabel ?? { en: 'Paper', zh: '논문' } }]
 }
 
 export const paperCodeUrl = (paper: Publication) => (paper as Publication & PaperExtras).codeUrl
 
-export const venueLabel = (p: Publication) => (p.id === 'cofett' ? 'ACL' : p.id === 'multibcd' ? 'BSPC' : p.type === 'thesis' ? 'Thesis' : p.venue)
+export const venueLabel = (p: Publication) => (p.type === 'thesis' ? 'Thesis' : p.venue.split(' · ')[0])

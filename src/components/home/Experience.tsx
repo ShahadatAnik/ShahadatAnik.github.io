@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useReveal } from '../../hooks/useReveal'
 import { B, Period, Reveal, T } from './shared'
 
-const { experience, skills, profile } = PROFILE_DATA
+const { experience, skills } = PROFILE_DATA
 
 type ExperienceEntry = (typeof experience)[number]
 
@@ -61,7 +61,12 @@ function ExperienceItem({ entry }: { entry: ExperienceEntry }) {
         <span className="expand-icon" aria-hidden="true">{expanded ? '−' : '+'}</span>
       </summary>
       <div ref={contentRef} className="experience-content">
-        <div className="experience-detail"><B value={entry.detail} /></div>
+        <div className="experience-detail">
+          <B value={entry.detail} />
+          {'url' in entry && entry.url ? (
+            <a className="experience-link" href={entry.url} target="_blank" rel="noopener">{entry.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')} ↗</a>
+          ) : null}
+        </div>
       </div>
     </motion.details>
   )
@@ -122,7 +127,6 @@ export function Experience() {
           <span className="eyebrow section-number">04 / BEYOND RESEARCH</span>
           <h2><T k="experienceTitle" /></h2>
           <p><T k="experienceIntro" /></p>
-          <WritingStrip />
           <div className="skills-block">
             <span className="eyebrow"><T k="toolbox" /></span>
             <Skills />
@@ -135,35 +139,5 @@ export function Experience() {
         </div>
       </div>
     </section>
-  )
-}
-
-/** Writing teaser; the button asks the writing dialog (separate component) to open via a window event. */
-function WritingStrip() {
-  const reveal = useReveal()
-  return (
-    <motion.div className="writing-strip" {...reveal}>
-      <div className="writing-mark" aria-hidden="true">Aa<span>文</span></div>
-      <div className="writing-copy">
-        <span className="eyebrow">WRITING &amp; SHARING</span>
-        <h3><T k="writingTitle" /></h3>
-        <p><T k="writingIntro" /></p>
-      </div>
-      <div className="writing-links">
-        <a id="blog-link" className="text-button" target="_blank" rel="noopener" href={profile.blog}>
-          <span><T k="blog" /></span><span aria-hidden="true">↗</span>
-        </a>
-        <button
-          id="open-writing"
-          type="button"
-          className="text-button"
-          aria-haspopup="dialog"
-          aria-controls="writing-dialog"
-          onClick={() => window.dispatchEvent(new CustomEvent('open-writing'))}
-        >
-          <span><T k="techWriting" /></span><span aria-hidden="true">↗</span>
-        </button>
-      </div>
-    </motion.div>
   )
 }

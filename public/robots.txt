@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zhangzihan-is-good.github.io/sitemap.xml
+Sitemap: https://shahadatanik.github.io/sitemap.xml

@@ -3,10 +3,8 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-const paperIds = ['brain-survey', 'chisco', 'cofett', 'gist', 'leem', 'masters-thesis', 'multibcd']
-const pages = ['/', '/en/', '/zh/'].concat(
-  ['', '/en', '/zh'].flatMap((prefix) => paperIds.map((id) => `${prefix}/publications/${id}/`)),
-)
+const paperIds = ['requirement-diagrams', 'rice-panicle', 'biodegradable-cnn', 'ewaste']
+const pages = ['', '/kr'].flatMap((prefix) => [`${prefix}/`, ...paperIds.map((id) => `${prefix}/publications/${id}/`)])
 
 export default defineConfig({
   server: { port: 3000 },

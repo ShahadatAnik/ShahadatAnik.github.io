@@ -6,7 +6,6 @@
     "dev": "vite dev --port 3000",
     "build": "vite build && bun scripts/clean-dist.mjs",
     "preview": "bunx serve dist/client",
-    "test": "bun scripts/test-cube.mjs && bun scripts/arena-game.test.mjs && bun scripts/fitness-game.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

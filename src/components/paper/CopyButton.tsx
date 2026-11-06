@@ -21,19 +21,19 @@ export function CopyButton({ lang, getText, onResult, children }: Props) {
     const button = event.currentTarget
     const ok = await writeClipboard(getText())
     if (!ok) {
-      onResult(pick(lang, 'Copy unavailable. Select the citation text.', '无法自动复制，请手动选择引用文本。'))
+      onResult(pick(lang, 'Copy unavailable. Select the citation text.', '자동 복사가 되지 않습니다. 인용 텍스트를 직접 선택하세요.'))
       return
     }
     button.focus({ preventScroll: true })
     setCopied(true)
     clearTimeout(timer.current)
     timer.current = setTimeout(() => setCopied(false), 1900)
-    onResult(pick(lang, 'Copied to clipboard', '已复制到剪贴板'))
+    onResult(pick(lang, 'Copied to clipboard', '클립보드에 복사했습니다'))
   }
 
   return (
     <button className={copied ? 'paper-copy is-copied' : 'paper-copy'} type="button" onClick={onClick}>
-      {copied ? `✓ ${pick(lang, 'Copied', '已复制')}` : children}
+      {copied ? `✓ ${pick(lang, 'Copied', '복사됨')}` : children}
     </button>
   )
 }
