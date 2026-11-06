@@ -12,7 +12,7 @@ export function Contact() {
       <div className="page-width">
         <Reveal className="contact-top">
           <div>
-            <span className="eyebrow">06 / GET IN TOUCH</span>
+            <span className="eyebrow">GET IN TOUCH</span>
             <h2><T k="contactTitle" /></h2>
             <p><T k="contactIntro" /></p>
           </div>
@@ -43,12 +43,11 @@ function Footer() {
     <div className="footer">
       <span>© {new Date().getFullYear()} {profile.nameEn}</span>
       <div>
-        <a id="footer-github" target="_blank" rel="noopener" href={profile.github}>GitHub ↗</a>
-        <a id="footer-linkedin" target="_blank" rel="noopener" href={profile.linkedin}>LinkedIn ↗</a>
-        <a id="footer-scholar" target="_blank" rel="noopener" href={profile.scholar}>Scholar ↗</a>
+        <a id="footer-github" target="_blank" rel="noopener" href={profile.github}>GitHub</a>
+        <a id="footer-linkedin" target="_blank" rel="noopener" href={profile.linkedin}>LinkedIn</a>
+        <a id="footer-scholar" target="_blank" rel="noopener" href={profile.scholar}>Scholar</a>
         <a href="#home"><T k="backTop" /></a>
       </div>
-      <span className="footer-note"><T k="footerNote" /></span>
     </div>
   )
 }

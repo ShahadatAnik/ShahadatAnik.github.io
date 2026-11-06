@@ -1,3 +1,4 @@
+import { Name } from '../Name'
 import { Link } from '@tanstack/react-router'
 import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion'
 import { useRef, useState, type CSSProperties } from 'react'
@@ -60,7 +61,7 @@ export function Header() {
         <div className="header-inner">
           <a href="#home" className="brand" aria-label={`${PROFILE_DATA.profile.shortName} — Home`}>
             <span className="brand-symbol" aria-hidden="true">a<span>·</span></span>
-            <span>{PROFILE_DATA.profile.shortName}</span>
+            <span><Name name={PROFILE_DATA.profile.nameEn} /></span>
           </a>
           <nav ref={navRef} className="desktop-nav" aria-label="Main navigation" data-has-active={String(Boolean(activeHash))} style={navStyle}>
             <span className="nav-active-indicator" aria-hidden="true" />
@@ -104,6 +105,25 @@ export function Header() {
         </div>
         <nav id="mobile-nav" className="mobile-nav" aria-label={localized(lang, 'Mobile navigation', '모바일 내비게이션')} hidden={!menuOpen}>
           {links(false, () => setMenuOpen(false))}
+          <div className="mobile-language" role="group" aria-label="Language / 언어">
+            {LANGUAGES.map((item) => (
+              <Link
+                key={item.lang}
+                to="/{-$locale}"
+                params={{ locale: item.locale }}
+                resetScroll={false}
+                aria-label={item.aria}
+                className={lang === item.lang ? 'active' : undefined}
+                aria-current={lang === item.lang ? 'page' : undefined}
+                onClick={() => {
+                  writeStorage('zz-language', item.lang)
+                  setMenuOpen(false)
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </nav>
       </header>
     </>

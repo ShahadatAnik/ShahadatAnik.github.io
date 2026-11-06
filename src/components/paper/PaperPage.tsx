@@ -240,7 +240,7 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
               <Dual en="Copy page link" ko="페이지 링크 복사" />
             </CopyButton>
             <a href={`${home}#contact`}>
-              <Dual en={`Contact ${PROFILE_DATA.profile.shortName}`} ko={`${PROFILE_DATA.profile.shortName}에게 연락`} /> ↗
+              <Dual en={`Contact ${PROFILE_DATA.profile.shortName}`} ko={`${PROFILE_DATA.profile.shortName}에게 연락`} />
             </a>
           </div>
         </article>
@@ -248,7 +248,7 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
       <footer className="paper-footer page-width">
         <span>© {new Date().getFullYear()} {PROFILE_DATA.profile.nameEn}</span>
         <a href={home}>
-          <Dual en="Academic homepage" ko="학술 홈페이지" /> ↗
+          <Dual en="Academic homepage" ko="학술 홈페이지" />
         </a>
       </footer>
       <div className={toast.visible ? 'toast show' : 'toast'} id="paper-toast" role="status" aria-live="polite">

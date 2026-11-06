@@ -1,3 +1,4 @@
+import { Name } from '../Name'
 import { Link } from '@tanstack/react-router'
 import { langPrefix, type Lang } from '../../lib/lang'
 import { PROFILE_DATA } from '../../data/content'
@@ -18,7 +19,7 @@ export function PaperHeader({ id, lang, theme, onToggleTheme }: Props) {
             a<span>·</span>
           </span>
           <span>
-            {PROFILE_DATA.profile.nameEn}
+            <Name name={PROFILE_DATA.profile.nameEn} />
           </span>
         </a>
         <div className="header-tools">

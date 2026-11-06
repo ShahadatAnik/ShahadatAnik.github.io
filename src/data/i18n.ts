@@ -19,7 +19,7 @@ export const T = {
   jobStatus: bi(siteConfig.hero.status),
   bio: bi(siteConfig.hero.bio),
   exploreWork: { en: 'Explore my work', ko: '연구 보기' },
-  emailLink: { en: 'Email ↗', ko: '이메일 ↗' },
+  emailLink: { en: 'Email', ko: '이메일' },
   portraitFoot: { en: 'Curiosity across disciplines.', ko: '학문의 경계를 넘는 호기심.' },
   researchTitle: { en: 'A connected perspective.', ko: '연결된 시각' },
   researchIntro: {

@@ -104,7 +104,16 @@ export const siteConfig = {
   },
 
   hero: {
+    /** Small line above your name. */
     eyebrow: { en: 'MS+PhD researcher · Brain-AI & BCI', ko: '석박통합과정 연구원 · 뇌-AI & BCI' } satisfies Text,
+    /** The big line under your name. One array per line; `em: true` highlights a word in purple. */
+    headline: {
+      en: [
+        [{ text: 'Reading' }, { text: 'the' }, { text: 'brain.', em: true }],
+        [{ text: 'Building' }, { text: 'intelligent' }, { text: 'interfaces.', em: true }],
+      ] satisfies { text: string; em?: boolean }[][],
+      ko: ['뇌를 읽고,', '지능형 인터페이스를 만듭니다.'] satisfies string[],
+    },
     status: { en: 'Open to research collaboration', ko: '공동 연구 환영' } satisfies Text,
     bio: {
       en: 'I am a combined M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab (Big Data Analytics), Kyung Hee University. I work on brain–AI interfaces and a brainwave-language model for non-verbal communication, with a background in deep learning, computer vision and ERP software engineering.',
@@ -136,12 +145,12 @@ export const siteConfig = {
   /** Search-engine / social preview text. */
   seo: {
     title: {
-      en: 'Md Shahadat Anik Sheikh (Anik) | Kyung Hee University | Brain-AI & BCI',
-      ko: 'Md Shahadat Anik Sheikh (Anik) | 경희대학교 | 뇌-AI & BCI',
+      en: 'Md Shahadat Anik Sheikh | Kyung Hee University | Brain-AI & BCI',
+      ko: 'Md Shahadat Anik Sheikh | 경희대학교 | 뇌-AI & BCI',
     } satisfies Text,
     description: {
-      en: 'Anik (Md Shahadat Anik Sheikh) is an M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University, working on brain–AI interfaces, brainwave-language models, computer vision and multimodal learning.',
-      ko: 'Anik(Md Shahadat Anik Sheikh)은 경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생으로, 뇌-AI 인터페이스, 뇌파-언어 모델, 컴퓨터 비전, 멀티모달 학습을 연구합니다.',
+      en: 'Md Shahadat Anik Sheikh is an M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University, working on brain–AI interfaces, brainwave-language models, computer vision and multimodal learning.',
+      ko: 'Md Shahadat Anik Sheikh은 경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생으로, 뇌-AI 인터페이스, 뇌파-언어 모델, 컴퓨터 비전, 멀티모달 학습을 연구합니다.',
     } satisfies Text,
     jobTitle: 'Research Assistant, M.S.+Ph.D. student',
     organization: 'Kyung Hee University',

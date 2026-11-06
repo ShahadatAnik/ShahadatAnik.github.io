@@ -116,11 +116,11 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
       <div className="page-width">
         <div className="section-heading">
           <div>
-            <span className="eyebrow section-number">02 / PUBLICATIONS</span>
+            <span className="eyebrow section-number">PUBLICATIONS</span>
             <h2><T k="publicationsTitle" /></h2>
           </div>
           <a id="publication-scholar" className="text-button" target="_blank" rel="noopener" href={profile.scholar}>
-            <span><T k="scholarProfile" /></span><span>↗</span>
+            <span><T k="scholarProfile" /></span>
           </a>
         </div>
         <div className="publication-toolbar">
@@ -230,12 +230,12 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                   <div className="pub-primary-actions">
                     {paperLinks(paper).map((link) => (
                       <a key={link.url} href={link.url} target="_blank" rel="noopener">
-                        <B value={link.label} /> <span className="action-arrow" aria-hidden="true">↗</span>
+                        <B value={link.label} />
                       </a>
                     ))}
                     {codeUrl && (
                       <a href={codeUrl} target="_blank" rel="noopener">
-                        <T k="code" /> <span className="action-arrow" aria-hidden="true">↗</span>
+                        <T k="code" />
                       </a>
                     )}
                   </div>

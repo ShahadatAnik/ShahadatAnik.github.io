@@ -1,3 +1,4 @@
+import { Name } from '../Name'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Fragment, useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
 import { PROFILE_DATA, bi } from '../../data/content'
@@ -39,7 +40,7 @@ function Fragments({ words }: { words: { text: string; em?: boolean }[] }) {
   return (
     <>
       {words.map((word, index) => (
-        <Fragment key={word.text}>
+        <Fragment key={`${word.text}-${index}`}>
           {index > 0 && ' '}
           <span className="headline-fragment">{word.em ? <em>{word.text}</em> : word.text}</span>
         </Fragment>
@@ -51,17 +52,24 @@ function Fragments({ words }: { words: { text: string; em?: boolean }[] }) {
 function HeroStatement() {
   const ref = useRef<HTMLHeadingElement>(null)
   useHeadlineEntrance(ref)
+  const headline = siteConfig.hero.headline
   return (
     <h2 ref={ref} className="hero-statement">
       <span className="en" lang="en">
-        <Fragments words={[{ text: 'Reading' }, { text: 'the' }, { text: 'brain.', em: true }]} />
-        <br />
-        <Fragments words={[{ text: 'Building' }, { text: 'intelligent' }, { text: 'interfaces.', em: true }]} />
+        {headline.en.map((line, index) => (
+          <Fragment key={index}>
+            {index > 0 && <br />}
+            <Fragments words={line} />
+          </Fragment>
+        ))}
       </span>
       <span className="ko" lang="ko">
-        <span className="headline-fragment">뇌를 읽고,</span>
-        <br className="ko-break" />
-        <span className="headline-fragment">지능형 인터페이스를 만듭니다.</span>
+        {headline.ko.map((line, index) => (
+          <Fragment key={index}>
+            {index > 0 && <br className="ko-break" />}
+            <span className="headline-fragment">{line}</span>
+          </Fragment>
+        ))}
       </span>
     </h2>
   )
@@ -126,21 +134,20 @@ export function Hero() {
       <section className="hero page-width" id="home">
         <div className="hero-copy">
           <div className="eyebrow"><span className="status-dot" /><span><T k="heroEyebrow" /></span></div>
-          <h1>{siteConfig.profile.shortName}<span className="chinese-name">{siteConfig.profile.name}<span className="name-period">.</span></span></h1>
+          <h1><Name name={siteConfig.profile.name} /><span className="name-period">.</span></h1>
           <a className="job-status" href="#contact">
             <span className="job-status-indicator" aria-hidden="true" />
             <span><T k="jobStatus" /></span>
-            <span aria-hidden="true">↗</span>
           </a>
           <HeroStatement />
           <div className="hero-bio"><T k="bio" /></div>
           <div className="hero-actions">
-            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><span aria-hidden="true">↗</span></a>
+            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span></a>
           </div>
           <div className="social-links">
-            <a id="hero-scholar" target="_blank" rel="noopener" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar ↗</a>
-            <a id="hero-github" target="_blank" rel="noopener" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub ↗</a>
-            <a id="hero-linkedin" target="_blank" rel="noopener" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn ↗</a>
+            <a id="hero-scholar" target="_blank" rel="noopener" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar</a>
+            <a id="hero-github" target="_blank" rel="noopener" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub</a>
+            <a id="hero-linkedin" target="_blank" rel="noopener" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn</a>
             <a href={`mailto:${profile.email}`}><SocialIcon d={SOCIAL_ICONS.email} /><T k="emailLink" /></a>
           </div>
         </div>

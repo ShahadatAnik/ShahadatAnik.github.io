@@ -106,7 +106,6 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
   const current = research.find((item) => item.id === direction) ?? research[0]
   const index = research.indexOf(current)
   const relatedCount = publications.filter((paper) => current.topics.some((topic) => (paper.topics as string[]).includes(topic))).length
-  const countText = String(relatedCount).padStart(2, '0')
 
   // Pause / resume running route pulses with the rest of the decorative motion.
   useEffect(() => {
@@ -158,7 +157,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
     <section className="research-section section page-width" id="research">
       <Reveal className="section-heading">
         <div>
-          <span className="eyebrow section-number">01 / RESEARCH</span>
+          <span className="eyebrow section-number">RESEARCH</span>
           <h2><T k="researchTitle" /></h2>
         </div>
         <p className="section-intro"><T k="researchIntro" /></p>
@@ -198,23 +197,27 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
               onClick={() => select(node.id)}
               onPointerMove={spot}
             >
-              <span className="node-index">{String(i + 1).padStart(2, '0')}</span>
               <span><T k={node.label} /></span>
             </button>
           ))}
           <div className="map-caption"><span className="status-dot" /><span><T k="clickDirection" /></span></div>
         </div>
         <div ref={panelRef} className="direction-panel" aria-live="polite">
-          <div className="direction-kicker"><span id="direction-index">{String(index + 1).padStart(2, '0')}</span><span><T k="researchFocus" /></span></div>
+          <div className="direction-kicker"><span id="direction-index" hidden /><span><T k="researchFocus" /></span></div>
           <h3 id="direction-title"><B value={current.title} /></h3>
           <p id="direction-detail"><B value={current.detail} /></p>
           <div className="direction-papers" id="direction-papers">
-            <Dual en={`${countText} related works in this portfolio`} ko={`관련 연구 ${relatedCount}건`} />
+            {relatedCount > 0 ? (
+              <Dual en={`${relatedCount} related ${relatedCount === 1 ? 'paper' : 'papers'}`} ko={`관련 논문 ${relatedCount}편`} />
+            ) : (
+              <Dual en="No papers on this topic yet" ko="아직 이 주제의 논문이 없습니다" />
+            )}
           </div>
-          <button id="explore-direction" type="button" className="text-button" onClick={() => onExplore(direction)}>
-            <span><T k="relatedWork" /></span>
-            <span>↗</span>
-          </button>
+          {relatedCount > 0 && (
+            <button id="explore-direction" type="button" className="text-button" onClick={() => onExplore(direction)}>
+              <span><T k="relatedWork" /></span>
+            </button>
+          )}
         </div>
       </Reveal>
       <noscript>

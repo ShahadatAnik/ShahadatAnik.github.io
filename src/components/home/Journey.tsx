@@ -18,7 +18,7 @@ function EducationItem({ entry, current, onReach }: { entry: (typeof education)[
       <p className="period"><Period text={entry.period} /></p>
       <h4>
         {entry.url ? (
-          <a href={entry.url} target="_blank" rel="noopener" className="school-link"><B value={entry.school} /> <span aria-hidden="true">↗</span></a>
+          <a href={entry.url} target="_blank" rel="noopener" className="school-link"><B value={entry.school} /></a>
         ) : (
           <B value={entry.school} />
         )}
@@ -37,7 +37,7 @@ export function Journey() {
     <section className="journey-section section page-width" id="journey">
       <Reveal className="section-heading">
         <div>
-          <span className="eyebrow section-number">03 / JOURNEY</span>
+          <span className="eyebrow section-number">JOURNEY</span>
           <h2><T k="journeyTitle" /></h2>
         </div>
         <p className="section-intro"><T k="journeyIntro" /></p>
@@ -57,7 +57,6 @@ export function Journey() {
           </div>
         </Reveal>
         <Reveal className="honors-panel">
-          <div className="honors-star" aria-hidden="true">✳</div>
           <h3 className="subheading"><T k="honorsTitle" /></h3>
           <div id="honors-list">
             {honorYears.map((year) => (
@@ -73,7 +72,6 @@ export function Journey() {
               </div>
             ))}
           </div>
-          <div className="honors-foot"><T k="honorsFoot" /></div>
         </Reveal>
       </div>
     </section>
