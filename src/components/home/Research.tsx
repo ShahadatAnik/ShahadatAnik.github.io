@@ -91,7 +91,7 @@ function DirectionSketch() {
 }
 
 const STATIC_NOTES_CSS =
-  '.research-explorer,.publication-toolbar,.result-summary,.pub-secondary-actions,#theme-toggle,#menu-toggle{display:none!important}.research-static-notes{display:grid;gap:24px}.research-static-notes p{margin-top:8px}.research-static-notes .zh{display:block;margin-top:6px}'
+  '.research-explorer,.publication-toolbar,.result-summary,.pub-secondary-actions,#theme-toggle,#menu-toggle{display:none!important}.research-static-notes{display:grid;gap:24px}.research-static-notes p{margin-top:8px}.research-static-notes .ko{display:block;margin-top:6px}'
 
 export function Research({ onExplore }: { onExplore: (topic: TopicId) => void }) {
   const { running } = useMotion()
@@ -209,7 +209,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
           <h3 id="direction-title"><B value={current.title} /></h3>
           <p id="direction-detail"><B value={current.detail} /></p>
           <div className="direction-papers" id="direction-papers">
-            <Dual en={`${countText} related works in this portfolio`} zh={`관련 연구 ${relatedCount}건`} />
+            <Dual en={`${countText} related works in this portfolio`} ko={`관련 연구 ${relatedCount}건`} />
           </div>
           <button id="explore-direction" type="button" className="text-button" onClick={() => onExplore(direction)}>
             <span><T k="relatedWork" /></span>

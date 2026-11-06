@@ -43,7 +43,7 @@ export function CopyButton({ text, message, className, id, ariaLabel, children }
       {copied ? (
         <>
           <span aria-hidden="true">✓</span>
-          <span><Dual en="Copied" zh="복사됨" /></span>
+          <span><Dual en="Copied" ko="복사됨" /></span>
         </>
       ) : (
         children

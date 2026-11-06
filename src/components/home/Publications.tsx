@@ -8,7 +8,7 @@ import { Authors } from './Authors'
 import { CopyButton } from './CopyButton'
 import { Highlight } from './Highlight'
 import { PaperDialog } from './PaperDialog'
-import { B, T, paperCodeUrl, paperLinks, useLang, venueLabel } from './shared'
+import { B, T, paperCodeUrl, paperLinks, useLang } from './shared'
 
 const { publications, profile } = PROFILE_DATA
 
@@ -28,7 +28,7 @@ function matching(filters: PublicationFilters): Publication[] {
       if (filters.topic !== 'all' && !(paper.topics as string[]).includes(filters.topic)) return false
       if (filters.year !== 'all' && String(paper.year) !== filters.year) return false
       if (!q) return true
-      const haystack = [paper.title, paper.zhTitle, paper.authors, paper.venue, String(paper.year), ...paper.topics.map((t) => `${topicLabel(t).en} ${topicLabel(t).zh}`)].join(' ').toLowerCase()
+      const haystack = [paper.title, paper.koTitle, paper.authors, paper.venue, String(paper.year), ...paper.topics.map((t) => `${topicLabel(t).en} ${topicLabel(t).ko}`)].join(' ').toLowerCase()
       return haystack.includes(q)
     })
     .sort((a, b) => b.year - a.year)
@@ -189,7 +189,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
         </div>
         <div className="result-summary">
           <span id="paper-count" aria-live="polite">
-            <Dual en={`${matches.length} of ${publications.length} works`} zh={`${publications.length}건 중 ${matches.length}건`} />
+            <Dual en={`${matches.length} of ${publications.length} works`} ko={`${publications.length}건 중 ${matches.length}건`} />
           </span>
           <button id="reset-filters" type="button" className="text-button" hidden={isDefault} onClick={reset}><T k="resetFilters" /></button>
           <span className="publication-note"><T k="publicationNote" /></span>
@@ -202,15 +202,15 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
               <article key={paper.id} className="pub-row" data-paper={paper.id}>
                 <div className="pub-meta">
                   <span className="pub-year">{paper.year}</span>
-                  <span className="pub-venue"><Highlight text={venueLabel(paper)} query={query} /></span>
                   {paper.authorship && <span className="pub-authorship authorship-label"><B value={paper.authorship} /></span>}
+                  {paper.citations ? <span className="pub-cited"><Dual en={`Cited by ${paper.citations}`} ko={`피인용 ${paper.citations}`} /></span> : null}
                 </div>
                 <div className="pub-main">
                   <a
                     className="pub-title-button"
                     href={paperPath(lang, paper.id)}
                     data-open={paper.id}
-                    aria-label={localized(lang, `Explore: ${paper.title}`, `보기: ${paper.zhTitle}`)}
+                    aria-label={localized(lang, `Explore: ${paper.title}`, `보기: ${paper.koTitle}`)}
                     onClick={(event) => {
                       if (!plainClick(event)) return
                       event.preventDefault()
@@ -218,7 +218,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                     }}
                   >
                     <h3 className="en" lang="en"><Highlight text={paper.title} query={query} /></h3>
-                    <p className="pub-title-zh zh" lang="ko"><Highlight text={paper.zhTitle} query={query} /></p>
+                    <p className="pub-title-ko ko" lang="ko"><Highlight text={paper.koTitle} query={query} /></p>
                   </a>
                   <p className="pub-authors"><Authors paper={paper} query={query} /></p>
                   <p className="pub-citation"><Highlight text={paper.venue} query={query} /> · <Highlight text={paper.year} query={query} /></p>

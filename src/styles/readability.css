@@ -1,48 +1,48 @@
 /* A consistent reading scale for both languages and every screen size. */
 body { font-size: 17px; }
 .brand { font-size: 18px; }
-.brand-zh { font-size: 12px; letter-spacing: 3px; }
+.brand-ko { font-size: 12px; letter-spacing: 3px; }
 .desktop-nav a { font-size: 14px; }
-.desktop-nav .zh { font-size: 12px; }
+.desktop-nav .ko { font-size: 12px; }
 .language-switch :is(button,a) { font-size: 13px; padding: 5px 9px; }
 .eyebrow, .section-number { font-size: 12px; letter-spacing: 1.3px; }
 .hero .eyebrow { font-size: 12px; }
-.hero-bio, html[data-language=zh] .hero-bio .zh { font-size: 17px; }
-.hero-bio .zh { font-size: 15px; }
+.hero-bio, html[data-language=ko] .hero-bio .ko { font-size: 17px; }
+.hero-bio .ko { font-size: 15px; }
 .button { font-size: 14px; min-height: 50px; }
-.button .zh { font-size: 13px; }
+.button .ko { font-size: 13px; }
 .social-links { font-size: 13px; gap: 24px; }
-.social-links .zh { font-size: 12px; }
+.social-links .ko { font-size: 12px; }
 .floating-label { font-size: 11px; }
 .portrait-foot { font-size: 10px; justify-content: flex-end; }
 .affiliation strong { font-size: 14px; }
-.affiliation .zh { font-size: 12px; }
+.affiliation .ko { font-size: 12px; }
 .affiliation > div > span { font-size: 12px; }
-.affiliation > div > span .zh { font-size: 11px; }
+.affiliation > div > span .ko { font-size: 11px; }
 .research-keywords { max-width: 215px; }
 .research-keywords span { font-size: 11px; }
-.section-intro, html[data-language=zh] .section-intro .zh { font-size: 15px; }
-.section-intro .zh { font-size: 14px; }
+.section-intro, html[data-language=ko] .section-intro .ko { font-size: 15px; }
+.section-intro .ko { font-size: 14px; }
 .section-intro { max-width: 400px; }
 .research-explorer { min-height: 410px; }
 .research-map { min-height: 410px; }
 .map-node { font-size: 14px; width: 178px; min-height: 75px; }
 .map-node > .node-index { font-size: 11px; }
-.map-node .zh { font-size: 12px; }
+.map-node .ko { font-size: 12px; }
 .map-caption { font-size: 11px; }
-.map-caption .zh { margin-left: 8px; }
+.map-caption .ko { margin-left: 8px; }
 .direction-kicker { font-size: 11px; }
 .direction-kicker > span:first-child { font-size: 12px; width: 30px; height: 30px; }
 .direction-panel { padding: 32px; }
 .direction-panel h3 { font-size: 27px; }
-.direction-panel h3 .zh { font-size: 17px; }
-.direction-panel p, html[data-language=zh] .direction-panel p .zh { font-size: 15px; }
-.direction-panel p .zh { font-size: 14px; }
+.direction-panel h3 .ko { font-size: 17px; }
+.direction-panel p, html[data-language=ko] .direction-panel p .ko { font-size: 15px; }
+.direction-panel p .ko { font-size: 14px; }
 .direction-papers { font-size: 12px; }
 .text-button { font-size: 14px; }
-.text-button .zh { font-size: 12px; }
+.text-button .ko { font-size: 12px; }
 .filter-tabs button { font-size: 14px; padding: 8px 13px; }
-.filter-tabs .zh { font-size: 12px; }
+.filter-tabs .ko { font-size: 12px; }
 .publication-toolbar { align-items: flex-start; row-gap: 18px; }
 .publication-tools { flex-wrap: wrap; }
 .search-field { padding: 10px 12px; }
@@ -58,59 +58,59 @@ body { font-size: 17px; }
 .pub-year { display: block; font-size: 25px; line-height: 1.25; }
 .pub-venue { display: block; font-size: 13px; margin: 0; max-width: 135px; padding: 4px 8px; white-space: normal; }
 .pub-row h3 { font-size: 21px; line-height: 1.5; }
-.pub-title-zh, html[data-language=zh] .pub-title-zh { font-size: 16px; line-height: 1.7; }
-html[data-language=zh] .pub-title-zh { font-size: 21px; }
+.pub-title-ko, html[data-language=ko] .pub-title-ko { font-size: 16px; line-height: 1.7; }
+html[data-language=ko] .pub-title-ko { font-size: 21px; }
 .pub-authors { font-size: 14px; line-height: 1.75; }
 .pub-citation { font-size: 13px; }
 .pub-topics { font-size: 12px; flex-wrap: wrap; gap: 8px 14px; }
-.pub-topics .zh { font-size: 11px; }
+.pub-topics .ko { font-size: 11px; }
 .pub-actions { gap: 14px; }
 .pub-actions a, .pub-actions button { font-size: 13px; line-height: 1.6; }
-.pub-actions .zh { display: inline; font-size: 12px; margin-left: 5px; }
-.pub-actions .en, .pub-actions .zh { display: inline-block; white-space: nowrap; }
+.pub-actions .ko { display: inline; font-size: 12px; margin-left: 5px; }
+.pub-actions .en, .pub-actions .ko { display: inline-block; white-space: nowrap; }
 .empty-state p { font-size: 15px; }
 .subheading { font-size: 19px; }
-.subheading .zh { font-size: 15px; }
+.subheading .ko { font-size: 15px; }
 .education-item { padding-bottom: 35px; }
 .education-item .period { font-size: 13px; }
 .education-item h4 { font-size: 18px; }
-.education-item h4 .zh { font-size: 15px; }
+.education-item h4 .ko { font-size: 15px; }
 .education-item .degree { font-size: 15px; }
-.education-item .degree .zh { font-size: 14px; display: block; margin: 4px 0 0; }
+.education-item .degree .ko { font-size: 14px; display: block; margin: 4px 0 0; }
 .education-item .detail { font-size: 14px; }
-.education-item .detail .zh { font-size: 13px; }
+.education-item .detail .ko { font-size: 13px; }
 .honors-panel { padding: 32px; }
 .honor-item { gap: 18px; padding-block: 18px; }
 .honor-item .year { font-size: 13px; }
-.honor-item .title, html[data-language=zh] .honor-item .title .zh { font-size: 15px; }
-.honor-item .title .zh { font-size: 14px; }
+.honor-item .title, html[data-language=ko] .honor-item .title .ko { font-size: 15px; }
+.honor-item .title .ko { font-size: 14px; }
 .honors-foot { font-size: 12px; }
 .journey-grid { gap: 70px; }
 .experience-heading > p { font-size: 15px; }
-.experience-heading > p .zh { font-size: 14px; }
+.experience-heading > p .ko { font-size: 14px; }
 .skills-block > .eyebrow { font-size: 12px; }
 .skills-list span { font-size: 14px; padding: 5px 11px; }
 .experience-item .period { font-size: 12px; }
-.experience-item .title, html[data-language=zh] .experience-item .title .zh { font-size: 16px; }
-.experience-item .title .zh { font-size: 14px; }
+.experience-item .title, html[data-language=ko] .experience-item .title .ko { font-size: 16px; }
+.experience-item .title .ko { font-size: 14px; }
 .experience-detail { font-size: 15px; line-height: 1.8; }
-.experience-detail .zh { font-size: 14px; }
+.experience-detail .ko { font-size: 14px; }
 .writing-strip .eyebrow { font-size: 11px; }
 .writing-strip h3 { font-size: 22px; }
-.writing-strip h3 .zh { font-size: 16px; }
+.writing-strip h3 .ko { font-size: 16px; }
 .writing-strip p { font-size: 14px; }
-.writing-strip p .zh { display: block; margin: 4px 0 0; font-size: 13px; }
+.writing-strip p .ko { display: block; margin: 4px 0 0; font-size: 13px; }
 .writing-links { min-width: 175px; }
 .contact-section .eyebrow { font-size: 12px; }
 .contact-section p { font-size: 15px; }
-.contact-section p .zh { font-size: 14px; }
+.contact-section p .ko { font-size: 14px; }
 .footer { font-size: 12px; flex-wrap: wrap; }
-.footer-note, .footer-note .zh { font-size: 11px; }
+.footer-note, .footer-note .ko { font-size: 11px; }
 .dialog-top .eyebrow { font-size: 12px; }
 .dialog-authors { font-size: 15px; line-height: 1.8; }
 .dialog-venue { font-size: 14px; }
 .dialog-summary { font-size: 16px; line-height: 1.8; }
-.dialog-summary .zh { font-size: 15px; }
+.dialog-summary .ko { font-size: 15px; }
 .summary-label { font-size: 12px; }
 .bib-details { font-size: 14px; }
 .bib-details pre { font-size: 12px; }
@@ -118,14 +118,14 @@ html[data-language=zh] .pub-title-zh { font-size: 21px; }
 .toast { font-size: 14px; }
 
 @media (max-width: 1160px) {
-  .hero-bio, html[data-language=zh] .hero-bio .zh { font-size: 16px; }
-  .hero-bio .zh { font-size: 14px; }
+  .hero-bio, html[data-language=ko] .hero-bio .ko { font-size: 16px; }
+  .hero-bio .ko { font-size: 14px; }
   .research-explorer { grid-template-columns: 1.25fr 1fr; }
   .map-node { width: 154px; font-size: 13px; }
-  .map-node .zh { font-size: 12px; }
+  .map-node .ko { font-size: 12px; }
   .direction-panel { padding: 26px; }
   .direction-panel h3 { font-size: 24px; }
-  .direction-panel h3 .zh { font-size: 16px; }
+  .direction-panel h3 .ko { font-size: 16px; }
   .publication-tools { margin-left: auto; }
   .pub-row { grid-template-columns: 120px minmax(0, 1fr) 115px; gap: 24px; }
   .journey-grid, .experience-grid { gap: 50px; }
@@ -134,12 +134,12 @@ html[data-language=zh] .pub-title-zh { font-size: 21px; }
 @media (max-width: 900px) {
   .brand { font-size: 17px; }
   .hero .eyebrow { font-size: 11px; }
-  .hero .eyebrow .zh { display: block; margin: 4px 0 0; }
+  .hero .eyebrow .ko { display: block; margin: 4px 0 0; }
   .affiliation-strip { align-items: flex-start; }
   .affiliation strong { font-size: 13px; }
-  .affiliation .zh { font-size: 12px; }
+  .affiliation .ko { font-size: 12px; }
   .affiliation > div > span { font-size: 12px; }
-  .affiliation > div > span .zh { font-size: 11px; }
+  .affiliation > div > span .ko { font-size: 11px; }
   .research-explorer { display: block; }
   .research-map { min-height: 390px; }
   .map-node { width: 175px; font-size: 14px; min-height: 75px; }
@@ -149,42 +149,41 @@ html[data-language=zh] .pub-title-zh { font-size: 21px; }
   .map-center svg { width: 50px; height: 50px; }
   .map-center span { font-size: 8px; }
   .direction-panel { border-left: 0; border-top: 1px solid var(--line); padding: 28px; }
-  .direction-panel h3 .zh { display: block; margin: 8px 0 0; }
+  .direction-panel h3 .ko { display: block; margin: 8px 0 0; }
   .direction-panel > .text-button { font-size: 14px; }
   .section-intro { font-size: 15px; max-width: 330px; }
-  .section-intro .zh { font-size: 14px; }
+  .section-intro .ko { font-size: 14px; }
   .pub-row { grid-template-columns: 120px minmax(0, 1fr); gap: 20px; }
   .pub-main { grid-column: 2; }
   .pub-actions { grid-column: 2; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; gap: 22px; }
   .pub-actions a, .pub-actions button { text-align: left; }
   .pub-row h3 { font-size: 20px; }
-  .pub-title-zh { font-size: 15px; }
+  .pub-title-ko { font-size: 15px; }
   .pub-authors { font-size: 14px; }
   .pub-citation { font-size: 13px; }
   .journey-grid { grid-template-columns: 1fr; }
   .honors-panel { max-width: 680px; }
   .education-item h4 { font-size: 18px; }
-  .education-item h4 .zh { font-size: 15px; }
+  .education-item h4 .ko { font-size: 15px; }
   .honor-item .title { font-size: 15px; }
-  .honor-item .title .zh { font-size: 14px; }
+  .honor-item .title .ko { font-size: 14px; }
   .writing-links .text-button { font-size: 14px; }
   .footer-note { display: inline; }
 }
 @media (max-width: 650px) {
   .brand { font-size: 14px; }
-  .brand-zh { font-size: 11px; letter-spacing: 2px; }
+  .brand-ko { font-size: 11px; letter-spacing: 2px; }
   .language-switch :is(button,a) { font-size: 12px; padding: 5px 7px; }
   .header-tools { gap: 2px; }
   .eyebrow, .section-number, .hero .eyebrow { font-size: 11px; }
-  .hero-bio, html[data-language=zh] .hero-bio .zh { font-size: 16px; }
-  .hero-bio .zh { font-size: 15px; }
+  .hero-bio, html[data-language=ko] .hero-bio .ko { font-size: 16px; }
+  .hero-bio .ko { font-size: 15px; }
   .button { font-size: 14px; gap: 15px; padding-inline: 16px; }
-  .button .zh { font-size: 12px; }
+  .button .ko { font-size: 12px; }
   .hero-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; width: fit-content; }
   .hero-actions .button { justify-content: space-between; gap: 8px; padding: 12px 14px; }
-  html[data-language=both] .hero-actions .button > [data-t] .zh { display: block; margin: 4px 0 0; }
   .social-links { font-size: 12px; gap: 18px; flex-wrap: wrap; }
-  .social-links .zh { font-size: 11px; }
+  .social-links .ko { font-size: 11px; }
   .floating-label { font-size: 10px; }
   .label-one { left: 10px; }
   .label-two { right: 7px; }
@@ -193,15 +192,15 @@ html[data-language=zh] .pub-title-zh { font-size: 21px; }
   .affiliation { gap: 15px; align-items: center; }
   .affiliation > div { max-width: none; }
   .affiliation strong { font-size: 14px; }
-  .affiliation .zh { font-size: 12px; display: inline; margin-left: 6px; }
+  .affiliation .ko { font-size: 12px; display: inline; margin-left: 6px; }
   .affiliation > div > span { font-size: 12px; }
-  .affiliation > div > span .zh { font-size: 11px; display: block; margin-left: 0; }
+  .affiliation > div > span .ko { font-size: 11px; display: block; margin-left: 0; }
   .section-intro { font-size: 15px; max-width: none; }
-  .section-intro .zh { font-size: 14px; }
+  .section-intro .ko { font-size: 14px; }
   .research-map { min-height: 350px; }
   .map-links { height: 350px; }
   .map-node { width: 139px; min-height: 80px; font-size: 13px; padding: 9px 10px; }
-  .map-node .zh { font-size: 11px; }
+  .map-node .ko { font-size: 11px; }
   .map-node > .node-index { font-size: 10px; }
   .node-eeg, .node-nlp { left: 4%; }
   .node-brain, .node-medical { right: 4%; }
@@ -211,76 +210,76 @@ html[data-language=zh] .pub-title-zh { font-size: 21px; }
   .map-center svg { width: 36px; height: 36px; }
   .map-center span { font-size: 6px; }
   .map-caption { font-size: 10px; left: 13px; right: 10px; }
-  .map-caption .zh { display: block; margin: 3px 0 0; }
+  .map-caption .ko { display: block; margin: 3px 0 0; }
   .direction-panel { padding: 25px; }
   .direction-panel h3 { font-size: 24px; }
-  .direction-panel h3 .zh { font-size: 16px; }
-  .direction-panel p, html[data-language=zh] .direction-panel p .zh { font-size: 15px; }
-  .direction-panel p .zh { font-size: 14px; }
+  .direction-panel h3 .ko { font-size: 16px; }
+  .direction-panel p, html[data-language=ko] .direction-panel p .ko { font-size: 15px; }
+  .direction-panel p .ko { font-size: 14px; }
   .direction-kicker { font-size: 11px; }
   .direction-papers { font-size: 12px; }
-  .direction-papers .zh { display: block; margin: 4px 0 0; }
+  .direction-papers .ko { display: block; margin: 4px 0 0; }
   .publications-section .section-heading { flex-wrap: wrap; row-gap: 16px; }
   .publications-section .section-heading > .text-button { font-size: 13px; margin: 0; }
   .filter-tabs button { font-size: 13px; padding: 7px 10px; }
-  .filter-tabs .zh { font-size: 12px; }
+  .filter-tabs .ko { font-size: 12px; }
   .publication-tools { flex-wrap: nowrap; }
   .search-field { min-width: 0; padding: 10px; }
   .search-field input { font-size: 13px; width: 100%; }
   .search-field kbd { display: none; }
   .year-field select { font-size: 12px; max-width: 137px; padding-inline: 6px; }
   .result-summary { font-size: 12px; }
-  .result-summary .zh { display: block; margin: 3px 0 0; }
+  .result-summary .ko { display: block; margin: 3px 0 0; }
   .pub-row { grid-template-columns: minmax(0, 1fr); gap: 14px; padding-block: 29px; }
   .pub-meta { grid-column: 1; align-items: flex-start; flex-direction: column; gap: 7px; }
   .pub-year { font-size: 22px; }
   .pub-venue { font-size: 12px; max-width: none; }
   .pub-main { grid-column: 1; }
   .pub-row h3 { font-size: 19px; line-height: 1.5; }
-  .pub-title-zh { font-size: 15px; }
-  html[data-language=zh] .pub-title-zh { font-size: 19px; }
+  .pub-title-ko { font-size: 15px; }
+  html[data-language=ko] .pub-title-ko { font-size: 19px; }
   .pub-authors { font-size: 14px; }
   .pub-citation { font-size: 13px; }
   .pub-topics { font-size: 12px; }
   .pub-actions { grid-column: 1; padding-top: 0; gap: 16px 24px; }
   .pub-actions a, .pub-actions button { font-size: 13px; }
-  .pub-actions .zh { font-size: 12px; }
+  .pub-actions .ko { font-size: 12px; }
   .education-item .period { font-size: 13px; }
   .education-item .degree { font-size: 15px; }
-  .education-item .degree .zh { font-size: 14px; }
+  .education-item .degree .ko { font-size: 14px; }
   .education-item .detail { font-size: 14px; }
   .honor-item .title { font-size: 15px; }
-  .honor-item .title .zh { font-size: 14px; }
+  .honor-item .title .ko { font-size: 14px; }
   .honors-foot { font-size: 12px; }
   .experience-heading > p { font-size: 15px; }
-  .experience-heading > p .zh { font-size: 14px; }
+  .experience-heading > p .ko { font-size: 14px; }
   .skills-list span { font-size: 13px; }
   .experience-item .title { font-size: 16px; }
-  .experience-item .title .zh { font-size: 14px; }
+  .experience-item .title .ko { font-size: 14px; }
   .experience-detail { font-size: 15px; }
   .writing-strip h3 { font-size: 21px; }
-  .writing-strip h3 .zh { font-size: 16px; }
+  .writing-strip h3 .ko { font-size: 16px; }
   .writing-strip p { font-size: 14px; }
   .writing-links { margin-left: 0; min-width: 0; width: 100%; }
   .writing-links .text-button { font-size: 14px; }
-  .writing-links .zh { font-size: 12px; }
+  .writing-links .ko { font-size: 12px; }
   .contact-section .eyebrow { font-size: 11px; }
   .contact-section p { font-size: 15px; }
-  .contact-section p .zh { font-size: 14px; }
+  .contact-section p .ko { font-size: 14px; }
   .footer { font-size: 12px; }
-  .footer-note, .footer-note .zh { font-size: 11px; }
-  .dialog-zh-title { font-size: 16px; }
+  .footer-note, .footer-note .ko { font-size: 11px; }
+  .dialog-ko-title { font-size: 16px; }
   .dialog-authors { font-size: 14px; }
   .dialog-venue { font-size: 13px; }
   .dialog-summary { font-size: 15px; }
-  .dialog-summary .zh { font-size: 14px; }
+  .dialog-summary .ko { font-size: 14px; }
   .toast { font-size: 13px; white-space: normal; }
 }
 @media (max-width: 360px) {
   .brand { font-size: 13px; }
   .language-switch :is(button,a) { padding-inline: 5px; }
   .button { padding-inline: 13px; gap: 12px; }
-  .button .zh { font-size: 11px; }
+  .button .ko { font-size: 11px; }
   .hero-actions .button { font-size: 12px; padding-inline: 10px; gap: 6px; }
   .map-node { width: 124px; font-size: 12px; }
 }
@@ -289,6 +288,6 @@ html[data-language=zh] .pub-title-zh { font-size: 21px; }
   .pub-row { grid-template-columns: 100px minmax(0, 1fr); }
   .pub-meta { display: flex !important; flex-direction: column !important; }
   .pub-row h3 { font-size: 14px; }
-  .pub-title-zh, .pub-authors { font-size: 11px; }
+  .pub-title-ko, .pub-authors { font-size: 11px; }
   .pub-actions { display: none; }
 }

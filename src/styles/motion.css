@@ -17,10 +17,10 @@ html[data-theme=dark] .motion-particle-2 .motion-particle-core{fill:var(--sage)}
 .motion-toggle[data-paused=true] .motion-play-icon{display:block}
 .motion-toggle[data-paused=true] .motion-pause-icon{display:none}
 .motion-toggle-label{display:inline-flex;gap:6px}
-.motion-toggle-label .zh{font-size:11px}
+.motion-toggle-label .ko{font-size:11px}
 .map-links>.motion-route{fill:none;stroke:var(--purple);stroke-width:3;stroke-linecap:round;stroke-dasharray:16 100;opacity:0;filter:drop-shadow(0 0 3px color-mix(in srgb,var(--purple) 35%,transparent));pointer-events:none}
 .research-map:not(.motion-active) .motion-route{visibility:hidden}
-@media(max-width:650px){.motion-controls{padding-top:10px;gap:7px}.motion-toggle{min-height:36px;font-size:11px;padding-inline:8px}.motion-toggle-label .zh{font-size:11px}}
+@media(max-width:650px){.motion-controls{padding-top:10px;gap:7px}.motion-toggle{min-height:36px;font-size:11px;padding-inline:8px}.motion-toggle-label .ko{font-size:11px}}
 
 @media(prefers-reduced-motion:reduce){.motion-particle,.signal-line svg>.motion-wave,.map-links>.motion-route{display:none!important}.motion-orbits>.orbit-dot{opacity:1}}
 @media print{.motion-controls,.motion-particle,.signal-line svg>.motion-wave,.map-links>.motion-route{display:none!important}}

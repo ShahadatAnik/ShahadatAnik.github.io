@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { Publication } from '../../data/content'
 import { SITE_ORIGIN, localized, paperPath } from '../../data/i18n'
+import { Dual } from '../Dual'
 import { useMotion } from '../../hooks/useMotion'
 import { CopyButton } from './CopyButton'
 import { B, T, paperCodeUrl, paperLinks, useLang } from './shared'
@@ -110,7 +111,7 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
     <dialog
       id="paper-dialog"
       ref={dialogRef}
-      aria-labelledby={lang === 'zh' ? 'dialog-zh-label' : 'dialog-title'}
+      aria-labelledby={lang === 'ko' ? 'dialog-ko-label' : 'dialog-title'}
       onCancel={(event) => {
         event.preventDefault()
         close()
@@ -131,7 +132,7 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
         {paper && (
           <>
             <h2 id="dialog-title" className="en" lang="en">{paper.title}</h2>
-            <h2 id="dialog-zh-label" className="dialog-zh-title zh" lang="ko">{paper.zhTitle}</h2>
+            <h2 id="dialog-ko-label" className="dialog-ko-title ko" lang="ko">{paper.koTitle}</h2>
             <p className="dialog-authors"><Authors paper={paper} /></p>
             {corresponding && <p className="author-legend"><span aria-hidden="true">*</span> <T k="correspondingAuthor" /></p>}
             <p className="dialog-venue">{paper.venue} · {paper.year}</p>
@@ -140,6 +141,12 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
               <div className="summary-label"><T k="researchInBrief" /></div>
               <B value={paper.summary} />
             </div>
+            {paper.abstract && (
+              <details className="dialog-abstract">
+                <summary><Dual en="Abstract" ko="초록" /></summary>
+                <p><B value={paper.abstract} /></p>
+              </details>
+            )}
             <div className="dialog-actions">
               <div className="dialog-primary-actions">
                 {paperLinks(paper).map((link, i) => (

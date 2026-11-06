@@ -1,7 +1,9 @@
+import { Link } from '@tanstack/react-router'
 import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion'
 import { useRef, useState, type CSSProperties } from 'react'
 import { NAV_ITEMS, localized } from '../../data/i18n'
 import type { Lang } from '../../lib/lang'
+import { PROFILE_DATA } from '../../data/content'
 import { useActiveIndicator } from '../../hooks/useActiveIndicator'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import { useTheme } from '../../hooks/useTheme'
@@ -9,9 +11,9 @@ import { writeStorage } from '../../hooks/storage'
 import { B, useLang } from './shared'
 
 const LANGUAGES = [
-  { lang: 'en', to: '/', label: 'EN', aria: 'English' },
-  { lang: 'zh', to: '/kr/', label: 'KR', aria: '한국어' },
-] as const satisfies readonly { lang: Lang; to: string; label: string; aria: string }[]
+  { lang: 'en', locale: undefined, label: 'EN', aria: 'English' },
+  { lang: 'ko', locale: 'kr', label: 'KR', aria: '한국어' },
+] as const satisfies readonly { lang: Lang; locale: 'kr' | undefined; label: string; aria: string }[]
 
 const NAV_HASHES = NAV_ITEMS.map((item) => item.hash)
 
@@ -56,9 +58,9 @@ export function Header() {
       <motion.div className="scroll-progress" style={{ scaleX: progress }} aria-hidden="true" />
       <header ref={headerRef} className={compact ? 'header is-compact' : 'header'}>
         <div className="header-inner">
-          <a href="#home" className="brand" aria-label="Anik — Home">
+          <a href="#home" className="brand" aria-label={`${PROFILE_DATA.profile.shortName} — Home`}>
             <span className="brand-symbol" aria-hidden="true">a<span>·</span></span>
-            <span>Anik</span>
+            <span>{PROFILE_DATA.profile.shortName}</span>
           </a>
           <nav ref={navRef} className="desktop-nav" aria-label="Main navigation" data-has-active={String(Boolean(activeHash))} style={navStyle}>
             <span className="nav-active-indicator" aria-hidden="true" />
@@ -68,9 +70,11 @@ export function Header() {
             <div ref={switchRef} className="language-switch" role="group" aria-label="Language / 언어">
               <span className="language-active-indicator" aria-hidden="true" />
               {LANGUAGES.map((item) => (
-                <a
+                <Link
                   key={item.lang}
-                  href={item.to}
+                  to="/{-$locale}"
+                  params={{ locale: item.locale }}
+                  resetScroll={false}
                   data-lang={item.lang}
                   aria-label={item.aria}
                   className={lang === item.lang ? 'active' : undefined}
@@ -78,7 +82,7 @@ export function Header() {
                   onClick={() => writeStorage('zz-language', item.lang)}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
             <button id="theme-toggle" type="button" className="icon-button" aria-label="Switch color theme / 테마 전환" aria-pressed={theme === 'dark'} onClick={toggleTheme}>

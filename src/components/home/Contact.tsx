@@ -41,7 +41,7 @@ export function Contact() {
 function Footer() {
   return (
     <div className="footer">
-      <span>© 2026 Md Shahadat Anik Sheikh</span>
+      <span>© {new Date().getFullYear()} {profile.nameEn}</span>
       <div>
         <a id="footer-github" target="_blank" rel="noopener" href={profile.github}>GitHub ↗</a>
         <a id="footer-linkedin" target="_blank" rel="noopener" href={profile.linkedin}>LinkedIn ↗</a>

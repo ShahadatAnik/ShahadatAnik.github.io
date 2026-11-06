@@ -1,3 +1,4 @@
+import { PROFILE_DATA } from '../../data/content'
 import { Fragment } from 'react'
 import type { Publication } from '../../data/content'
 import { localized } from '../../data/i18n'
@@ -15,7 +16,7 @@ export function Authors({ paper, query = '' }: { paper: Publication; query?: str
         <Fragment key={name}>
           {index > 0 && ', '}
           <span className="publication-author">
-            {name === 'Md Shahadat Anik Sheikh' ? <strong><Highlight text={name} query={query} /></strong> : <Highlight text={name} query={query} />}
+            {name === PROFILE_DATA.profile.nameEn ? <strong><Highlight text={name} query={query} /></strong> : <Highlight text={name} query={query} />}
             {(paper.correspondingAuthors as string[]).includes(name) && (
               <sup className="author-mark" title={label} aria-label={label}>*</sup>
             )}

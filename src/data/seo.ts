@@ -1,4 +1,5 @@
-import { PROFILE_DATA, type Publication } from './content'
+import { PROFILE_DATA, bi, type Publication } from './content'
+import { siteConfig } from '../site.config'
 import { langFromPath, type Lang } from '../lib/lang'
 
 export { langFromPath }
@@ -10,10 +11,10 @@ export function findPaper(id: string): Publication | undefined {
   return PROFILE_DATA.publications.find((p) => p.id === id)
 }
 
-export const SITE = 'https://shahadatanik.github.io'
-const SITE_NAME = 'Md Shahadat Anik Sheikh'
+export const SITE = siteConfig.site.url
+const SITE_NAME = siteConfig.profile.name
 const IMAGE = `${SITE}/assets/portrait.jpg`
-const GOOGLE_VERIFICATION = ''
+const GOOGLE_VERIFICATION = siteConfig.site.googleVerification
 const FONTS =
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap'
 
@@ -35,17 +36,17 @@ const fontLinks = (): HeadLink[] => [
   { rel: 'stylesheet', href: FONTS },
 ]
 
-const pathFor = (lang: Lang, suffix: string) => `${SITE}${lang === 'zh' ? '/kr' : ''}${suffix}`
+const pathFor = (lang: Lang, suffix: string) => `${SITE}${lang === 'ko' ? '/kr' : ''}${suffix}`
 
 function alternates(suffix: string): HeadLink[] {
   return [
     { rel: 'alternate', href: pathFor('en', suffix), hrefLang: 'en' },
-    { rel: 'alternate', href: pathFor('zh', suffix), hrefLang: 'ko' },
+    { rel: 'alternate', href: pathFor('ko', suffix), hrefLang: 'ko' },
     { rel: 'alternate', href: pathFor('en', suffix), hrefLang: 'x-default' },
   ]
 }
 
-const inLanguage = (lang: Lang) => (lang === 'zh' ? 'ko' : 'en')
+const inLanguage = (lang: Lang) => (lang === 'ko' ? 'ko' : 'en')
 
 const PERSON: Json = {
   '@type': 'Person',
@@ -54,13 +55,13 @@ const PERSON: Json = {
   alternateName: PROFILE_DATA.profile.nameZh,
   url: `${SITE}/`,
   image: IMAGE,
-  jobTitle: 'Research Assistant, M.S.+Ph.D. student',
+  jobTitle: siteConfig.seo.jobTitle,
   affiliation: {
     '@type': 'CollegeOrUniversity',
-    name: 'Kyung Hee University',
+    name: siteConfig.seo.organization,
   },
   sameAs: [PROFILE_DATA.profile.github, PROFILE_DATA.profile.scholar, PROFILE_DATA.profile.blog],
-  knowsAbout: ['Brain–computer interfaces', 'Brain-AI', 'Computer vision', 'Multimodal learning'],
+  knowsAbout: siteConfig.seo.knowsAbout,
 }
 
 const script = (graph: Json[]) => ({
@@ -77,7 +78,7 @@ const socialMeta = (title: string, description: string, url: string, type: strin
   prop('og:site_name', SITE_NAME),
   prop('og:locale', locale),
   prop('og:image', IMAGE),
-  prop('og:image:alt', 'Md Shahadat Anik Sheikh'),
+  prop('og:image:alt', siteConfig.profile.name),
   name('twitter:card', 'summary'),
   name('twitter:title', title),
   name('twitter:description', description),
@@ -86,19 +87,13 @@ const socialMeta = (title: string, description: string, url: string, type: strin
 
 /* ------------------------------ Home pages ------------------------------ */
 
-const HOME_EN = {
-  title: 'Md Shahadat Anik Sheikh (Anik) | Kyung Hee University | Brain-AI & BCI',
-  description:
-    'Anik (Md Shahadat Anik Sheikh) is an M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University, working on brain–AI interfaces, brainwave-language models, computer vision and multimodal learning.',
-  locale: 'en_US',
-}
+const HOME_EN = { title: siteConfig.seo.title.en, description: siteConfig.seo.description.en, locale: 'en_US' }
 const HOME_KO = {
-  title: 'Md Shahadat Anik Sheikh (Anik) | 경희대학교 | 뇌-AI & BCI',
-  description:
-    'Anik(Md Shahadat Anik Sheikh)은 경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생으로, 뇌-AI 인터페이스, 뇌파-언어 모델, 컴퓨터 비전, 멀티모달 학습을 연구합니다.',
+  title: bi(siteConfig.seo.title).ko,
+  description: bi(siteConfig.seo.description).ko,
   locale: 'ko_KR',
 }
-const HOME = { both: HOME_EN, en: HOME_EN, zh: HOME_KO } as const
+const HOME = { en: HOME_EN, ko: HOME_KO } as const
 
 export function homeHead(lang: Lang): HeadResult {
   const h = HOME[lang]
@@ -117,7 +112,7 @@ export function homeHead(lang: Lang): HeadResult {
           '@id': `${SITE}/#website`,
           url: `${SITE}/`,
           name: SITE_NAME,
-          alternateName: 'Anik 학술 홈페이지',
+          alternateName: siteConfig.profile.shortName,
           inLanguage: ['en', 'ko'],
         },
         PERSON,
@@ -141,15 +136,15 @@ export function homeHead(lang: Lang): HeadResult {
 export function paperHead(id: string, lang: Lang): HeadResult {
   const p = findPaper(id)
   if (!p) return { meta: [], links: fontLinks(), scripts: [] }
-  const zh = lang === 'zh'
+  const ko = lang === 'ko'
   const suffix = `/publications/${id}/`
   const url = pathFor(lang, suffix)
   const workUrl = pathFor('en', suffix)
-  const heading = zh ? p.zhTitle : p.title
-  const alt = zh ? p.title : p.zhTitle
-  const siteName = zh ? PROFILE_DATA.profile.nameZh : PROFILE_DATA.profile.nameEn
+  const heading = ko ? p.koTitle : p.title
+  const alt = ko ? p.title : p.koTitle
+  const siteName = ko ? PROFILE_DATA.profile.nameZh : PROFILE_DATA.profile.nameEn
   const title = `${heading} | ${siteName}`
-  const description = zh ? p.summary.zh : p.summary.en
+  const description = ko ? p.summary.ko : p.summary.en
   const authors = p.authors.split(',').map((a) => a.trim())
   const isThesis = p.type === 'thesis'
   const doi = 'doi' in p ? p.doi : undefined
@@ -178,7 +173,7 @@ export function paperHead(id: string, lang: Lang): HeadResult {
   return {
     meta: [
       { title },
-      ...socialMeta(title, description, url, 'article', zh ? 'zh_CN' : 'en_US'),
+      ...socialMeta(title, description, url, 'article', ko ? 'ko_KR' : 'en_US'),
       name('citation_title', p.title),
       ...authors.map((a) => name('citation_author', a)),
       name('citation_publication_date', String(p.year)),

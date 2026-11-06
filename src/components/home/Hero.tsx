@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Fragment, useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
-import { PROFILE_DATA } from '../../data/content'
+import { PROFILE_DATA, bi } from '../../data/content'
+import { siteConfig } from '../../site.config'
 import { Dual } from '../Dual'
 import { useHeadlineEntrance } from '../../hooks/useHeadlineEntrance'
 import { useInView } from '../../hooks/useInView'
@@ -57,9 +58,9 @@ function HeroStatement() {
         <br />
         <Fragments words={[{ text: 'Building' }, { text: 'intelligent' }, { text: 'interfaces.', em: true }]} />
       </span>
-      <span className="zh" lang="ko">
+      <span className="ko" lang="ko">
         <span className="headline-fragment">뇌를 읽고,</span>
-        <br className="zh-break" />
+        <br className="ko-break" />
         <span className="headline-fragment">지능형 인터페이스를 만듭니다.</span>
       </span>
     </h2>
@@ -115,17 +116,17 @@ export function Hero() {
 
   const paused = userPaused || reduced
   const label = reduced
-    ? { en: 'Motion off', zh: '애니메이션 꺼짐' }
+    ? { en: 'Motion off', ko: '애니메이션 꺼짐' }
     : userPaused
-      ? { en: 'Play motion', zh: '애니메이션 재생' }
-      : { en: 'Pause motion', zh: '애니메이션 일시정지' }
+      ? { en: 'Play motion', ko: '애니메이션 재생' }
+      : { en: 'Pause motion', ko: '애니메이션 일시정지' }
 
   return (
     <>
       <section className="hero page-width" id="home">
         <div className="hero-copy">
           <div className="eyebrow"><span className="status-dot" /><span><T k="heroEyebrow" /></span></div>
-          <h1>Anik<span className="chinese-name">Md Shahadat Anik Sheikh<span className="name-period">.</span></span></h1>
+          <h1>{siteConfig.profile.shortName}<span className="chinese-name">{siteConfig.profile.name}<span className="name-period">.</span></span></h1>
           <a className="job-status" href="#contact">
             <span className="job-status-indicator" aria-hidden="true" />
             <span><T k="jobStatus" /></span>
@@ -185,7 +186,7 @@ export function Hero() {
               <span className="portrait-energy-ring portrait-energy-ring-two"><i /></span>
               <span className="portrait-energy-dust" />
             </div>
-            <div className="portrait-topline"><span className="tiny-cross">+</span><span><Dual en="THE HUMAN BEHIND THE RESEARCH" zh="연구 뒤의 사람" /></span><span className="tiny-cross">+</span></div>
+            <div className="portrait-topline"><span className="tiny-cross">+</span><span><Dual en="THE HUMAN BEHIND THE RESEARCH" ko="연구 뒤의 사람" /></span><span className="tiny-cross">+</span></div>
             <svg ref={orbitRef} className="portrait-orbits motion-orbits" viewBox="0 0 420 420" aria-hidden="true">
               <ellipse cx="210" cy="200" rx="191" ry="125" transform="rotate(-34 210 200)" />
               <ellipse cx="210" cy="200" rx="191" ry="125" transform="rotate(34 210 200)" />
@@ -201,24 +202,24 @@ export function Hero() {
               ))}
             </svg>
             <motion.figure className="portrait" style={{ x: '-50%', rotate: -3, rotateX, rotateY }}>
-              <img src="/assets/portrait.jpg" alt="Md Shahadat Anik Sheikh" width={335} height={447} fetchPriority="high" />
-              <figcaption><span className="portrait-name">Md Shahadat Anik Sheikh</span><span><Dual en="RESEARCHER / ENGINEER" zh="연구자 / 엔지니어" /></span></figcaption>
+              <img src="/assets/portrait.jpg" alt={siteConfig.profile.name} width={335} height={447} fetchPriority="high" />
+              <figcaption><span className="portrait-name">{siteConfig.profile.name}</span><span><Dual en={siteConfig.hero.role.en} ko={bi(siteConfig.hero.role).ko} /></span></figcaption>
             </motion.figure>
-            <span className="floating-label label-one"><Dual en="Human cognition" zh="인간의 인지" /></span>
-            <span className="floating-label label-two"><Dual en="Artificial intelligence" zh="인공지능" /></span>
+            <span className="floating-label label-one"><Dual en="Human cognition" ko="인간의 인지" /></span>
+            <span className="floating-label label-two"><Dual en="Artificial intelligence" ko="인공지능" /></span>
             <div className="signal-line">
               <svg viewBox="0 0 400 45" aria-hidden="true">
                 <path d="M0 22h25l7-6 8 12 10-24 9 35 9-17h30l7-8 7 17 9-23 8 20 6-6h48l7-10 9 24 10-33 8 30 8-11h35l7-6 8 13 9-24 8 31 8-14h50" />
                 <path className="motion-wave" pathLength="100" d="M0 22h25l7-6 8 12 10-24 9 35 9-17h30l7-8 7 17 9-23 8 20 6-6h48l7-10 9 24 10-33 8 30 8-11h35l7-6 8 13 9-24 8 31 8-14h50" />
               </svg>
-              <span><Dual en="BRAIN → SIGNAL → INTELLIGENCE" zh="뇌 → 신호 → 지능" /></span>
+              <span><Dual en="BRAIN → SIGNAL → INTELLIGENCE" ko="뇌 → 신호 → 지능" /></span>
             </div>
             <div className="signal-stage-legend" aria-hidden="true">
               <span>EEG</span>
-              <span><Dual en="Representation" zh="표현" /></span>
-              <span><Dual en="Language" zh="언어" /></span>
+              <span><Dual en="Representation" ko="표현" /></span>
+              <span><Dual en="Language" ko="언어" /></span>
             </div>
-            <span className="signal-word-label" aria-hidden="true"><Dual en="Hello." zh="안녕하세요." /></span>
+            <span className="signal-word-label" aria-hidden="true"><Dual en="Hello." ko="안녕하세요." /></span>
           </div>
           <div className="portrait-foot"><span><T k="portraitFoot" /></span></div>
           <div className="motion-controls">
@@ -228,7 +229,7 @@ export function Hero() {
               disabled={reduced}
               aria-pressed={paused}
               data-paused={String(paused)}
-              aria-label={`${label.en} / ${label.zh}`}
+              aria-label={`${label.en} / ${label.ko}`}
               title={reduced ? 'Reduced motion preference is enabled / 시스템의 동작 줄이기 설정을 따릅니다' : ''}
               onClick={toggle}
             >
@@ -236,22 +237,31 @@ export function Hero() {
                 <path className="motion-pause-icon" d="M7 5v10M13 5v10" />
                 <path className="motion-play-icon" d="m7 5 8 5-8 5Z" />
               </svg>
-              <span className="motion-toggle-label"><Dual en={label.en} zh={label.zh} /></span>
+              <span className="motion-toggle-label"><Dual en={label.en} ko={label.ko} /></span>
             </button>
           </div>
         </div>
       </section>
       <div className="affiliation-strip page-width">
-        <div className="affiliation">
-          <span className="institution-mark">KHU<span>SEOUL</span></span>
-          <div><strong><T k="hit" /></strong><span><T k="hitDetail" /></span></div>
-        </div>
-        <span className="affiliation-connector">↔</span>
-        <div className="affiliation">
-          <span className="institution-mark ntu">ST<span>DHAKA</span></span>
-          <div><strong><a className="affiliation-link" href="https://synaptech.cloud/" target="_blank" rel="noopener"><T k="ntu" /></a></strong><span><T k="ntuDetail" /></span></div>
-        </div>
-        <div className="research-keywords"><span>Brain-AI</span><span>BCI</span><span>Computer vision</span><span>Multimodal learning</span></div>
+        {siteConfig.affiliations.map((item, index) => (
+          <Fragment key={item.mark}>
+            {index > 0 && <span className="affiliation-connector">↔</span>}
+            <div className="affiliation">
+              <span className={index > 0 ? 'institution-mark ntu' : 'institution-mark'}>{item.mark}<span>{item.markSub}</span></span>
+              <div>
+                <strong>
+                  {'url' in item && item.url ? (
+                    <a className="affiliation-link" href={item.url} target="_blank" rel="noopener"><Dual en={item.name.en} ko={bi(item.name).ko} /></a>
+                  ) : (
+                    <Dual en={item.name.en} ko={bi(item.name).ko} />
+                  )}
+                </strong>
+                <span><Dual en={item.detail.en} ko={bi(item.detail).ko} /></span>
+              </div>
+            </div>
+          </Fragment>
+        ))}
+        <div className="research-keywords">{siteConfig.hero.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
       </div>
     </>
   )

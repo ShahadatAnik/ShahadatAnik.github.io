@@ -11,11 +11,11 @@ export const useLang = () => useContext(LangContext)
 
 /** Renders a UI string from the i18n table. */
 export function T({ k }: { k: TKey }) {
-  return <Dual en={STRINGS[k].en} zh={STRINGS[k].zh} />
+  return <Dual en={STRINGS[k].en} ko={STRINGS[k].ko} />
 }
 
 export function B({ value }: { value: Bilingual }) {
-  return <Dual en={value.en} zh={value.zh} />
+  return <Dual en={value.en} ko={value.ko} />
 }
 
 /** "2023–present" -> localized "present". */
@@ -52,7 +52,7 @@ type PaperExtras = { links?: PaperLink[]; linkLabel?: Bilingual; codeUrl?: strin
 
 export function paperLinks(paper: Publication): PaperLink[] {
   const p = paper as Publication & PaperExtras
-  return p.links ?? [{ url: p.url, label: p.linkLabel ?? { en: 'Paper', zh: '논문' } }]
+  return p.links ?? [{ url: p.url, label: p.linkLabel ?? { en: 'Paper', ko: '논문' } }]
 }
 
 export const paperCodeUrl = (paper: Publication) => (paper as Publication & PaperExtras).codeUrl

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 're
 import type { Lang } from '../../lib/lang'
 import { writeClipboard } from './hooks'
 
-export const pick = (lang: Lang, en: string, zh: string) => (lang === 'zh' ? zh : lang === 'en' ? en : `${en} / ${zh}`)
+export const pick = (lang: Lang, en: string, ko: string) => (lang === 'ko' ? ko : lang === 'en' ? en : `${en} / ${ko}`)
 
 type Props = {
   lang: Lang

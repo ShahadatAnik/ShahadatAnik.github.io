@@ -54,7 +54,6 @@
 .signal-language-token { fill: color-mix(in srgb, var(--surface) 82%, var(--lavender)); stroke: color-mix(in srgb, var(--purple) 30%, var(--line)); stroke-width: 1; }
 .signal-stage-legend { position: absolute; z-index: 2; bottom: 8px; left: 8.7%; right: 2.3%; display: grid; grid-template-columns: 21% 45% 34%; text-align: center; color: var(--muted); font-size: 11px; letter-spacing: .2px; pointer-events: none; }
 .signal-word-label { position: absolute; z-index: 2; left: 73.9%; top: 87.7%; width: 17.4%; height: 6.1%; display: grid; place-items: center; color: var(--purple); font-size: 13px; line-height: 1.2; pointer-events: none; }
-html[data-language=both] .signal-stage-legend .zh, html[data-language=both] .signal-word-label .zh { display: none; }
 .signal-redesigned.motion-active .signal-flow,
 .signal-redesigned.motion-active .signal-ambient-nodes circle { animation-play-state: running; }
 

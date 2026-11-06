@@ -34,7 +34,7 @@ function RootDocument() {
   const lang = langFromPath(pathname)
   return (
     <html
-      lang={lang === 'zh' ? 'ko' : 'en'}
+      lang={lang === 'ko' ? 'ko' : 'en'}
       data-language={lang}
       data-route-language={lang}
       data-theme="dark"

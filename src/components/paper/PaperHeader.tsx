@@ -1,8 +1,10 @@
+import { Link } from '@tanstack/react-router'
 import { langPrefix, type Lang } from '../../lib/lang'
+import { PROFILE_DATA } from '../../data/content'
 
 const LANGS: { lang: Lang; label: string; aria: string }[] = [
   { lang: 'en', label: 'EN', aria: 'English' },
-  { lang: 'zh', label: 'KR', aria: '한국어' },
+  { lang: 'ko', label: 'KR', aria: '한국어' },
 ]
 
 type Props = { id: string; lang: Lang; theme: 'dark' | 'light'; onToggleTheme: () => void }
@@ -16,23 +18,25 @@ export function PaperHeader({ id, lang, theme, onToggleTheme }: Props) {
             a<span>·</span>
           </span>
           <span>
-            Md Shahadat Anik Sheikh
+            {PROFILE_DATA.profile.nameEn}
           </span>
         </a>
         <div className="header-tools">
           <nav className="paper-language" aria-label="Language / 언어">
             <span className="language-active-indicator" aria-hidden="true"></span>
             {LANGS.map((l) => (
-              <a
+              <Link
                 key={l.lang}
                 data-lang={l.lang}
-                href={`${langPrefix(l.lang)}/publications/${id}/`}
+                to="/{-$locale}/publications/$id"
+                params={{ id, locale: l.lang === 'ko' ? 'kr' : undefined }}
+                resetScroll={false}
                 aria-label={l.aria}
                 className={l.lang === lang ? 'active' : undefined}
                 aria-current={l.lang === lang ? 'page' : undefined}
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <button

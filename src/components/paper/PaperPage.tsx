@@ -7,16 +7,17 @@ import { Dual } from '../Dual'
 import { PROFILE_DATA, type Publication } from '../../data/content'
 import { findPaper } from '../../data/seo'
 import { langPrefix, type Lang } from '../../lib/lang'
+import { formatDate } from '../../lib/format'
 import { CopyButton } from './CopyButton'
 import { PaperHeader } from './PaperHeader'
 import { useTheme, useToast } from './hooks'
 
-type Bilingual = { en: string; zh: string }
+type Bilingual = { en: string; ko: string }
 
 const TYPE_LABELS: Record<string, Bilingual> = {
-  conference: { en: 'Conference paper', zh: '학회 논문' },
-  article: { en: 'Journal article', zh: '저널 논문' },
-  thesis: { en: 'Master’s thesis', zh: '석사 학위논문' },
+  conference: { en: 'Conference paper', ko: '학회 논문' },
+  article: { en: 'Journal article', ko: '저널 논문' },
+  thesis: { en: 'Master’s thesis', ko: '석사 학위논문' },
 }
 
 const CORRESPONDING = 'Corresponding author / 교신저자'
@@ -58,8 +59,8 @@ function paperLinks(paper: Publication) {
   const custom = 'links' in paper ? paper.links : undefined
   const links: { url: string; label: Bilingual }[] = custom
     ? [...custom]
-    : [{ url: paper.url, label: paper.linkLabel ?? { en: 'Paper', zh: '논문' } }]
-  if ('codeUrl' in paper && paper.codeUrl) links.push({ url: paper.codeUrl, label: { en: 'Code', zh: '코드' } })
+    : [{ url: paper.url, label: paper.linkLabel ?? { en: 'Paper', ko: '논문' } }]
+  if ('codeUrl' in paper && paper.codeUrl) links.push({ url: paper.codeUrl, label: { en: 'Code', ko: '코드' } })
   return links
 }
 
@@ -86,7 +87,7 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
       <PaperHeader id={id} lang={lang} theme={theme} onToggleTheme={toggle} />
       <main id="paper-main" className="paper-main page-width">
         <a className="paper-back" href={`${home}#publications`}>
-          ← <Dual en="All publications" zh="전체 연구 성과" />
+          ← <Dual en="All publications" ko="전체 연구 성과" />
         </a>
         <article className="paper-article">
           <div className="paper-eyebrow">
@@ -94,51 +95,95 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
             <div className="paper-venue-meta">
               <span className="paper-venue">{paper.venue}</span>
               <span className="paper-authorship authorship-label">
-                <Dual en={paper.authorship.en} zh={paper.authorship.zh} />
+                <Dual en={paper.authorship.en} ko={paper.authorship.ko} />
               </span>
             </div>
           </div>
           <h1 className="paper-title">
-            <Dual en={paper.title} zh={paper.zhTitle} />
+            <Dual en={paper.title} ko={paper.koTitle} />
           </h1>
           <Authors paper={paper} />
           {paper.correspondingAuthors.length > 0 && (
             <p className="author-legend">
-              <span aria-hidden="true">*</span> <Dual en="Corresponding author" zh="교신저자" />
+              <span aria-hidden="true">*</span> <Dual en="Corresponding author" ko="교신저자" />
             </p>
           )}
           <div className="paper-topics">
             {topics.map((t) => (
               <span key={t.en}>
-                <Dual en={t.en} zh={t.zh} />
+                <Dual en={t.en} ko={t.ko} />
               </span>
             ))}
           </div>
           <section className="paper-section">
             <h2>
-              <Dual en="Research overview" zh="연구 개요" />
+              <Dual en="Research overview" ko="연구 개요" />
             </h2>
             <div className="paper-summary">
-              <Dual en={paper.summary.en} zh={paper.summary.zh} />
+              <Dual en={paper.summary.en} ko={paper.summary.ko} />
             </div>
           </section>
+          {paper.abstract && (
+            <section className="paper-section">
+              <h2>
+                <Dual en="Abstract" ko="초록" />
+              </h2>
+              <p className="paper-abstract">
+                <Dual en={paper.abstract.en} ko={paper.abstract.ko} />
+              </p>
+            </section>
+          )}
           <section className="paper-section">
             <h2>
-              <Dual en="Publication details" zh="출판 정보" />
+              <Dual en="Publication details" ko="출판 정보" />
             </h2>
             <dl className="paper-facts">
               <div>
                 <dt>
-                  <Dual en="Venue" zh="저널 / 학회" />
+                  <Dual en="Venue" ko="저널 / 학회" />
                 </dt>
                 <dd>{paper.venue}</dd>
               </div>
               <div>
                 <dt>
-                  <Dual en="Year" zh="연도" />
+                  <Dual en={paper.date ? 'Publication date' : 'Year'} ko={paper.date ? '출판일' : '연도'} />
                 </dt>
-                <dd>{paper.year}</dd>
+                <dd>{paper.date ? formatDate(paper.date, lang) : paper.year}</dd>
               </div>
+              {paper.publisher && (
+                <div>
+                  <dt>
+                    <Dual en="Publisher" ko="출판사" />
+                  </dt>
+                  <dd>{paper.publisher}</dd>
+                </div>
+              )}
+              {paper.volume && (
+                <div>
+                  <dt>
+                    <Dual en="Volume" ko="권" />
+                  </dt>
+                  <dd>{paper.volume}</dd>
+                </div>
+              )}
+              {paper.pages && (
+                <div>
+                  <dt>
+                    <Dual en="Pages" ko="페이지" />
+                  </dt>
+                  <dd>{paper.pages}</dd>
+                </div>
+              )}
+              {paper.citations ? (
+                <div>
+                  <dt>
+                    <Dual en="Citations" ko="피인용" />
+                  </dt>
+                  <dd>
+                    <Dual en={`Cited by ${paper.citations} (Google Scholar)`} ko={`${paper.citations}회 피인용 (Google Scholar)`} />
+                  </dd>
+                </div>
+              ) : null}
               {doi && doiHref && (
                 <div>
                   <dt>DOI</dt>
@@ -150,10 +195,10 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
               {type && (
                 <div>
                   <dt>
-                    <Dual en="Publication type" zh="성과 유형" />
+                    <Dual en="Publication type" ko="성과 유형" />
                   </dt>
                   <dd>
-                    <Dual en={type.en} zh={type.zh} />
+                    <Dual en={type.en} ko={type.ko} />
                   </dd>
                 </div>
               )}
@@ -167,7 +212,7 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
                   target="_blank"
                   rel="noopener"
                 >
-                  <Dual en={l.label.en} zh={l.label.zh} />
+                  <Dual en={l.label.en} ko={l.label.ko} />
                   <Arrow />
                 </a>
               ))}
@@ -176,10 +221,10 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
           <section className="paper-section">
             <div className="paper-cite-heading">
               <h2>
-                <Dual en="Citation" zh="인용" />
+                <Dual en="Citation" ko="인용" />
               </h2>
               <CopyButton lang={lang} getText={() => paper.bibtex} onResult={toast.show}>
-                <Dual en="Copy BibTeX" zh="BibTeX 복사" />
+                <Dual en="Copy BibTeX" ko="BibTeX 복사" />
               </CopyButton>
             </div>
             <pre className="paper-bibtex" id="paper-bibtex">
@@ -192,18 +237,18 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
               getText={() => document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href || location.href}
               onResult={toast.show}
             >
-              <Dual en="Copy page link" zh="페이지 링크 복사" />
+              <Dual en="Copy page link" ko="페이지 링크 복사" />
             </CopyButton>
             <a href={`${home}#contact`}>
-              <Dual en="Contact Anik" zh="Anik에게 연락" /> ↗
+              <Dual en={`Contact ${PROFILE_DATA.profile.shortName}`} ko={`${PROFILE_DATA.profile.shortName}에게 연락`} /> ↗
             </a>
           </div>
         </article>
       </main>
       <footer className="paper-footer page-width">
-        <span>© 2026 Md Shahadat Anik Sheikh</span>
+        <span>© {new Date().getFullYear()} {PROFILE_DATA.profile.nameEn}</span>
         <a href={home}>
-          <Dual en="Academic homepage" zh="학술 홈페이지" /> ↗
+          <Dual en="Academic homepage" ko="학술 홈페이지" /> ↗
         </a>
       </footer>
       <div className={toast.visible ? 'toast show' : 'toast'} id="paper-toast" role="status" aria-live="polite">
