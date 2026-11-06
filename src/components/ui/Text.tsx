@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { T as STRINGS, type Bilingual, type TKey } from '../../data/i18n'
+import { T as STRINGS, type Bilingual, type TKey } from '@/data/i18n'
 import { Dual } from './Dual'
 
 /** Renders a UI string from the i18n table. */

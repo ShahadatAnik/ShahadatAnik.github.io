@@ -835,3 +835,186 @@ html[data-motion-paused=true] .hero-meta .job-status-indicator { animation: none
 .hero-visual .job-status-indicator { width: 9px; height: 9px; flex: none; background: var(--purple); animation: dot-breathe 2.6s ease-in-out infinite; }
 html[data-motion-paused=true] .hero-visual .job-status-indicator { animation: none; }
 @media (prefers-reduced-motion: reduce) { .hero-visual .job-status-indicator { animation: none; } }
+
+/* ===================== Mobile pass ===================== */
+
+/* Section headings: same flex column everywhere, with real space between title and what follows. */
+.section-heading:has(> .section-intro), .section-heading:has(> .text-button) { display: flex; }
+@media (max-width: 900px) {
+  .section .section-heading, .publications-section .section-heading { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 30px; }
+  .section .section-heading > .section-intro { margin: 0; }
+  .publications-section .section-heading > .text-button { margin: 0; }
+  /* Stacked blocks get one consistent gap. */
+  .journey-grid, .experience-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .journey-aside { gap: 20px; }
+}
+
+/* Experience: the open row's highlight stays inside the column on phones. */
+@media (max-width: 650px) {
+  .experience-item { margin-inline: -10px; padding-inline: 10px; }
+  .experience-item::before { inset: 4px 0; }
+  .experience-item::after { left: 0; }
+  .experience-roles > .subheading { margin-bottom: 8px; }
+}
+
+/* Korean text inside cards sits flush with the label above it. */
+.affiliation .ko { margin-left: 0; }
+
+/* Active node: dark-on-light text looks thinner, so it gets a little more weight. */
+.map-node.active { font-weight: 650; }
+
+/* At a glance: three even columns; labels never wrap. */
+.glance-stats { grid-template-columns: repeat(3, auto); justify-content: space-between; }
+.glance-stats dt { white-space: nowrap; }
+
+/* Keyword chips show on phones too, under the cards. */
+@media (max-width: 650px) {
+  .research-keywords { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; max-width: none; width: 100%; justify-content: flex-start; }
+  .research-keywords span { font-size: 12px; padding: 4px 11px; }
+}
+
+/* The availability note stays centred under the portrait card on every screen size. */
+@media (max-width: 650px) { .hero-meta { margin-top: 20px; gap: 14px 20px; } }
+
+/* Publications toolbar: search and year share one row. */
+@media (max-width: 650px) {
+  .publication-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; width: 100%; }
+  .filter-tabs { flex-wrap: wrap; gap: 8px; }
+}
+
+/* Touch targets: 44px minimum. Hero links keep their layout and get an invisible larger hit area; the rest grow to 44px. */
+.social-links a { position: relative; }
+@media (pointer: coarse), (max-width: 650px) {
+  .social-links a::before { content: ''; position: absolute; inset: -11px -7px; }
+  .filter-tabs button { min-height: 44px; }
+  .header-tools { gap: 6px; }
+  .brand { min-height: 44px; }
+  .footer a, .glance-link, .experience-link, .email-row > a, a.text-button, button.text-button, .pub-actions a, .pub-actions button { display: inline-flex; align-items: center; min-height: 44px; }
+  .pub-actions button, .pub-actions a { min-width: 44px; justify-content: center; }
+  .footer a::after, .experience-link::after, .email-row > a::after, a.text-button::after, button.text-button::after, .pub-actions a::after, .pub-actions button::after { bottom: 10px; }
+  .footer > div { gap: 0 14px; }
+}
+
+/* Text never goes below 12px (the diagram's centre label is the one decorative exception at 11px). */
+@media (max-width: 650px) {
+  .eyebrow, .section-number { font-size: 12px; }
+  .portrait-topline, .portrait-topline span, .portrait-name + span, figcaption span { font-size: 11px; }
+  .portrait-foot, .signal-labels span, .signal-labels, .signal-label { font-size: 12px; }
+  .pub-authorship, .pub-cited { font-size: 12px; }
+  .map-caption, .map-caption span, .direction-kicker, .direction-kicker span { font-size: 12px; }
+  .subheading { font-size: 18px; }
+}
+
+/* Mobile pass, specificity fixes: earlier breakpoint rules are more specific, so these repeat the key ones. */
+@media (pointer: coarse), (max-width: 650px) {
+  html .header-tools .icon-button, html .email-row .icon-button { width: 44px; height: 44px; }
+}
+@media (max-width: 650px) {
+  html .eyebrow, html .hero .eyebrow, html .section-number, html .contact-section .eyebrow { font-size: 12px; }
+  html .signal-redesigned .portrait-topline, html .signal-redesigned .portrait-topline span { font-size: 12px; }
+  html .signal-redesigned figcaption span, html .portrait-surface figcaption span { font-size: 12px; }
+  html .signal-redesigned .signal-line-labels span, html .signal-redesigned [class*="label"] span { font-size: 12px; }
+}
+@media (max-width: 650px) {
+  html .signal-redesigned .signal-stage-legend span, html .signal-redesigned .signal-stage-legend .en, html .signal-redesigned .signal-stage-legend .ko { font-size: 12px; }
+}
+@media (pointer: coarse), (max-width: 650px) {
+  .footer a, .glance-link, .experience-link, .pub-actions a { gap: 4px; }
+}
+@media (max-width: 650px) {
+  html .map-node .ko, html .map-caption .ko, html .direction-kicker .ko { font-size: 12px; }
+  .social-links { row-gap: 4px; }
+}
+
+/* Research map: node labels are centred, both ways. */
+.map-node { justify-content: center; text-align: center; }
+.map-node > span { text-align: center; }
+
+/* Search box and year dropdown: same height, and the dropdown arrow has room. */
+html .search-field, html .year-field select { height: 48px; min-height: 48px; box-sizing: border-box; }
+html .search-field { padding-block: 0; padding-inline: 14px; align-items: center; }
+html .year-field { position: relative; display: inline-flex; margin-left: 0; }
+html .year-field select { appearance: none; -webkit-appearance: none; padding: 0 44px 0 16px; font-size: 14px; max-width: none; cursor: pointer; }
+html .year-field::after { content: ''; position: absolute; right: 18px; top: 50%; width: 7px; height: 7px; border-right: 1.6px solid var(--muted); border-bottom: 1.6px solid var(--muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; transition: border-color .2s; }
+html .year-field:focus-within::after, html .year-field:hover::after { border-color: var(--purple); }
+html .year-field select:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+@media (max-width: 650px) { html .search-field input { font-size: 16px; } html .year-field select { font-size: 15px; } }
+
+/* Phones: the year is already in the venue line, so the big year and the role label above each title are hidden. */
+@media (max-width: 650px) {
+  .pub-meta .pub-year, .pub-meta .pub-authorship { display: none; }
+  .pub-row { padding-block: 24px; }
+}
+
+/* One copy icon everywhere, sized to the text next to it (the email button keeps its own square size). */
+.copy-icon { width: 1.1em; height: 1.1em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.17em; }
+.icon-button .copy-icon { width: 16px; height: 16px; vertical-align: baseline; }
+.pub-actions .copy-icon { margin-left: 5px; }
+.text-button .copy-icon { margin-left: 2px; }
+
+/* Experience list: lines only between rows, none above the first or below the last. */
+.experience-item:first-child { border-top: 0; }
+.experience-item:last-child { border-bottom: 0; }
+
+/* Hovering anywhere on an institution card colours its name, underline and arrow purple. */
+.affiliation-name { transition: color .2s; }
+a.affiliation:is(:hover, :focus-visible) .affiliation-name { color: var(--purple); }
+
+/* Institution cards use exactly the research-node card style: same radius, border, shadow, lift and glow. */
+html .affiliation { border-radius: 11px; border-color: var(--line); background: var(--surface); box-shadow: 0 4px 10px #29262304; transition: transform .25s, border-color .25s, background .25s; }
+html .affiliation.is-current { border-color: var(--line); }
+html a.affiliation:hover { transform: translateY(-2px); border-color: var(--line); box-shadow: 0 4px 10px #29262304; }
+html .affiliation::before { background: radial-gradient(110px circle at var(--spot-x) var(--spot-y), color-mix(in srgb, var(--purple) 14%, transparent), transparent 75%); transition: opacity .25s; }
+html .institution-mark { border-radius: 8px; }
+
+/* The current institution's border carries a light that circles it, always. */
+@property --beam-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes beam-spin { to { --beam-angle: 360deg; } }
+.affiliation.is-current::after {
+  content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: conic-gradient(from var(--beam-angle), transparent 0%, transparent 62%, color-mix(in srgb, var(--purple) 35%, transparent) 82%, var(--purple) 97%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: beam-spin 4.5s linear infinite;
+}
+html[data-motion-paused=true] .affiliation.is-current::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { .affiliation.is-current::after { animation: none; } }
+
+/* Beam fix: the beam sits exactly on the card's border (not inside it), so it needs the card to stop clipping. */
+html .affiliation { overflow: visible; }
+html .affiliation::before { border-radius: inherit; }
+html .affiliation.is-current::after { inset: -1px; border-radius: inherit; padding: 1.5px; }
+
+/* Share button: replaces the top-right "+" on the portrait card. Click copies the profile link and the icon turns into a check. */
+.portrait-share { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid color-mix(in srgb, currentColor 28%, transparent); border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; pointer-events: auto; transition: color .2s, border-color .2s, background .2s, transform .2s var(--ease-out); }
+.portrait-share:hover, .portrait-share:focus-visible { color: var(--purple); border-color: var(--purple); background: color-mix(in srgb, var(--purple) 12%, transparent); transform: translateY(-1px); }
+.portrait-share:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+.portrait-share .share-icon { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.portrait-share.is-copied { color: var(--sage); border-color: var(--sage); background: color-mix(in srgb, var(--sage) 14%, transparent); }
+.portrait-share.is-copied span:not([aria-hidden]) { display: none; }
+.portrait-share.is-copied span[aria-hidden] { font-size: 17px; line-height: 1; }
+@media (prefers-reduced-motion: reduce) { .portrait-share { transition: none; } .portrait-share:hover { transform: none; } }
+html .signal-redesigned .portrait-topline { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+html .signal-redesigned .portrait-topline > :last-child { justify-self: end; }
+
+/* Header logo is the favicon artwork itself, so the tab icon and the site logo are always the same. */
+html .brand-symbol { width: 38px; height: 38px; padding: 0; background: none; border: 0; border-radius: 11px; overflow: hidden; display: block; flex: none; line-height: 0; }
+html .brand-symbol img { display: block; width: 100%; height: 100%; }
+@media (max-width: 650px) { html .brand-symbol { width: 34px; height: 34px; } }
+
+/* ===================== Lucide icons ===================== */
+.glyph { display: inline-flex; align-items: center; justify-content: center; vertical-align: -.14em; line-height: 1; flex: none; }
+.glyph svg { display: block; width: 1em; height: 1em; }
+.link-arrow { vertical-align: -.12em; }
+.expand-icon svg { width: 15px; height: 15px; }
+.x-icon { width: 16px; height: 16px; flex: none; }
+.filter-chip .x-icon { width: 13px; height: 13px; }
+.social-links .social-icon { width: 16px; height: 16px; stroke-width: 1.7; }
+.paper-back .back-icon { width: 16px; height: 16px; flex: none; align-self: center; }
+.back-arrow { margin-left: 2px; }
+.tiny-cross { display: inline-flex; align-items: center; }
+.icon-button svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+/* Year dropdown chevron (lucide) replaces the drawn one. */
+html .year-field::after { content: none; }
+.year-field .year-chevron { position: absolute; right: 14px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--muted); pointer-events: none; transition: color .2s; }
+.year-field:hover .year-chevron, .year-field:focus-within .year-chevron { color: var(--purple); }

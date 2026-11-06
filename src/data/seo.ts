@@ -1,6 +1,6 @@
 import { PROFILE_DATA, bi, type Publication } from './content'
-import { siteConfig } from '../site.config'
-import { langFromPath, type Lang } from '../lib/lang'
+import { siteConfig } from '@/site.config'
+import { langFromPath, type Lang } from '@/lib/lang'
 
 export { langFromPath }
 export type { Lang }
@@ -13,7 +13,12 @@ export function findPaper(id: string): Publication | undefined {
 
 export const SITE = siteConfig.site.url
 const SITE_NAME = siteConfig.profile.name
-const IMAGE = `${SITE}/assets/portrait.jpg`
+const PORTRAIT = `${SITE}/assets/portrait.jpg`
+const imageFor = (lang: Lang) => `${SITE}${lang === 'ko' ? siteConfig.seo.image.ko : siteConfig.seo.image.en}`
+const IMAGE_ALT = {
+  en: `${siteConfig.profile.name}: MS+PhD researcher in Brain-AI & BCI at Kyung Hee University`,
+  ko: `${siteConfig.profile.name}: 경희대학교 뇌-AI & BCI 연구자`,
+} as const
 const GOOGLE_VERIFICATION = siteConfig.site.googleVerification
 const FONTS =
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap'
@@ -52,15 +57,19 @@ const PERSON: Json = {
   '@type': 'Person',
   '@id': `${SITE}/#person`,
   name: PROFILE_DATA.profile.nameEn,
-  alternateName: PROFILE_DATA.profile.nameZh,
+  givenName: siteConfig.seo.firstName,
+  familyName: siteConfig.seo.lastName,
+  alternateName: [siteConfig.profile.shortName, 'Shahadat Anik'],
   url: `${SITE}/`,
-  image: IMAGE,
+  image: { '@type': 'ImageObject', url: PORTRAIT, width: 335, height: 447 },
   jobTitle: siteConfig.seo.jobTitle,
-  affiliation: {
-    '@type': 'CollegeOrUniversity',
-    name: siteConfig.seo.organization,
-  },
-  sameAs: [PROFILE_DATA.profile.github, PROFILE_DATA.profile.scholar, PROFILE_DATA.profile.blog],
+  description: siteConfig.seo.description.en,
+  affiliation: { '@type': 'CollegeOrUniversity', name: siteConfig.seo.organization, url: 'https://www.khu.ac.kr/' },
+  worksFor: { '@type': 'CollegeOrUniversity', name: siteConfig.seo.organization },
+  alumniOf: siteConfig.education
+    .filter((e) => /university/i.test(e.school.en))
+    .map((e) => ({ '@type': 'CollegeOrUniversity', name: e.school.en, ...(e.url ? { url: e.url } : {}) })),
+  sameAs: [PROFILE_DATA.profile.github, PROFILE_DATA.profile.linkedin, PROFILE_DATA.profile.scholar].filter(Boolean),
   knowsAbout: siteConfig.seo.knowsAbout,
 }
 
@@ -69,20 +78,29 @@ const script = (graph: Json[]) => ({
   children: JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }),
 })
 
-const socialMeta = (title: string, description: string, url: string, type: string, locale: string): Meta[] => [
+const socialMeta = (lang: Lang, title: string, description: string, url: string, type: string, locale: string): Meta[] => [
   name('description', description),
+  name('author', SITE_NAME),
+  name('keywords', siteConfig.seo.keywords.join(', ')),
+  name('robots', 'index,follow,max-image-preview:large,max-snippet:-1'),
   prop('og:title', title),
   prop('og:description', description),
   prop('og:url', url),
   prop('og:type', type),
   prop('og:site_name', SITE_NAME),
   prop('og:locale', locale),
-  prop('og:image', IMAGE),
-  prop('og:image:alt', siteConfig.profile.name),
-  name('twitter:card', 'summary'),
+  prop('og:locale:alternate', locale === 'ko_KR' ? 'en_US' : 'ko_KR'),
+  prop('og:image', imageFor(lang)),
+  prop('og:image:secure_url', imageFor(lang)),
+  prop('og:image:type', 'image/png'),
+  prop('og:image:width', String(siteConfig.seo.image.width)),
+  prop('og:image:height', String(siteConfig.seo.image.height)),
+  prop('og:image:alt', IMAGE_ALT[lang]),
+  name('twitter:card', 'summary_large_image'),
   name('twitter:title', title),
   name('twitter:description', description),
-  name('twitter:image', IMAGE),
+  name('twitter:image', imageFor(lang)),
+  name('twitter:image:alt', IMAGE_ALT[lang]),
 ]
 
 /* ------------------------------ Home pages ------------------------------ */
@@ -102,7 +120,9 @@ export function homeHead(lang: Lang): HeadResult {
     meta: [
       { title: h.title },
       ...(GOOGLE_VERIFICATION ? [name('google-site-verification', GOOGLE_VERIFICATION)] : []),
-      ...socialMeta(h.title, h.description, url, 'website', h.locale),
+      ...socialMeta(lang, h.title, h.description, url, 'profile', h.locale),
+      prop('profile:first_name', siteConfig.seo.firstName),
+      prop('profile:last_name', siteConfig.seo.lastName),
     ],
     links: [...fontLinks(), { rel: 'canonical', href: url }, ...alternates('/')],
     scripts: [
@@ -142,7 +162,7 @@ export function paperHead(id: string, lang: Lang): HeadResult {
   const workUrl = pathFor('en', suffix)
   const heading = ko ? p.koTitle : p.title
   const alt = ko ? p.title : p.koTitle
-  const siteName = ko ? PROFILE_DATA.profile.nameZh : PROFILE_DATA.profile.nameEn
+  const siteName = PROFILE_DATA.profile.nameEn
   const title = `${heading} | ${siteName}`
   const description = ko ? p.summary.ko : p.summary.en
   const authors = p.authors.split(',').map((a) => a.trim())
@@ -173,7 +193,10 @@ export function paperHead(id: string, lang: Lang): HeadResult {
   return {
     meta: [
       { title },
-      ...socialMeta(title, description, url, 'article', ko ? 'ko_KR' : 'en_US'),
+      ...socialMeta(lang, title, description, url, 'article', ko ? 'ko_KR' : 'en_US'),
+      prop('article:author', `${SITE}/`),
+      ...(p.date ? [prop('article:published_time', p.date)] : []),
+      prop('article:section', 'Research'),
       name('citation_title', p.title),
       ...authors.map((a) => name('citation_author', a)),
       name('citation_publication_date', String(p.year)),

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { TKey } from '../../data/i18n'
+import type { TKey } from '@/data/i18n'
 import { Eyebrow } from './Eyebrow'
 import { Reveal } from './Reveal'
 import { T } from './Text'

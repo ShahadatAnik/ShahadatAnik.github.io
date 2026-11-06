@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import type { Ref } from 'react'
-import { writeStorage } from '../../hooks/storage'
-import type { Lang } from '../../lib/lang'
+import { writeStorage } from '@/hooks/storage'
+import type { Lang } from '@/lib/lang'
 
 const LANGUAGES = [
   { lang: 'en', locale: undefined, label: 'EN', aria: 'English' },

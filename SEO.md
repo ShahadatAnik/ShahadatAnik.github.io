@@ -67,3 +67,14 @@ Never add placeholder verification tokens.
 - Research-area counts show 0 for Brain-AI & BCI and Multimodal learning until papers are tagged with those topics.
 - Korean wording has not been reviewed by a native speaker.
 - Not deployed yet: publish `dist/client` to the `ShahadatAnik.github.io` repository.
+## Link previews (when someone shares the site)
+
+Every page ships Open Graph and Twitter/X card tags, so a shared link shows a large 1200×630 preview with your photo, name, headline and Kyung Hee University.
+
+- English pages use `public/assets/og-image.png`; Korean pages (`/kr/`) use `public/assets/og-image-kr.png`. Paper pages use the same image as the home page.
+- Titles and descriptions come from `seo` in `src/site.config.ts`. Keep the title under about 65 characters and the description under about 160 so previews are not cut off.
+- Phones use `public/assets/icon-512.png` as the home-screen icon.
+- To change the preview (new photo, headline or affiliation), edit `scripts/og/og.html`, then run `bun scripts/make-og-image.mjs`. It needs Chrome (set the `CHROME` environment variable if it is not in the default place) and writes the PNGs into `public/assets/`.
+- Social sites cache previews. After deploying, refresh them with the LinkedIn Post Inspector (linkedin.com/post-inspector), the Facebook Sharing Debugger (developers.facebook.com/tools/debug), and by posting the link once on X. Messaging apps (WhatsApp, Telegram, Slack) refresh on their own after a while.
+
+Also on every page: canonical URL, `hreflang` (en, ko, x-default), `robots` with large image previews allowed, `author`, keywords, and structured data (Person with LinkedIn, GitHub and Scholar in `sameAs`, plus the universities you attended).

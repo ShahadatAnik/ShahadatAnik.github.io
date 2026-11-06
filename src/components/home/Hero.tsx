@@ -1,11 +1,14 @@
-import { Arrow, Dual, ExternalLink, Name, T } from '../ui'
+import { ArrowDown, BriefcaseBusiness, CodeXml, GraduationCap, Plus } from 'lucide-react'
+import { Arrow, CopyButton, Dual, ExternalLink, Glyph, Name, ShareIcon, T, useLang } from '@/components/ui'
+import { SITE_ORIGIN, localized } from '@/data/i18n'
+import { langPrefix } from '@/lib/lang'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Fragment, useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
-import { PROFILE_DATA, bi } from '../../data/content'
-import { siteConfig } from '../../site.config'
-import { useHeadlineEntrance } from '../../hooks/useHeadlineEntrance'
-import { useInView } from '../../hooks/useInView'
-import { useMotion } from '../../hooks/useMotion'
+import { PROFILE_DATA, bi } from '@/data/content'
+import { siteConfig } from '@/site.config'
+import { useHeadlineEntrance } from '@/hooks/useHeadlineEntrance'
+import { useInView } from '@/hooks/useInView'
+import { useMotion } from '@/hooks/useMotion'
 
 const { profile } = PROFILE_DATA
 
@@ -17,21 +20,6 @@ function ellipsePath(angle: number) {
   const start = `${(210 + dx).toFixed(2)} ${(200 + dy).toFixed(2)}`
   const end = `${(210 - dx).toFixed(2)} ${(200 - dy).toFixed(2)}`
   return `M ${start} A 191 125 ${angle} 1 0 ${end} A 191 125 ${angle} 1 0 ${start}`
-}
-
-const SOCIAL_ICONS = {
-  scholar: 'M2 6.5 8 3l6 3.5L8 10 2 6.5ZM4 8v3.5c2 1.5 6 1.5 8 0V8M14 7v5',
-  github: 'm5.5 4-4 4 4 4M10.5 4l4 4-4 4M9 2 7 14',
-  email: 'M2 3.5h12v9H2v-9Zm0 1L8 9l6-4.5',
-  linkedin: 'M3 6.5v6M3 3.5v.01M6.5 12.5v-6m0 3c0-1.7 1-3 2.5-3s2.5 1.2 2.5 3v3',
-}
-
-function SocialIcon({ d }: { d: string }) {
-  return (
-    <svg className="social-icon" viewBox="0 0 16 16" aria-hidden="true">
-      <path d={d} />
-    </svg>
-  )
 }
 
 function Fragments({ words }: { words: { text: string; em?: boolean }[] }) {
@@ -107,6 +95,7 @@ function AffiliationCard({ item, current }: { item: AffiliationItem; current: bo
 }
 
 export function Hero() {
+  const lang = useLang()
   const { userPaused, reduced, running, toggle } = useMotion()
   const heroRef = useRef<HTMLDivElement>(null)
   const surfaceRef = useRef<HTMLDivElement>(null)
@@ -169,14 +158,14 @@ export function Hero() {
           <HeroStatement />
           <div className="hero-bio"><T k="bio" /></div>
           <div className="hero-actions">
-            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><span className="down-arrow" aria-hidden="true">↓</span></a>
+            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><Glyph icon={ArrowDown} className="down-arrow" strokeWidth={2.1} /></a>
             <a className="button secondary" href="#contact"><span><T k="getInTouch" /></span></a>
           </div>
           <div className="hero-meta">
             <div className="social-links">
-              <ExternalLink id="hero-scholar" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar</ExternalLink>
-              <ExternalLink id="hero-github" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub</ExternalLink>
-              <ExternalLink id="hero-linkedin" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn</ExternalLink>
+              <ExternalLink id="hero-scholar" href={profile.scholar}><GraduationCap className="social-icon" aria-hidden="true" />Google Scholar</ExternalLink>
+              <ExternalLink id="hero-github" href={profile.github}><CodeXml className="social-icon" aria-hidden="true" />GitHub</ExternalLink>
+              <ExternalLink id="hero-linkedin" href={profile.linkedin}><BriefcaseBusiness className="social-icon" aria-hidden="true" />LinkedIn</ExternalLink>
             </div>
           </div>
         </div>
@@ -222,7 +211,16 @@ export function Hero() {
               <span className="portrait-energy-ring portrait-energy-ring-two"><i /></span>
               <span className="portrait-energy-dust" />
             </div>
-            <div className="portrait-topline"><span className="tiny-cross">+</span><span><Dual en="THE HUMAN BEHIND THE RESEARCH" ko="연구 뒤의 사람" /></span><span className="tiny-cross">+</span></div>
+            <div className="portrait-topline"><span className="tiny-cross"><Plus size={14} strokeWidth={1.8} aria-hidden="true" /></span><span><Dual en="THE HUMAN BEHIND THE RESEARCH" ko="연구 뒤의 사람" /></span>
+              <CopyButton
+                className="portrait-share"
+                text={`${SITE_ORIGIN}${langPrefix(lang)}/`}
+                message={localized(lang, 'Profile link copied', '프로필 링크를 복사했습니다')}
+                ariaLabel={localized(lang, 'Share this profile (copy link)', '프로필 공유 (링크 복사)')}
+              >
+                <ShareIcon />
+              </CopyButton>
+            </div>
             <svg ref={orbitRef} className="portrait-orbits motion-orbits" viewBox="0 0 420 420" aria-hidden="true">
               <ellipse cx="210" cy="200" rx="191" ry="125" transform="rotate(-34 210 200)" />
               <ellipse cx="210" cy="200" rx="191" ry="125" transform="rotate(34 210 200)" />

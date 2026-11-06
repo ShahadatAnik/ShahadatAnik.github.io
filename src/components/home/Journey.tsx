@@ -1,7 +1,7 @@
-import { B, Dual, ExternalLink, Period, Reveal, SectionHeading, T } from '../ui'
+import { B, Dual, ExternalLink, Period, Reveal, SectionHeading, T } from '@/components/ui'
 import { useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { PROFILE_DATA } from '../../data/content'
+import { PROFILE_DATA } from '@/data/content'
 
 const { education, honors, publications, research, profile } = PROFILE_DATA
 const totalCitations = publications.reduce((sum, paper) => sum + (paper.citations ?? 0), 0)

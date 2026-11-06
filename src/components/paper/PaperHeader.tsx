@@ -1,5 +1,5 @@
-import { Brand, LanguageSwitch, ThemeToggle } from '../ui'
-import { langPrefix, type Lang } from '../../lib/lang'
+import { Brand, LanguageSwitch, ThemeToggle } from '@/components/ui'
+import { langPrefix, type Lang } from '@/lib/lang'
 
 type Props = { id: string; lang: Lang }
 

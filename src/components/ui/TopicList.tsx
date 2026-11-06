@@ -1,4 +1,4 @@
-import { topicLabel } from '../../data/i18n'
+import { topicLabel } from '@/data/i18n'
 import { B } from './Text'
 
 /** A paper's research topics, as bilingual labels. */

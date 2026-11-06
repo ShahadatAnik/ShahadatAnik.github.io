@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { PaperPage } from '../../../components/paper/PaperPage'
-import { PAPER_IDS, paperHead } from '../../../data/seo'
-import type { Lang } from '../../../lib/lang'
+import { PaperPage } from '@/components/paper/PaperPage'
+import { PAPER_IDS, paperHead } from '@/data/seo'
+import type { Lang } from '@/lib/lang'
 
 const langOf = (locale?: string): Lang => (locale === 'kr' ? 'ko' : 'en')
 

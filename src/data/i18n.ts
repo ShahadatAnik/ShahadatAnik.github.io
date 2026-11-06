@@ -1,5 +1,5 @@
-import type { Lang } from '../lib/lang'
-import { siteConfig, type TopicId } from '../site.config'
+import type { Lang } from '@/lib/lang'
+import { siteConfig, type TopicId } from '@/site.config'
 import { bi } from './content'
 
 const topic = (id: TopicId) => bi(siteConfig.research.find((r) => r.id === id)!.title)
@@ -48,6 +48,7 @@ export const T = {
   experienceTitle: { en: 'Research and engineering.', ko: '연구와 개발' },
   experienceIntro: { en: 'Research, production software, and the projects in between.', ko: '연구, 실무 소프트웨어, 그리고 그 사이의 프로젝트들.' },
   toolbox: { en: 'Technical skills', ko: '기술 스택' },
+  rolesTitle: { en: 'Roles and projects', ko: '경력 및 프로젝트' },
   writingTitle: { en: 'Making ideas accessible.', ko: '지식을 더 쉽게' },
   writingIntro: { en: 'Technology writing as Zicy · 200,000+ cumulative reads.', ko: '' },
   blog: { en: 'Personal blog', ko: '블로그' },
@@ -57,7 +58,7 @@ export const T = {
     en: 'Interested in brain–AI interfaces, computer vision or multimodal learning? I am open to research collaborations.',
     ko: '뇌-AI 인터페이스, 컴퓨터 비전, 멀티모달 학습에 관심이 있으신가요? 공동 연구를 환영합니다.',
   },
-  backTop: { en: 'Back to top ↑', ko: '맨 위로 ↑' },
+  backTop: { en: 'Back to top', ko: '맨 위로' },
   footerNote: { en: 'Built with curiosity.', ko: '호기심으로 만들었습니다.' },
   paperDetails: { en: 'Research overview', ko: '연구 개요' },
   // Strings that were inline in the original markup / scripts.

@@ -1,10 +1,11 @@
-import { Authors, B, CopyButton, Dual, ExternalLink, Highlight, SectionHeading, T, TopicList, useLang } from '../ui'
+import { ChevronDown, Plus, Search, X } from 'lucide-react'
+import { Authors, B, CopyButton, CopyIcon, Dual, ExternalLink, Glyph, Highlight, SectionHeading, T, TopicList, useLang } from '@/components/ui'
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
-import { PROFILE_DATA, type Publication } from '../../data/content'
-import { paperLinks } from '../../data/papers'
-import { TOPICS, localized, paperPath, topicLabel, type TopicFilter } from '../../data/i18n'
-import { useActiveIndicator } from '../../hooks/useActiveIndicator'
-import { useMotion } from '../../hooks/useMotion'
+import { PROFILE_DATA, type Publication } from '@/data/content'
+import { paperLinks } from '@/data/papers'
+import { TOPICS, localized, paperPath, topicLabel, type TopicFilter } from '@/data/i18n'
+import { useActiveIndicator } from '@/hooks/useActiveIndicator'
+import { useMotion } from '@/hooks/useMotion'
 import { PaperDialog } from './PaperDialog'
 
 const { publications, profile } = PROFILE_DATA
@@ -135,7 +136,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
           </div>
           <div className="publication-tools">
             <div className="search-field">
-              <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+              <Search aria-hidden="true" />
               <input
                 ref={searchRef}
                 id="paper-search"
@@ -157,7 +158,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                   searchRef.current?.focus()
                 }}
               >
-                <span aria-hidden="true">×</span>
+                <X className="x-icon" aria-hidden="true" />
               </button>
             </div>
             <label className="year-field">
@@ -166,18 +167,19 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                 <option value="all">{localized(lang, 'All years', '전체 연도')}</option>
                 {YEARS.map((year) => <option key={year} value={year}>{year}</option>)}
               </select>
+              <ChevronDown className="year-chevron" aria-hidden="true" />
             </label>
           </div>
         </div>
         <div id="active-filters" className="active-filters" aria-label="Active filters / 적용된 필터" hidden={filters.topic === 'all' && filters.year === 'all'}>
           {filters.topic !== 'all' && (
             <button type="button" className="filter-chip" data-clear-filter="topic" aria-label={localized(lang, 'Remove topic filter', '연구 분야 필터 해제')} onClick={() => set({ topic: 'all' })}>
-              <B value={topicLabel(filters.topic)} /><span aria-hidden="true">×</span>
+              <B value={topicLabel(filters.topic)} /><X className="x-icon" aria-hidden="true" />
             </button>
           )}
           {filters.year !== 'all' && (
             <button type="button" className="filter-chip" data-clear-filter="year" aria-label={localized(lang, 'Remove year filter', '연도 필터 해제')} onClick={() => set({ year: 'all' })}>
-              {filters.year}<span aria-hidden="true">×</span>
+              {filters.year}<X className="x-icon" aria-hidden="true" />
             </button>
           )}
         </div>
@@ -227,10 +229,10 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                   </div>
                   <div className="pub-secondary-actions">
                     <button type="button" data-open={paper.id} onClick={(event) => openPaper(paper, event.currentTarget)}>
-                      <T k="overview" /><span className="action-symbol" aria-hidden="true">+</span>
+                      <T k="overview" /><Glyph icon={Plus} className="action-symbol" strokeWidth={2.2} />
                     </button>
                     <CopyButton text={paper.bibtex} message={localized(lang, 'BibTeX copied', 'BibTeX를 복사했습니다')}>
-                      <T k="cite" /><span className="action-symbol" aria-hidden="true">⧉</span>
+                      <T k="cite" /><CopyIcon />
                     </CopyButton>
                   </div>
                 </div>

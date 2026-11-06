@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
-import { PROFILE_DATA, type Publication } from '../../data/content'
-import { localized } from '../../data/i18n'
+import { PROFILE_DATA, type Publication } from '@/data/content'
+import { localized } from '@/data/i18n'
 import { Highlight } from './Highlight'
 import { useLang } from './lang'
 

@@ -1,6 +1,7 @@
-import { CopyButton, Eyebrow, ExternalLink, Reveal, T, useLang } from '../ui'
-import { PROFILE_DATA } from '../../data/content'
-import { localized } from '../../data/i18n'
+import { ArrowUp, ArrowUpRight } from 'lucide-react'
+import { CopyButton, CopyIcon, Eyebrow, ExternalLink, Glyph, Reveal, T, useLang } from '@/components/ui'
+import { PROFILE_DATA } from '@/data/content'
+import { localized } from '@/data/i18n'
 
 const { profile } = PROFILE_DATA
 
@@ -16,7 +17,7 @@ export function Contact() {
             <p><T k="contactIntro" /></p>
           </div>
           <a className="contact-arrow" href={`mailto:${profile.email}`} aria-label="Send an email / 이메일 보내기">
-            <span className="contact-arrow-glyph" aria-hidden="true">↗</span>
+            <Glyph icon={ArrowUpRight} className="contact-arrow-glyph" strokeWidth={1.6} />
           </a>
         </Reveal>
         <div className="email-row">
@@ -28,7 +29,7 @@ export function Contact() {
             message={localized(lang, 'Email address copied', '이메일 주소를 복사했습니다')}
             ariaLabel="Copy email / 이메일 복사"
           >
-            <svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V4H4v12h4" /></svg>
+            <CopyIcon />
           </CopyButton>
         </div>
         <Footer />
@@ -45,7 +46,7 @@ function Footer() {
         <ExternalLink id="footer-github" href={profile.github}>GitHub</ExternalLink>
         <ExternalLink id="footer-linkedin" href={profile.linkedin}>LinkedIn</ExternalLink>
         <ExternalLink id="footer-scholar" href={profile.scholar}>Scholar</ExternalLink>
-        <a href="#home"><T k="backTop" /></a>
+        <a href="#home"><T k="backTop" /><Glyph icon={ArrowUp} className="link-arrow back-arrow" strokeWidth={2.1} /></a>
       </div>
     </div>
   )

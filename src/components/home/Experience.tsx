@@ -1,10 +1,11 @@
-import { B, Dual, Eyebrow, ExternalLink, Period, Reveal, SectionHeading, T } from '../ui'
+import { Minus, Plus } from 'lucide-react'
+import { B, Dual, ExternalLink, Glyph, Period, Reveal, SectionHeading, T } from '@/components/ui'
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
-import { PROFILE_DATA, bi } from '../../data/content'
-import { siteConfig } from '../../site.config'
-import { useMotion } from '../../hooks/useMotion'
+import { PROFILE_DATA, bi } from '@/data/content'
+import { siteConfig } from '@/site.config'
+import { useMotion } from '@/hooks/useMotion'
 import { motion } from 'framer-motion'
-import { useReveal } from '../../hooks/useReveal'
+import { useReveal } from '@/hooks/useReveal'
 
 const { experience } = PROFILE_DATA
 
@@ -59,7 +60,7 @@ function ExperienceItem({ entry, defaultOpen = false }: { entry: ExperienceEntry
           <span className="period"><Period text={entry.period} /></span>
           <span className="title"><B value={entry.title} /></span>
         </div>
-        <span className="expand-icon" aria-hidden="true">{expanded ? '−' : '+'}</span>
+        <Glyph className="expand-icon" icon={expanded ? Minus : Plus} strokeWidth={2.2} />
       </summary>
       <div ref={contentRef} className="experience-content">
         <div className="experience-detail">
@@ -96,14 +97,17 @@ export function Experience() {
         <div className="experience-grid">
           <Reveal className="experience-aside">
             <div className="skills-block">
-              <Eyebrow><T k="toolbox" /></Eyebrow>
+              <h3 className="subheading"><T k="toolbox" /></h3>
               <Skills />
             </div>
           </Reveal>
-          <div id="experience-list" className="experience-list">
-            {experience.map((entry, index) => (
-              <ExperienceItem key={`${entry.period}-${entry.title.en}`} entry={entry} defaultOpen={index === 0} />
-            ))}
+          <div className="experience-roles">
+            <h3 className="subheading"><T k="rolesTitle" /></h3>
+            <div id="experience-list" className="experience-list">
+              {experience.map((entry, index) => (
+                <ExperienceItem key={`${entry.period}-${entry.title.en}`} entry={entry} defaultOpen={index === 0} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

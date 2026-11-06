@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { localized } from '../../data/i18n'
-import { copyText, useToast } from '../../hooks/useToast'
+import { localized } from '@/data/i18n'
+import { copyText, useToast } from '@/hooks/useToast'
+import { Check } from 'lucide-react'
 import { Dual } from './Dual'
+import { Glyph } from './Glyph'
 import { useLang } from './lang'
 
 interface CopyButtonProps {
@@ -42,7 +44,7 @@ export function CopyButton({ text, message, className, id, ariaLabel, children }
     >
       {copied ? (
         <>
-          <span aria-hidden="true">✓</span>
+          <Glyph icon={Check} strokeWidth={2.4} />
           <span><Dual en="Copied" ko="복사됨" /></span>
         </>
       ) : (

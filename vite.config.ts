@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
@@ -8,6 +9,8 @@ const pages = ['', '/kr'].flatMap((prefix) => [`${prefix}/`, ...paperIds.map((id
 
 export default defineConfig({
   server: { port: 3000 },
+  // `@/` means the src folder, so imports never climb with ../../
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   plugins: [
     tailwindcss(),
     tanstackStart({

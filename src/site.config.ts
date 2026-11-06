@@ -170,17 +170,25 @@ export const siteConfig = {
 			ko: 'Md Shahadat Anik Sheikh | 경희대학교 | 뇌-AI & BCI',
 		} satisfies Text,
 		description: {
-			en: 'Md Shahadat Anik Sheikh is an M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University, working on brain-AI interfaces, brainwave-language models, computer vision and multimodal learning.',
-			ko: 'Md Shahadat Anik Sheikh은 경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생으로, 뇌-AI 인터페이스, 뇌파-언어 모델, 컴퓨터 비전, 멀티모달 학습을 연구합니다.',
+			en: 'M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. Building brain–AI interfaces and a brainwave-language model for non-verbal communication.',
+			ko: '경희대학교 산업AI연구실 연구조교, 석박사 통합과정. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
 		} satisfies Text,
 		jobTitle: 'Research Assistant, M.S.+Ph.D. student',
 		organization: 'Kyung Hee University',
 		knowsAbout: [
 			'Brain-computer interfaces',
 			'Brain-AI',
+			'EEG',
+			'Brainwave-language models',
 			'Computer vision',
 			'Multimodal learning',
 		],
+		/** Words search engines and social cards may pick up. */
+		keywords: ['Brain-AI', 'BCI', 'EEG', 'Kyung Hee University', 'Industrial AI Lab', 'deep learning', 'computer vision'],
+		/** Link-preview images in /public/assets (regenerate with `bun scripts/make-og-image.mjs`). */
+		image: { en: '/assets/og-image.png', ko: '/assets/og-image-kr.png', width: 1200, height: 630 },
+		firstName: 'Md Shahadat',
+		lastName: 'Sheikh',
 	},
 
 	interests: [

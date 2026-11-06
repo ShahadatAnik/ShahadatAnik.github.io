@@ -1,15 +1,16 @@
-import '../../styles/styles.css'
-import '../../styles/readability.css'
-import '../../styles/polish.css'
-import '../../styles/paper.css'
-import { PROFILE_DATA } from '../../data/content'
-import { paperLinks } from '../../data/papers'
-import { findPaper } from '../../data/seo'
-import { langPrefix, type Lang } from '../../lib/lang'
-import { formatDate } from '../../lib/format'
-import { Arrow, Authors, CopyButton, Dual, ExternalLink, LangContext, TopicList } from '../ui'
-import { ToastProvider } from '../../hooks/useToast'
-import { SITE_ORIGIN, localized, paperPath } from '../../data/i18n'
+import { ArrowLeft } from 'lucide-react'
+import '@/styles/styles.css'
+import '@/styles/readability.css'
+import '@/styles/polish.css'
+import '@/styles/paper.css'
+import { PROFILE_DATA } from '@/data/content'
+import { paperLinks } from '@/data/papers'
+import { findPaper } from '@/data/seo'
+import { langPrefix, type Lang } from '@/lib/lang'
+import { formatDate } from '@/lib/format'
+import { Arrow, Authors, CopyButton, Dual, ExternalLink, LangContext, TopicList } from '@/components/ui'
+import { ToastProvider } from '@/hooks/useToast'
+import { SITE_ORIGIN, localized, paperPath } from '@/data/i18n'
 import { PaperHeader } from './PaperHeader'
 
 type Bilingual = { en: string; ko: string }
@@ -51,7 +52,7 @@ function PaperArticle({ id, lang }: { id: string; lang: Lang }) {
       <PaperHeader id={id} lang={lang} />
       <main id="paper-main" className="paper-main page-width">
         <a className="paper-back" href={`${home}#publications`}>
-          ← <Dual en="All publications" ko="전체 연구 성과" />
+          <ArrowLeft className="back-icon" aria-hidden="true" /> <Dual en="All publications" ko="전체 연구 성과" />
         </a>
         <article className="paper-article">
           <div className="paper-eyebrow">

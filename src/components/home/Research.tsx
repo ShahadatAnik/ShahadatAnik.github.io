@@ -1,9 +1,9 @@
-import { Arrow, B, Dual, Reveal, SectionHeading, T } from '../ui'
+import { Arrow, B, Dual, Reveal, SectionHeading, T } from '@/components/ui'
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
-import { PROFILE_DATA } from '../../data/content'
-import type { TopicId } from '../../data/i18n'
-import { useInView } from '../../hooks/useInView'
-import { useMotion } from '../../hooks/useMotion'
+import { PROFILE_DATA } from '@/data/content'
+import type { TopicId } from '@/data/i18n'
+import { useInView } from '@/hooks/useInView'
+import { useMotion } from '@/hooks/useMotion'
 
 const { research, publications } = PROFILE_DATA
 

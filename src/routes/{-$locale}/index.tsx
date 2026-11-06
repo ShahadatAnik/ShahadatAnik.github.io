@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { HomePage } from '../../components/HomePage'
-import { homeHead } from '../../data/seo'
-import type { Lang } from '../../lib/lang'
+import { HomePage } from '@/components/HomePage'
+import { homeHead } from '@/data/seo'
+import type { Lang } from '@/lib/lang'
 
 const langOf = (locale?: string): Lang => (locale === 'kr' ? 'ko' : 'en')
 

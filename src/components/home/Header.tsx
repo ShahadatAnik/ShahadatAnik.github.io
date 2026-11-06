@@ -1,10 +1,11 @@
-import { B, Brand, LanguageSwitch, ThemeToggle, useLang } from '../ui'
+import { Menu } from 'lucide-react'
+import { B, Brand, LanguageSwitch, ThemeToggle, useLang } from '@/components/ui'
 import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion'
 import { useRef, useState, type CSSProperties } from 'react'
-import { NAV_ITEMS, localized } from '../../data/i18n'
-import { PROFILE_DATA } from '../../data/content'
-import { useActiveIndicator } from '../../hooks/useActiveIndicator'
-import { useActiveSection } from '../../hooks/useActiveSection'
+import { NAV_ITEMS, localized } from '@/data/i18n'
+import { PROFILE_DATA } from '@/data/content'
+import { useActiveIndicator } from '@/hooks/useActiveIndicator'
+import { useActiveSection } from '@/hooks/useActiveSection'
 
 const NAV_HASHES = NAV_ITEMS.map((item) => item.hash)
 
@@ -65,7 +66,7 @@ export function Header() {
               aria-controls="mobile-nav"
               onClick={() => setMenuOpen((open) => !open)}
             >
-              <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+              <Menu aria-hidden="true" />
             </button>
           </div>
         </div>
