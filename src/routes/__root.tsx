@@ -2,6 +2,7 @@
 import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
 import appCss from '@/styles.css?url'
 import { langFromPath } from '@/lib/lang'
+import { analyticsScripts } from '@/data/seo'
 
 // Applies the saved theme / motion preference before first paint (same logic as the original site).
 const THEME_INIT = `try{document.documentElement.dataset.theme=localStorage.getItem("zz-theme")||"dark";document.documentElement.dataset.motionPaused=String(localStorage.getItem("zz-motion-paused")==="true"||matchMedia("(prefers-reduced-motion:reduce)").matches)}catch(e){}`
@@ -15,7 +16,7 @@ export const Route = createRootRoute({
       { rel: 'apple-touch-icon', href: '/assets/icon-512.png' },
       { rel: 'stylesheet', href: appCss },
     ],
-    scripts: [{ children: THEME_INIT }],
+    scripts: [{ children: THEME_INIT }, ...analyticsScripts()],
   }),
   component: RootDocument,
   notFoundComponent: NotFound,

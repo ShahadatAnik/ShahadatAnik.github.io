@@ -78,3 +78,9 @@ Every page ships Open Graph and Twitter/X card tags, so a shared link shows a la
 - Social sites cache previews. After deploying, refresh them with the LinkedIn Post Inspector (linkedin.com/post-inspector), the Facebook Sharing Debugger (developers.facebook.com/tools/debug), and by posting the link once on X. Messaging apps (WhatsApp, Telegram, Slack) refresh on their own after a while.
 
 Also on every page: canonical URL, `hreflang` (en, ko, x-default), `robots` with large image previews allowed, `author`, keywords, and structured data (Person with LinkedIn, GitHub and Scholar in `sameAs`, plus the universities you attended).
+
+## Google Analytics 4
+
+Put your measurement ID (looks like `G-XXXXXXXXXX`, from Analytics > Admin > Data streams > your web stream) in `site.analyticsId` in `src/site.config.ts`. While it is empty nothing is tracked. The tag is added to every page, and only in the production build, so `bun run dev` never sends data. English/Korean switches and paper pages are counted through GA4's built-in history-change tracking.
+
+Visitors from the EU may need a cookie consent banner for Google Analytics. Add one before promoting the site there.

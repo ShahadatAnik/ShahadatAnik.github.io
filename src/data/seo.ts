@@ -20,6 +20,7 @@ const IMAGE_ALT = {
   ko: `${siteConfig.profile.name}: 경희대학교 뇌-AI & BCI 연구자`,
 } as const
 const GOOGLE_VERIFICATION = siteConfig.site.googleVerification
+const ANALYTICS_ID = siteConfig.site.analyticsId
 const FONTS =
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap'
 
@@ -230,4 +231,21 @@ export function paperHead(id: string, lang: Lang): HeadResult {
       ]),
     ],
   }
+}
+
+/* ------------------------------ Analytics ------------------------------- */
+
+/**
+ * Google Analytics 4 (gtag.js). Added to every page from the root route.
+ * Only in the production build (so local development never pollutes the data) and only for a valid "G-..." ID.
+ * Language switches are client-side navigations; GA4 records them through its built-in history-change measurement.
+ */
+export function analyticsScripts(): { children: string }[] {
+  if (!import.meta.env.PROD || !/^G-[A-Z0-9]{4,}$/.test(ANALYTICS_ID)) return []
+  // The loader is inline (it adds gtag.js asynchronously) because the router's head does not output external <script src> tags.
+  return [
+    {
+      children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${ANALYTICS_ID}');(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}';document.head.appendChild(s)})();`,
+    },
+  ]
 }

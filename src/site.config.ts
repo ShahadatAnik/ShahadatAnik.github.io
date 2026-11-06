@@ -91,7 +91,9 @@ export const siteConfig = {
 		/** Public address of the site (no trailing slash). */
 		url: 'https://shahadatanik.github.io',
 		/** Issued by Google Search Console; leave empty until you have it. */
-		googleVerification: '',
+		googleVerification: '4du-UWtp4U4t5MkGRgYbQue0BAwoqhUxZSiloq0sG0Q',
+		/** Google Analytics 4 measurement ID, like 'G-XXXXXXXXXX' (Analytics > Admin > Data streams). Leave empty for no tracking. */
+		analyticsId: '',
 	},
 
 	profile: {
