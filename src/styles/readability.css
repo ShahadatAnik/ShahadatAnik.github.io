@@ -14,7 +14,6 @@ body { font-size: 17px; }
 .social-links { font-size: 13px; gap: 24px; }
 .social-links .ko { font-size: 12px; }
 .floating-label { font-size: 11px; }
-.portrait-foot { font-size: 10px; justify-content: flex-end; }
 .affiliation strong { font-size: 14px; }
 .affiliation .ko { font-size: 12px; }
 .affiliation > div > span { font-size: 12px; }
@@ -187,7 +186,6 @@ html[data-language=ko] .pub-title-ko { font-size: 21px; }
   .floating-label { font-size: 10px; }
   .label-one { left: 10px; }
   .label-two { right: 7px; }
-  .portrait-foot { font-size: 9px; letter-spacing: .6px; }
   .affiliation-strip { grid-template-columns: 1fr; gap: 22px; }
   .affiliation { gap: 15px; align-items: center; }
   .affiliation > div { max-width: none; }

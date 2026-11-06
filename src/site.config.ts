@@ -75,9 +75,10 @@ export interface Experience {
 }
 
 export interface Affiliation {
-	/** Letters in the badge, and the small word under it. */
-	mark: string;
-	markSub: string;
+	/** Logo image, as a path under /public (for example '/assets/logos/khu.png'). */
+	logo: string;
+	/** Says how it relates to you, e.g. 'Studying at' or 'Previously at'. */
+	relation: Text;
 	name: Text;
 	detail: Text;
 	url?: string;
@@ -126,8 +127,8 @@ export const siteConfig = {
 			ko: '공동 연구 환영',
 		} satisfies Text,
 		bio: {
-			en: 'I am a combined M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab (Big Data Analytics), Kyung Hee University. I work on brain-AI interfaces and a brainwave-language model for non-verbal communication, with a background in deep learning, computer vision and ERP software engineering.',
-			ko: '경희대학교 산업AI연구실(빅데이터 분석) 연구조교이자 석박사 통합과정 학생입니다. 비언어 의사소통을 위한 뇌-AI 인터페이스와 뇌파-언어 모델을 연구하며, 딥러닝, 컴퓨터 비전, ERP 소프트웨어 엔지니어링 경험이 있습니다.',
+			en: 'I am a combined M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. I build brain–AI interfaces and a brainwave-language model that help people communicate without speaking.',
+			ko: '경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생입니다. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
 		} satisfies Text,
 		/** Line under the portrait. */
 		role: {
@@ -141,8 +142,8 @@ export const siteConfig = {
 	/** The two organisations shown under the hero. */
 	affiliations: [
 		{
-			mark: 'KHU',
-			markSub: 'SEOUL',
+			logo: '/assets/logos/khu.png',
+			relation: { en: 'Studying and researching at', ko: '현재 소속' },
 			name: { en: 'Kyung Hee University', ko: '경희대학교' },
 			detail: {
 				en: 'M.S.+Ph.D. · Industrial AI Lab · 2026-present',
@@ -151,8 +152,8 @@ export const siteConfig = {
 			url: 'https://www.khu.ac.kr/kor/user/main/view.do',
 		},
 		{
-			mark: 'ST',
-			markSub: 'DHAKA',
+			logo: '/assets/logos/synaptech.png',
+			relation: { en: 'Previously worked at', ko: '이전 직장' },
 			name: { en: 'SynapTech', ko: 'SynapTech' },
 			detail: {
 				en: 'Software Engineer & Team Lead · 2023.06-2026.08',

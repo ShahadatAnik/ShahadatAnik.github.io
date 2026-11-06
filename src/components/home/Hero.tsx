@@ -73,6 +73,39 @@ function HeroStatement() {
   )
 }
 
+type AffiliationItem = (typeof siteConfig.affiliations)[number]
+
+/** One institution. With a url the whole card is the link: it lifts, follows the pointer with a soft glow, and underlines the name. */
+function AffiliationCard({ item, current }: { item: AffiliationItem; current: boolean }) {
+  const className = current ? 'affiliation is-current' : 'affiliation'
+  const spot = (event: ReactPointerEvent<HTMLElement>) => {
+    const node = event.currentTarget
+    const bounds = node.getBoundingClientRect()
+    node.style.setProperty('--spot-x', `${event.clientX - bounds.left}px`)
+    node.style.setProperty('--spot-y', `${event.clientY - bounds.top}px`)
+  }
+  const body = (
+    <>
+      <span className="institution-mark"><img src={item.logo} alt="" loading="lazy" /></span>
+      <div>
+        <span className="affiliation-relation"><Dual en={item.relation.en} ko={bi(item.relation).ko} /></span>
+        <strong>
+          <span className="affiliation-name">
+            <Dual en={item.name.en} ko={bi(item.name).ko} />
+            {'url' in item && item.url && <Arrow />}
+          </span>
+        </strong>
+        <span><Dual en={item.detail.en} ko={bi(item.detail).ko} /></span>
+      </div>
+    </>
+  )
+  return 'url' in item && item.url ? (
+    <ExternalLink className={className} href={item.url} arrow={false} onPointerMove={spot}>{body}</ExternalLink>
+  ) : (
+    <div className={className} onPointerMove={spot}>{body}</div>
+  )
+}
+
 export function Hero() {
   const { userPaused, reduced, running, toggle } = useMotion()
   const heroRef = useRef<HTMLDivElement>(null)
@@ -133,21 +166,18 @@ export function Hero() {
         <div className="hero-copy">
           <div className="eyebrow"><span className="status-dot" /><span><T k="heroEyebrow" /></span></div>
           <h1><Name name={siteConfig.profile.name} /><span className="name-period">.</span></h1>
-          <a className="job-status" href="#contact">
-            <span className="job-status-indicator" aria-hidden="true" />
-            <span><T k="jobStatus" /></span>
-            <Arrow />
-          </a>
           <HeroStatement />
           <div className="hero-bio"><T k="bio" /></div>
           <div className="hero-actions">
-            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><Arrow /></a>
+            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><span className="down-arrow" aria-hidden="true">↓</span></a>
+            <a className="button secondary" href="#contact"><span><T k="getInTouch" /></span></a>
           </div>
-          <div className="social-links">
-            <ExternalLink id="hero-scholar" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar</ExternalLink>
-            <ExternalLink id="hero-github" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub</ExternalLink>
-            <ExternalLink id="hero-linkedin" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn</ExternalLink>
-            <a href={`mailto:${profile.email}`}><SocialIcon d={SOCIAL_ICONS.email} /><T k="emailLink" /></a>
+          <div className="hero-meta">
+            <div className="social-links">
+              <ExternalLink id="hero-scholar" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar</ExternalLink>
+              <ExternalLink id="hero-github" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub</ExternalLink>
+              <ExternalLink id="hero-linkedin" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn</ExternalLink>
+            </div>
           </div>
         </div>
         <div ref={heroRef} className="hero-visual">
@@ -227,7 +257,11 @@ export function Hero() {
             </div>
             <span className="signal-word-label" aria-hidden="true"><Dual en="Hello." ko="안녕하세요." /></span>
           </div>
-          <div className="portrait-foot"><span><T k="portraitFoot" /></span></div>
+          <p className="job-status">
+            <span className="job-status-indicator" aria-hidden="true" />
+            <span><T k="jobStatus" /></span>
+          </p>
+          {/* Pause-motion button, hidden for now. Remove these two comment markers to bring it back.
           <div className="motion-controls">
             <button
               type="button"
@@ -246,26 +280,12 @@ export function Hero() {
               <span className="motion-toggle-label"><Dual en={label.en} ko={label.ko} /></span>
             </button>
           </div>
+          */}
         </div>
       </section>
       <div className="affiliation-strip page-width">
         {siteConfig.affiliations.map((item, index) => (
-          <Fragment key={item.mark}>
-            {index > 0 && <span className="affiliation-connector">↔</span>}
-            <div className="affiliation">
-              <span className={index > 0 ? 'institution-mark ntu' : 'institution-mark'}>{item.mark}<span>{item.markSub}</span></span>
-              <div>
-                <strong>
-                  {'url' in item && item.url ? (
-                    <ExternalLink className="affiliation-link" href={item.url}><Dual en={item.name.en} ko={bi(item.name).ko} /></ExternalLink>
-                  ) : (
-                    <Dual en={item.name.en} ko={bi(item.name).ko} />
-                  )}
-                </strong>
-                <span><Dual en={item.detail.en} ko={bi(item.detail).ko} /></span>
-              </div>
-            </div>
-          </Fragment>
+          <AffiliationCard key={item.name.en} item={item} current={index === 0} />
         ))}
         <div className="research-keywords">{siteConfig.hero.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
       </div>

@@ -727,3 +727,111 @@ html[data-theme=light] .map-node.active { color: #fff; }
 .contact-section { background: #2a2542; border-top: 1px solid color-mix(in srgb, var(--purple) 35%, transparent); }
 .contact-section .eyebrow { color: var(--purple); }
 @media print { .contact-section { background: transparent; } }
+
+/* Hero: one clear order (who -> what -> how to act), with calm spacing between the steps. */
+.hero-copy > .eyebrow { margin-bottom: 18px; }
+.hero h1 { font-size: clamp(40px, 4.6vw, 62px); letter-spacing: -2px; line-height: 1.06; }
+@media (min-width: 1450px) { .hero h1 { font-size: 66px; } }
+@media (max-width: 720px) { .hero h1 { font-size: 40px; letter-spacing: -1.4px; } }
+.hero-statement { margin-top: 26px; }
+.hero-bio { margin-top: 24px; max-width: 520px; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 32px; width: auto; }
+.hero-actions .button { gap: 10px; }
+.hero-actions .button.secondary { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+.hero-actions .button.secondary:hover { border-color: var(--purple); color: var(--purple); }
+.down-arrow { display: inline-block; transition: transform .2s var(--ease-out); }
+.button:is(:hover, :focus-visible) > .down-arrow { transform: translateY(2px); }
+.social-links { margin-top: 28px; }
+
+/* The availability note is now a quiet chip next to the buttons, not a second call to action. */
+.hero-actions .job-status { min-height: 0; margin: 0 0 0 6px; padding: 7px 14px 7px 12px; gap: 9px; border: 0; background: var(--lavender); color: var(--purple); box-shadow: none; font-size: 14px; font-weight: 600; }
+.hero-actions .job-status > span:last-child { font-size: inherit; line-height: 1.3; }
+.hero-actions .job-status-indicator { width: 8px; height: 8px; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent); }
+.hero-actions .job-status:hover { background: color-mix(in srgb, var(--purple) 20%, var(--lavender)); box-shadow: none; transform: none; }
+@media (max-width: 650px) { .hero-actions .job-status { margin-left: 0; font-size: 13px; } }
+@media (prefers-reduced-motion: reduce) { .down-arrow { transition: none; } }
+
+/* Affiliations: two cards (where I am now, where I was) instead of two lines joined by an arrow. */
+.affiliation-strip { display: flex; flex-wrap: wrap; align-items: stretch; gap: 16px; padding-block: 8px 44px; border: 0; }
+.affiliation { position: relative; align-items: center; gap: 16px; padding: 16px 26px 16px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); transition: border-color .2s, box-shadow .2s, transform .22s var(--ease-out); }
+.affiliation:hover { border-color: color-mix(in srgb, var(--purple) 50%, var(--line)); box-shadow: 0 12px 32px color-mix(in srgb, var(--purple) 10%, transparent); transform: translateY(-2px); }
+.institution-mark { width: 68px; height: 68px; flex: none; display: grid; place-content: center; justify-items: center; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); font-size: 23px; }
+.institution-mark > span { margin-top: 4px; font-size: 6px; }
+.institution-mark.ntu { font-size: 24px; }
+.affiliation strong { font-size: 16px; line-height: 1.4; }
+.affiliation > div > span { margin-top: 4px; font-size: 13px; line-height: 1.5; }
+.affiliation > div > span .ko { font-size: 12px; }
+.research-keywords { margin-left: auto; align-self: center; max-width: 260px; justify-content: flex-end; }
+@media (max-width: 900px) { .research-keywords { margin-left: 0; max-width: none; justify-content: flex-start; width: 100%; } }
+@media (max-width: 650px) {
+  .affiliation-strip { display: flex; flex-direction: column; align-items: stretch; gap: 12px; padding-block: 4px 32px; }
+  .affiliation { padding: 14px 18px 14px 14px; }
+  .institution-mark { width: 58px; height: 58px; font-size: 20px; }
+  .affiliation strong { font-size: 15px; }
+  .affiliation > div { max-width: none; }
+  .affiliation > div > span { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .affiliation { transition: none; } .affiliation:hover { transform: none; } }
+
+/* Affiliations: real logos on a white tile (readable in both themes); the cards share the full width. */
+.affiliation-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.affiliation { min-width: 0; }
+.institution-mark { width: 76px; height: 76px; padding: 8px; background: #fff; border-color: color-mix(in srgb, var(--ink) 12%, transparent); }
+.institution-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.research-keywords { grid-column: 1 / -1; margin: 4px 0 0; max-width: none; width: 100%; justify-content: flex-start; align-self: auto; }
+@media (max-width: 650px) {
+  .affiliation-strip { grid-template-columns: minmax(0, 1fr); }
+  .institution-mark { width: 62px; height: 62px; padding: 6px; }
+}
+
+/* Hero rhythm: eyebrow 18 -> name 26 -> headline 24 -> bio 32 -> buttons 24 -> status + links. Same steps at every width. */
+.hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; margin-top: 24px; }
+.hero-meta .social-links { margin: 0; gap: 14px 22px; flex-wrap: wrap; }
+.hero-meta .job-status { min-height: 0; margin: 0; padding: 7px 14px 7px 12px; gap: 9px; border: 0; background: var(--lavender); color: var(--purple); box-shadow: none; font-size: 14px; font-weight: 600; line-height: 1.3; transform: none; }
+.hero-meta .job-status > span:last-child { font-size: inherit; line-height: 1.3; }
+.hero-meta .job-status-indicator { width: 8px; height: 8px; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent); }
+.hero-meta .job-status:hover { background: color-mix(in srgb, var(--purple) 20%, var(--lavender)); box-shadow: none; transform: none; }
+.hero-actions { margin-top: 32px; }
+@media (max-width: 650px) { .hero-meta { margin-top: 20px; gap: 12px 20px; } .hero-meta .job-status { font-size: 13px; } .hero-actions { margin-top: 26px; } }
+
+/* Affiliation cards say how they relate to you. */
+.affiliation-strip { margin-top: 24px; padding-block: 0 8px; }
+.affiliation > div > .affiliation-relation { margin: 0 0 6px; font-size: 12px; font-weight: 600; letter-spacing: .2px; color: var(--muted); }
+.affiliation.is-current > div > .affiliation-relation { color: var(--purple); }
+.affiliation.is-current { border-color: color-mix(in srgb, var(--purple) 32%, var(--line)); }
+.affiliation > div > .affiliation-relation .ko { font-size: 12px; }
+@media (max-width: 650px) { .affiliation-strip { margin-top: 16px; } }
+
+/* Affiliation cards: same hover as the research nodes (lift + soft glow under the pointer); the whole card is the link. */
+a.affiliation { color: inherit; text-decoration: none; cursor: pointer; }
+.affiliation { --spot-x: 50%; --spot-y: 50%; overflow: hidden; isolation: isolate; }
+.affiliation::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(180px circle at var(--spot-x) var(--spot-y), color-mix(in srgb, var(--purple) 16%, transparent), transparent 75%); opacity: 0; transition: opacity .25s; }
+.affiliation:is(:hover, :focus-visible)::before { opacity: 1; }
+.affiliation:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+.affiliation-name { position: relative; display: inline-block; padding-bottom: 3px; }
+.affiliation-name::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .22s var(--ease-out); }
+a.affiliation:is(:hover, :focus-visible) .affiliation-name::after { transform: scaleX(1); }
+.affiliation-name > span[aria-hidden] { display: inline-block; margin-left: 2px; font-size: .8em; opacity: .55; transition: transform .2s var(--ease-out), opacity .2s; }
+a.affiliation:is(:hover, :focus-visible) .affiliation-name > span[aria-hidden] { opacity: 1; transform: translate(2px, -2px); }
+@media (prefers-reduced-motion: reduce) { .affiliation::before, .affiliation-name::after, .affiliation-name > span[aria-hidden] { transition: none; } }
+
+/* Availability is plain status text, not a third button: the hero has exactly two actions. */
+.hero-meta .job-status { margin: 0; padding: 0; border: 0; border-radius: 0; background: none; color: var(--muted); font-size: 14px; font-weight: 500; cursor: default; }
+.hero-meta .job-status:hover { background: none; }
+.hero-meta .job-status-indicator { background: var(--purple); box-shadow: 0 0 0 3px color-mix(in srgb, var(--purple) 20%, transparent); }
+
+/* The availability dot breathes: it swells and its halo fades out, slowly, like a status light. */
+@keyframes dot-breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 3px color-mix(in srgb, var(--purple) 24%, transparent); }
+  50% { transform: scale(1.18); box-shadow: 0 0 0 9px color-mix(in srgb, var(--purple) 0%, transparent); }
+}
+.hero-meta .job-status-indicator { animation: dot-breathe 2.6s ease-in-out infinite; }
+html[data-motion-paused=true] .hero-meta .job-status-indicator { animation: none; }
+@media (prefers-reduced-motion: reduce) { .hero-meta .job-status-indicator { animation: none; } }
+
+/* The availability note sits centred under the portrait card. */
+.hero-visual .job-status { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 22px 0 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; transform: none; color: var(--muted); font-size: 15px; font-weight: 500; line-height: 1.4; text-align: center; }
+.hero-visual .job-status > span:last-child { font-size: inherit; line-height: 1.4; }
+.hero-visual .job-status-indicator { width: 9px; height: 9px; flex: none; background: var(--purple); animation: dot-breathe 2.6s ease-in-out infinite; }
+html[data-motion-paused=true] .hero-visual .job-status-indicator { animation: none; }
+@media (prefers-reduced-motion: reduce) { .hero-visual .job-status-indicator { animation: none; } }
