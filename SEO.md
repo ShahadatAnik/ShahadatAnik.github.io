@@ -84,3 +84,21 @@ Also on every page: canonical URL, `hreflang` (en, ko, x-default), `robots` with
 Put your measurement ID (looks like `G-XXXXXXXXXX`, from Analytics > Admin > Data streams > your web stream) in `site.analyticsId` in `src/site.config.ts`. While it is empty nothing is tracked. The tag is added to every page, and only in the production build, so `bun run dev` never sends data. English/Korean switches and paper pages are counted through GA4's built-in history-change tracking.
 
 Visitors from the EU may need a cookie consent banner for Google Analytics. Add one before promoting the site there.
+
+## Photo gallery
+
+The auto-scrolling gallery sits below "Research and engineering". Add photos in `gallery` in `src/site.config.ts`, one entry each:
+
+```ts
+{
+  image: '/assets/gallery/my-photo.jpg',        // file in public/assets/gallery/, landscape 4:3 (about 1200x900), under ~300 KB
+  event: { en: 'Conference talk', ko: '학회 발표' },
+  description: { en: 'One or two sentences: what it was and your part in it.', ko: '…' },
+  date: '2026-05',                              // 'YYYY-MM' or 'YYYY-MM-DD'
+  place: { en: 'Seoul, South Korea', ko: '대한민국 서울' },   // optional
+  alt: { en: 'Short description for screen readers', ko: '…' },  // optional, defaults to the event name
+  url: 'https://…',                             // optional: makes the whole card a link
+}
+```
+
+The five cards with `sample: true` are placeholders and show a "Sample" badge. Delete them (and the `sample-*.svg` files) when you add real photos. Newest first reads best. It scrolls on its own, pauses on hover or keyboard focus, and becomes a swipeable row for visitors who prefer reduced motion. With no entries the section disappears.

@@ -12,6 +12,7 @@ import { useScrollingFlag } from '@/hooks/useScrollingFlag'
 import { ToastProvider } from '@/hooks/useToast'
 import { Contact } from './home/Contact'
 import { Experience } from './home/Experience'
+import { Gallery } from './home/Gallery'
 import { Header } from './home/Header'
 import { Hero } from './home/Hero'
 import { Journey } from './home/Journey'
@@ -42,6 +43,7 @@ function Page() {
         <Publications filters={filters} onFilters={setFilters} />
         <Journey />
         <Experience />
+        <Gallery />
         <Contact />
       </main>
     </>

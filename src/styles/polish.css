@@ -1023,3 +1023,42 @@ html .year-field::after { content: none; }
 .honor-group .honor-item .honor-detail { position: relative; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .honor-group .honor-item .honor-detail .ko { font-size: 13px; }
 .honor-group:hover .honor-item .title { color: var(--purple); }
+
+/* ===================== Gallery ===================== */
+.gallery-section { padding-inline: 0; overflow: hidden; }
+.gallery-marquee { position: relative; outline: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.gallery-track { --gap: 20px; display: flex; gap: var(--gap); width: max-content; margin: 0; padding: 6px 0 10px; list-style: none; animation: gallery-scroll calc(var(--count) * 9s) linear infinite; will-change: transform; }
+@keyframes gallery-scroll { to { transform: translateX(calc(-50% - (var(--gap) / 2))); } }
+.gallery-marquee:is(:hover, :focus-within) .gallery-track, .gallery-marquee:active .gallery-track { animation-play-state: paused; }
+.gallery-item { flex: none; width: 340px; }
+.gallery-link, .gallery-card { display: block; height: 100%; color: inherit; text-decoration: none; }
+.gallery-card { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); box-shadow: 0 4px 10px #29262304; transition: transform .25s var(--ease-out), border-color .25s; }
+.gallery-item:hover .gallery-card, .gallery-link:focus-visible .gallery-card { transform: translateY(-3px); border-color: color-mix(in srgb, var(--purple) 45%, var(--line)); }
+.gallery-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--soft); }
+.gallery-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease-out); }
+.gallery-item:hover .gallery-photo img { transform: scale(1.04); }
+.gallery-sample { position: absolute; top: 12px; left: 12px; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--paper) 78%, transparent); color: var(--ink); font-size: 12px; font-weight: 600; backdrop-filter: blur(6px); }
+.gallery-card figcaption { padding: 16px 18px 20px; }
+.gallery-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 10px; font-size: 13px; line-height: 1.4; color: var(--muted); }
+.gallery-meta > span { display: inline-flex; align-items: center; gap: 6px; }
+.gallery-meta .glyph { color: var(--purple); }
+.gallery-card h3 { margin: 0; font-family: var(--display); font-size: 19px; line-height: 1.35; letter-spacing: -.2px; }
+.gallery-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+@media (max-width: 650px) { .gallery-item { width: 272px; } .gallery-track { --gap: 14px; } .gallery-card h3 { font-size: 18px; } }
+/* No auto-scroll when motion is reduced or paused: a normal row you can swipe or scroll. */
+html[data-motion-paused=true] .gallery-marquee, .gallery-marquee.is-static { overflow-x: auto; scroll-snap-type: x proximity; -webkit-mask-image: none; mask-image: none; padding-inline: 20px; }
+html[data-motion-paused=true] .gallery-track { animation: none; }
+html[data-motion-paused=true] .gallery-item { scroll-snap-align: start; }
+html[data-motion-paused=true] .gallery-item[aria-hidden=true] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .gallery-marquee { overflow-x: auto; scroll-snap-type: x proximity; -webkit-mask-image: none; mask-image: none; padding-inline: 20px; }
+  .gallery-track { animation: none; }
+  .gallery-item { scroll-snap-align: start; }
+  .gallery-item[aria-hidden=true] { display: none; }
+  .gallery-card, .gallery-photo img { transition: none; }
+}
+/* Gallery text sizes (repeated with more specificity, because older mobile heading rules are strong). */
+html .gallery-card figcaption h3 { font-size: 19px; line-height: 1.35; font-weight: 650; }
+html .gallery-card figcaption .gallery-desc { font-size: 15px; line-height: 1.6; }
+html .gallery-card figcaption .gallery-meta { font-size: 13px; }
+@media (max-width: 650px) { html .gallery-card figcaption h3 { font-size: 18px; } }
