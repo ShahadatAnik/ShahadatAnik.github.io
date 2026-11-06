@@ -14,6 +14,8 @@ export const T = {
   navResearch: { en: 'Research', ko: '연구' },
   navPublications: { en: 'Publications', ko: '논문' },
   navJourney: { en: 'Journey', ko: '이력' },
+  navExperience: { en: 'Experience', ko: '경력' },
+  navGallery: { en: 'Gallery', ko: '갤러리' },
   navContact: { en: 'Contact', ko: '연락처' },
   heroEyebrow: bi(siteConfig.hero.eyebrow),
   jobStatus: bi(siteConfig.hero.status),
@@ -104,5 +106,7 @@ export const NAV_ITEMS = [
   { hash: 'research', label: T.navResearch },
   { hash: 'publications', label: T.navPublications },
   { hash: 'journey', label: T.navJourney },
+  { hash: 'experience', label: T.navExperience },
+  { hash: 'gallery', label: T.navGallery },
   { hash: 'contact', label: T.navContact },
 ] as const

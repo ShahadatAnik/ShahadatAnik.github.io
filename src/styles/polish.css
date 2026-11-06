@@ -1062,3 +1062,9 @@ html .gallery-card figcaption h3 { font-size: 19px; line-height: 1.35; font-weig
 html .gallery-card figcaption .gallery-desc { font-size: 15px; line-height: 1.6; }
 html .gallery-card figcaption .gallery-meta { font-size: 13px; }
 @media (max-width: 650px) { html .gallery-card figcaption h3 { font-size: 18px; } }
+
+/* Six menu items need more room, so the menu button replaces the row of links below 1020px. */
+@media (max-width: 1020px) {
+  .desktop-nav { display: none; }
+  .menu-button { display: grid; }
+}
