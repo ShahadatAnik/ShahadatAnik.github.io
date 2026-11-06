@@ -18,7 +18,7 @@ function EducationItem({ entry, current, onReach }: { entry: (typeof education)[
       <p className="period"><Period text={entry.period} /></p>
       <h4>
         {entry.url ? (
-          <a href={entry.url} target="_blank" rel="noopener" className="school-link"><B value={entry.school} /></a>
+          <a href={entry.url} target="_blank" rel="noopener" className="school-link"><B value={entry.school} /> <span aria-hidden="true">↗</span></a>
         ) : (
           <B value={entry.school} />
         )}

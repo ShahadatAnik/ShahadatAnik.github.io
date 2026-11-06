@@ -120,7 +120,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
             <h2><T k="publicationsTitle" /></h2>
           </div>
           <a id="publication-scholar" className="text-button" target="_blank" rel="noopener" href={profile.scholar}>
-            <span><T k="scholarProfile" /></span>
+            <span><T k="scholarProfile" /></span><span>↗</span>
           </a>
         </div>
         <div className="publication-toolbar">
@@ -230,12 +230,12 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                   <div className="pub-primary-actions">
                     {paperLinks(paper).map((link) => (
                       <a key={link.url} href={link.url} target="_blank" rel="noopener">
-                        <B value={link.label} />
+                        <B value={link.label} /> <span className="action-arrow" aria-hidden="true">↗</span>
                       </a>
                     ))}
                     {codeUrl && (
                       <a href={codeUrl} target="_blank" rel="noopener">
-                        <T k="code" />
+                        <T k="code" /> <span className="action-arrow" aria-hidden="true">↗</span>
                       </a>
                     )}
                   </div>

@@ -604,3 +604,19 @@ html[data-scrolling=true] .hobbies-section *::after { animation-play-state: paus
 @media (min-width: 1450px) { .hero h1 { font-size: 72px; } }
 @media (max-width: 720px) { .hero h1 { font-size: 42px; letter-spacing: -1.5px; } }
 @media (max-width: 360px) { .hero h1 { font-size: 36px; } }
+
+/* Consistent slide-in underline on every text link. */
+.email-row > a, .pub-primary-actions a, a.text-button, .paper-back, .paper-share-row a, .paper-footer a, .dialog-actions a.text-button { position: relative; }
+.email-row > a::after, .pub-primary-actions a::after, a.text-button::after, .paper-back::after, .paper-share-row a::after, .paper-footer a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .22s var(--ease-out); }
+.email-row > a:is(:hover, :focus-visible)::after, .pub-primary-actions a:is(:hover, :focus-visible)::after, a.text-button:is(:hover, :focus-visible)::after, .paper-back:is(:hover, :focus-visible)::after, .paper-share-row a:is(:hover, :focus-visible)::after, .paper-footer a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+a.text-button:hover { text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { .email-row > a::after, .pub-primary-actions a::after, a.text-button::after, .paper-back::after, .paper-share-row a::after, .paper-footer a::after { transition: none; } }
+.email-row > a, .pub-primary-actions a, a.text-button, .paper-back, .paper-share-row a, .paper-footer a, .dialog-links a, .dialog-actions a { text-decoration: none; }
+.email-row > a:hover, .pub-primary-actions a:hover, a.text-button:hover, .paper-back:hover, .paper-share-row a:hover, .paper-footer a:hover, .dialog-links a:hover, .dialog-actions a:hover { text-decoration: none; }
+
+/* Same slide-in underline for the Overview / Cite buttons and every text-button. */
+.pub-secondary-actions button, button.text-button { position: relative; }
+.pub-secondary-actions button::after, button.text-button::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .22s var(--ease-out); }
+.pub-secondary-actions button:is(:hover, :focus-visible)::after, button.text-button:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+.pub-secondary-actions button:hover, button.text-button:hover { text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { .pub-secondary-actions button::after, button.text-button::after { transition: none; } }

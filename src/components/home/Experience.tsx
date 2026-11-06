@@ -66,7 +66,7 @@ function ExperienceItem({ entry, defaultOpen = false }: { entry: ExperienceEntry
         <div className="experience-detail">
           <B value={entry.detail} />
           {'url' in entry && entry.url ? (
-            <a className="experience-link" href={entry.url} target="_blank" rel="noopener">{entry.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a>
+            <a className="experience-link" href={entry.url} target="_blank" rel="noopener">{entry.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')} ↗</a>
           ) : null}
         </div>
       </div>

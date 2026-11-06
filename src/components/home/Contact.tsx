@@ -43,9 +43,9 @@ function Footer() {
     <div className="footer">
       <span>© {new Date().getFullYear()} {profile.nameEn}</span>
       <div>
-        <a id="footer-github" target="_blank" rel="noopener" href={profile.github}>GitHub</a>
-        <a id="footer-linkedin" target="_blank" rel="noopener" href={profile.linkedin}>LinkedIn</a>
-        <a id="footer-scholar" target="_blank" rel="noopener" href={profile.scholar}>Scholar</a>
+        <a id="footer-github" target="_blank" rel="noopener" href={profile.github}>GitHub ↗</a>
+        <a id="footer-linkedin" target="_blank" rel="noopener" href={profile.linkedin}>LinkedIn ↗</a>
+        <a id="footer-scholar" target="_blank" rel="noopener" href={profile.scholar}>Scholar ↗</a>
         <a href="#home"><T k="backTop" /></a>
       </div>
     </div>

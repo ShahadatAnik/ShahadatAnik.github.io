@@ -151,12 +151,12 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
               <div className="dialog-primary-actions">
                 {paperLinks(paper).map((link, i) => (
                   <a key={link.url} className={`button ${i === 0 ? 'primary' : 'secondary'}`} href={link.url} target="_blank" rel="noopener">
-                    <B value={link.label} />
+                    <B value={link.label} /> <span className="action-arrow" aria-hidden="true">↗</span>
                   </a>
                 ))}
                 {codeUrl && (
                   <a className="button secondary" href={codeUrl} target="_blank" rel="noopener">
-                    <T k="code" />
+                    <T k="code" /> <span className="action-arrow" aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
@@ -165,7 +165,7 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
                   <T k="copyBibtex" /> <span aria-hidden="true">⧉</span>
                 </CopyButton>
                 <CopyButton className="text-button" text={SITE_ORIGIN + paperPath(lang, paper.id)} message={localized(lang, 'Paper link copied', '논문 링크를 복사했습니다')}>
-                  <T k="copyLink" />
+                  <T k="copyLink" /> <span aria-hidden="true">↗</span>
                 </CopyButton>
               </div>
             </div>

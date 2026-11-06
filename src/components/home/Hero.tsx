@@ -138,16 +138,17 @@ export function Hero() {
           <a className="job-status" href="#contact">
             <span className="job-status-indicator" aria-hidden="true" />
             <span><T k="jobStatus" /></span>
+            <span aria-hidden="true">↗</span>
           </a>
           <HeroStatement />
           <div className="hero-bio"><T k="bio" /></div>
           <div className="hero-actions">
-            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span></a>
+            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><span aria-hidden="true">↗</span></a>
           </div>
           <div className="social-links">
-            <a id="hero-scholar" target="_blank" rel="noopener" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar</a>
-            <a id="hero-github" target="_blank" rel="noopener" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub</a>
-            <a id="hero-linkedin" target="_blank" rel="noopener" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn</a>
+            <a id="hero-scholar" target="_blank" rel="noopener" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar ↗</a>
+            <a id="hero-github" target="_blank" rel="noopener" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub ↗</a>
+            <a id="hero-linkedin" target="_blank" rel="noopener" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn ↗</a>
             <a href={`mailto:${profile.email}`}><SocialIcon d={SOCIAL_ICONS.email} /><T k="emailLink" /></a>
           </div>
         </div>

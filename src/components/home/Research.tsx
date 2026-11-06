@@ -215,7 +215,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
           </div>
           {relatedCount > 0 && (
             <button id="explore-direction" type="button" className="text-button" onClick={() => onExplore(direction)}>
-              <span><T k="relatedWork" /></span>
+              <span><T k="relatedWork" /></span><span>↗</span>
             </button>
           )}
         </div>
