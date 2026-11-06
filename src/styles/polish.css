@@ -544,7 +544,7 @@ html[data-scrolling=true] .hobbies-section *::after { animation-play-state: paus
 .education-list .education-item h4 a.school-link { transition: color .2s; }
 .education-list .education-item h4 a.school-link:is(:hover, :focus-visible),
 .education-list .education-item h4 a.school-link:is(:hover, :focus-visible) .en { color: var(--purple); }
-.education-list .education-item h4 a.school-link span[aria-hidden] { font-size: 13px; font-weight: 500; vertical-align: super; opacity: .6; margin-left: 4px; }
+.education-list .education-item h4 a.school-link span[aria-hidden] { font-size: 15px; font-weight: 500; vertical-align: baseline; line-height: 1; opacity: .6; margin-left: 2px; }
 @media (max-width: 650px) { .education-list .education-item h4 a.school-link, .education-list .education-item h4 a.school-link .en { font-size: 18px; } }
 /* Education links: same left-to-right underline as the hero social links. */
 .education-list .education-item h4 a.school-link { position: relative; display: inline-block; padding-bottom: 3px; }
@@ -620,3 +620,110 @@ a.text-button:hover { text-decoration: none; }
 .pub-secondary-actions button:is(:hover, :focus-visible)::after, button.text-button:is(:hover, :focus-visible)::after { transform: scaleX(1); }
 .pub-secondary-actions button:hover, button.text-button:hover { text-decoration: none; }
 @media (prefers-reduced-motion: reduce) { .pub-secondary-actions button::after, button.text-button::after { transition: none; } }
+
+/* Experience rows: same hover wash + purple bar as the publication rows; the open row stays highlighted. */
+.experience-item { position: relative; isolation: isolate; }
+.experience-item::before { content: ''; position: absolute; z-index: -1; inset: 4px -18px; border-radius: 10px; background: var(--hover-wash); opacity: 0; transition: opacity .22s; }
+.experience-item::after { content: ''; position: absolute; top: 22px; bottom: 22px; left: -18px; width: 3px; border-radius: 3px; background: var(--purple); transform: scaleY(.3); opacity: 0; transition: opacity .22s, transform .22s var(--ease-out); }
+.experience-item:is(:hover, :focus-within, [data-expanded=true])::before { opacity: 1; }
+.experience-item:is(:hover, :focus-within, [data-expanded=true])::after { opacity: 1; transform: scaleY(1); }
+.experience-item[data-expanded=true] .title { color: var(--purple); }
+.experience-item[data-expanded=true] .expand-icon { background: var(--purple); color: var(--paper); }
+@media (max-width: 650px) {
+  .experience-item::before { inset: 4px -9px; }
+  .experience-item::after { left: -9px; width: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .experience-item::before, .experience-item::after { transition: none; } }
+
+/* Topic dots separate topics, so the first one doesn't get one. */
+.pub-topics span:first-child::before { content: none; }
+
+/* Publication rows: authors, venue and topics each read as their own thing. */
+.pub-authors { margin-top: 10px; }
+.pub-citation { margin-top: 12px; font-style: italic; color: var(--ink); opacity: .78; }
+.pub-topics { margin-top: 16px; gap: 8px; }
+.pub-topics > span { display: inline-flex; align-items: center; padding: 3px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--lavender); color: var(--purple); font-size: 12px; font-style: normal; line-height: 1.6; }
+.pub-topics > span::before { content: none; }
+
+/* Honors: the year sits on the same baseline as the first line of the title (title: 7px padding + 24px line). */
+.honor-year { padding-top: 7px; line-height: 24px; }
+.honor-group:first-child .honor-year { padding-top: 7px; }
+
+/* Timeline: each purple segment runs from this dot's centre to the next dot's centre, so the dots always connect. */
+.education-item::before { z-index: 1; }
+.education-item::after { top: 10px; bottom: -11px; z-index: 0; }
+.education-item { border-left-color: color-mix(in srgb, var(--purple) 28%, var(--line)); }
+.education-item:last-child { border-left-color: transparent; }
+
+/* When the screen is too narrow for title + intro side by side, stack them and align the intro with the title. */
+@media (max-width: 900px) {
+  .section-heading { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .section-heading .section-intro { max-width: 520px; margin: 0; text-align: left; }
+}
+
+/* Subtitles sit right below the title at every width. */
+.section-heading:has(> .section-intro) { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 14px; }
+.section-heading > .section-intro { max-width: 560px; margin: 0; text-align: left; }
+.section-heading > .section-intro { max-width: none; width: 100%; }
+@media (max-width: 900px) { .section-heading .section-intro { max-width: none; } }
+
+/* Experience: heading on top like the other sections; skills left, roles right. */
+.experience-aside .skills-block { margin-top: 0; }
+
+/* Journey + Experience side columns: they follow you down the page instead of leaving a gap. */
+.journey-aside { align-self: start; position: sticky; top: 110px; display: grid; gap: 20px; }
+.experience-aside { align-self: start; position: sticky; top: 110px; }
+.glance-panel { padding: 28px 32px; border: 1px solid var(--line); border-radius: 15px; background: var(--soft); }
+.glance-panel .subheading { margin-bottom: 18px; }
+.glance-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0; }
+.glance-stats div { display: flex; flex-direction: column; gap: 4px; }
+.glance-stats dd { margin: 0; font-family: var(--display); font-size: 34px; line-height: 1.1; letter-spacing: -1px; color: var(--purple); }
+.glance-stats dt { font-size: 13px; color: var(--muted); }
+.glance-link { display: inline-block; margin-top: 22px; font-size: 14px; color: var(--purple); }
+@media (max-width: 900px) { .journey-aside, .experience-aside { position: static; } }
+
+/* Institution links show their ↗ only on hover / focus. */
+.affiliation-link > span[aria-hidden] { display: inline-block; margin-left: 2px; font-size: .8em; opacity: 0; transform: translate(-3px, 3px); transition: opacity .2s, transform .2s var(--ease-out); }
+.affiliation-link:is(:hover, :focus-visible) > span[aria-hidden] { opacity: .7; transform: none; }
+@media (prefers-reduced-motion: reduce) { .affiliation-link > span[aria-hidden] { transition: none; } }
+
+/* Every ↗ nudges up and to the right when its link or button is hovered or focused. */
+.link-arrow { display: inline-block; transition: transform .2s var(--ease-out), opacity .2s; }
+:is(a, button):is(:hover, :focus-visible) > .link-arrow { transform: translate(2px, -2px); }
+.contact-arrow-glyph { display: inline-block; transition: transform .25s var(--ease-out); }
+.contact-arrow:is(:hover, :focus-visible) .contact-arrow-glyph { transform: translate(3px, -3px); }
+@media (prefers-reduced-motion: reduce) { .link-arrow, .contact-arrow-glyph { transition: none; } }
+
+/* Text buttons: label and ↗ sit close together. */
+.text-button { gap: 7px; justify-content: flex-start; }
+
+/* Honors rows: same hover as the publication / experience rows (wash + purple bar). */
+.honor-group { position: relative; isolation: isolate; }
+.honor-group .honor-item::before { content: none; }
+.honor-group::before { content: ''; position: absolute; z-index: -1; inset: 4px -18px; border-radius: 10px; background: var(--hover-wash); opacity: 0; transition: opacity .22s; }
+.honor-group::after { content: ''; position: absolute; top: 18px; bottom: 18px; left: -18px; width: 3px; border-radius: 3px; background: var(--purple); transform: scaleY(.3); opacity: 0; transition: opacity .22s, transform .22s var(--ease-out); }
+.honor-group:is(:hover, :focus-within)::before { opacity: 1; }
+.honor-group:is(:hover, :focus-within)::after { opacity: 1; transform: scaleY(1); }
+.honor-group:hover .honor-item .title { color: var(--purple); }
+@media (max-width: 650px) {
+  .honor-group::before { inset: 4px -10px; }
+  .honor-group::after { left: -10px; width: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .honor-group::before, .honor-group::after { transition: none; } }
+
+/* Research map: every node label uses the same type (the active node only changes colour). */
+.map-node { display: flex; align-items: center; font-family: var(--display); font-size: 15px; font-weight: 550; line-height: 1.35; letter-spacing: -.1px; }
+.map-node > span { text-wrap: balance; }
+.map-node .ko { font-family: inherit; font-size: 14px; font-weight: 550; opacity: 1; }
+.map-node.active { color: #221c32; }
+html[data-theme=light] .map-node.active { color: #fff; }
+@media (max-width: 650px) { .map-node { font-size: 13px; } .map-node .ko { font-size: 12px; } }
+
+/* Experience is a full-width band like Publications, so the page alternates dark / gray. */
+.experience-section.section { padding-block: 104px; background: var(--surface); border-block: 1px solid var(--line); }
+@media (max-width: 650px) { .experience-section.section { padding-block: 56px; } }
+
+/* Contact is the last call to action, so it gets its own colour: a deep violet from the site's purple. */
+.contact-section { background: #2a2542; border-top: 1px solid color-mix(in srgb, var(--purple) 35%, transparent); }
+.contact-section .eyebrow { color: var(--purple); }
+@media print { .contact-section { background: transparent; } }

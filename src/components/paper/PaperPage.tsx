@@ -2,15 +2,15 @@ import '../../styles/styles.css'
 import '../../styles/readability.css'
 import '../../styles/polish.css'
 import '../../styles/paper.css'
-import { Fragment } from 'react'
-import { Dual } from '../Dual'
-import { PROFILE_DATA, type Publication } from '../../data/content'
+import { PROFILE_DATA } from '../../data/content'
+import { paperLinks } from '../../data/papers'
 import { findPaper } from '../../data/seo'
 import { langPrefix, type Lang } from '../../lib/lang'
 import { formatDate } from '../../lib/format'
-import { CopyButton } from './CopyButton'
+import { Arrow, Authors, CopyButton, Dual, ExternalLink, LangContext, TopicList } from '../ui'
+import { ToastProvider } from '../../hooks/useToast'
+import { SITE_ORIGIN, localized, paperPath } from '../../data/i18n'
 import { PaperHeader } from './PaperHeader'
-import { useTheme, useToast } from './hooks'
 
 type Bilingual = { en: string; ko: string }
 
@@ -20,57 +20,21 @@ const TYPE_LABELS: Record<string, Bilingual> = {
   thesis: { en: 'Master’s thesis', ko: '석사 학위논문' },
 }
 
-const CORRESPONDING = 'Corresponding author / 교신저자'
-
-function Arrow() {
-  return (
-    <>
-      {' '}
-      <span className="action-arrow" aria-hidden="true">
-        ↗
-      </span>
-    </>
-  )
-}
-
-function Authors({ paper }: { paper: Publication }) {
-  const corresponding: readonly string[] = paper.correspondingAuthors
-  const names = paper.authors.split(',').map((a) => a.trim())
-  return (
-    <p className="paper-authors">
-      {names.map((author, i) => (
-        <Fragment key={author}>
-          {i > 0 && ', '}
-          <span className="publication-author">
-            {author === PROFILE_DATA.profile.nameEn ? <strong>{author}</strong> : author}
-            {corresponding.includes(author) && (
-              <sup className="author-mark" title={CORRESPONDING} aria-label={CORRESPONDING}>
-                *
-              </sup>
-            )}
-          </span>
-        </Fragment>
-      ))}
-    </p>
-  )
-}
-
-function paperLinks(paper: Publication) {
-  const custom = 'links' in paper ? paper.links : undefined
-  const links: { url: string; label: Bilingual }[] = custom
-    ? [...custom]
-    : [{ url: paper.url, label: paper.linkLabel ?? { en: 'Paper', ko: '논문' } }]
-  if ('codeUrl' in paper && paper.codeUrl) links.push({ url: paper.codeUrl, label: { en: 'Code', ko: '코드' } })
-  return links
-}
-
 export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
+  return (
+    <LangContext.Provider value={lang}>
+      <ToastProvider>
+        <PaperArticle id={id} lang={lang} />
+      </ToastProvider>
+    </LangContext.Provider>
+  )
+}
+
+function PaperArticle({ id, lang }: { id: string; lang: Lang }) {
   const paper = findPaper(id)
-  const { theme, toggle } = useTheme()
-  const toast = useToast()
   if (!paper) return null
 
-  const doi = 'doi' in paper ? paper.doi : undefined
+  const doi = paper.doi
   const doiHref = doi ? (paper.url.includes(doi) ? paper.url : `https://doi.org/${doi}`) : undefined
   const topics = paper.topics
     .map((t) => PROFILE_DATA.research.find((r) => r.id === t)?.title)
@@ -84,7 +48,7 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
       <a className="skip" href="#paper-main">
         Skip to content / 본문으로 건너뛰기
       </a>
-      <PaperHeader id={id} lang={lang} theme={theme} onToggleTheme={toggle} />
+      <PaperHeader id={id} lang={lang} />
       <main id="paper-main" className="paper-main page-width">
         <a className="paper-back" href={`${home}#publications`}>
           ← <Dual en="All publications" ko="전체 연구 성과" />
@@ -102,19 +66,13 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
           <h1 className="paper-title">
             <Dual en={paper.title} ko={paper.koTitle} />
           </h1>
-          <Authors paper={paper} />
+          <p className="paper-authors"><Authors paper={paper} /></p>
           {paper.correspondingAuthors.length > 0 && (
             <p className="author-legend">
               <span aria-hidden="true">*</span> <Dual en="Corresponding author" ko="교신저자" />
             </p>
           )}
-          <div className="paper-topics">
-            {topics.map((t) => (
-              <span key={t.en}>
-                <Dual en={t.en} ko={t.ko} />
-              </span>
-            ))}
-          </div>
+          <TopicList className="paper-topics" topics={paper.topics} />
           <section className="paper-section">
             <h2>
               <Dual en="Research overview" ko="연구 개요" />
@@ -205,16 +163,9 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
             </dl>
             <div className="paper-links">
               {links.map((l, i) => (
-                <a
-                  key={l.url}
-                  className={i === 0 ? 'button primary' : 'button secondary'}
-                  href={l.url}
-                  target="_blank"
-                  rel="noopener"
-                >
+                <ExternalLink key={l.url} className={i === 0 ? 'button primary' : 'button secondary'} href={l.url}>
                   <Dual en={l.label.en} ko={l.label.ko} />
-                  <Arrow />
-                </a>
+                </ExternalLink>
               ))}
             </div>
           </section>
@@ -223,7 +174,7 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
               <h2>
                 <Dual en="Citation" ko="인용" />
               </h2>
-              <CopyButton lang={lang} getText={() => paper.bibtex} onResult={toast.show}>
+              <CopyButton className="paper-copy" text={paper.bibtex} message={localized(lang, 'BibTeX copied', 'BibTeX를 복사했습니다')}>
                 <Dual en="Copy BibTeX" ko="BibTeX 복사" />
               </CopyButton>
             </div>
@@ -232,15 +183,11 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
             </pre>
           </section>
           <div className="paper-share-row">
-            <CopyButton
-              lang={lang}
-              getText={() => document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href || location.href}
-              onResult={toast.show}
-            >
+            <CopyButton className="paper-copy" text={`${SITE_ORIGIN}${paperPath(lang, id)}`} message={localized(lang, 'Page link copied', '페이지 링크를 복사했습니다')}>
               <Dual en="Copy page link" ko="페이지 링크 복사" />
             </CopyButton>
             <a href={`${home}#contact`}>
-              <Dual en={`Contact ${PROFILE_DATA.profile.shortName}`} ko={`${PROFILE_DATA.profile.shortName}에게 연락`} /> ↗
+              <Dual en={`Contact ${PROFILE_DATA.profile.shortName}`} ko={`${PROFILE_DATA.profile.shortName}에게 연락`} /><Arrow />
             </a>
           </div>
         </article>
@@ -248,12 +195,9 @@ export function PaperPage({ id, lang }: { id: string; lang: Lang }) {
       <footer className="paper-footer page-width">
         <span>© {new Date().getFullYear()} {PROFILE_DATA.profile.nameEn}</span>
         <a href={home}>
-          <Dual en="Academic homepage" ko="학술 홈페이지" /> ↗
+          <Dual en="Academic homepage" ko="학술 홈페이지" /><Arrow />
         </a>
       </footer>
-      <div className={toast.visible ? 'toast show' : 'toast'} id="paper-toast" role="status" aria-live="polite">
-        {toast.message}
-      </div>
-    </>
+          </>
   )
 }

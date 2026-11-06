@@ -1,10 +1,9 @@
+import { Arrow, B, Dual, Reveal, SectionHeading, T } from '../ui'
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import { PROFILE_DATA } from '../../data/content'
-import { Dual } from '../Dual'
 import type { TopicId } from '../../data/i18n'
 import { useInView } from '../../hooks/useInView'
 import { useMotion } from '../../hooks/useMotion'
-import { B, Reveal, T } from './shared'
 
 const { research, publications } = PROFILE_DATA
 
@@ -155,13 +154,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
 
   return (
     <section className="research-section section page-width" id="research">
-      <Reveal className="section-heading">
-        <div>
-          <span className="eyebrow section-number">RESEARCH</span>
-          <h2><T k="researchTitle" /></h2>
-        </div>
-        <p className="section-intro"><T k="researchIntro" /></p>
-      </Reveal>
+      <SectionHeading eyebrow="RESEARCH" title="researchTitle" intro="researchIntro" />
       <Reveal className="research-explorer">
         <div ref={mapRef} className={`research-map${active ? ' motion-active' : ''}`} data-visual-mode={direction} aria-label="Interactive research directions / 연구 분야 탐색">
           <div className="map-grid" aria-hidden="true" />
@@ -215,7 +208,7 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
           </div>
           {relatedCount > 0 && (
             <button id="explore-direction" type="button" className="text-button" onClick={() => onExplore(direction)}>
-              <span><T k="relatedWork" /></span><span>↗</span>
+              <span><T k="relatedWork" /></span><Arrow />
             </button>
           )}
         </div>

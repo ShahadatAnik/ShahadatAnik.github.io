@@ -1,13 +1,11 @@
-import { Name } from '../Name'
+import { Arrow, Dual, ExternalLink, Name, T } from '../ui'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Fragment, useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
 import { PROFILE_DATA, bi } from '../../data/content'
 import { siteConfig } from '../../site.config'
-import { Dual } from '../Dual'
 import { useHeadlineEntrance } from '../../hooks/useHeadlineEntrance'
 import { useInView } from '../../hooks/useInView'
 import { useMotion } from '../../hooks/useMotion'
-import { T } from './shared'
 
 const { profile } = PROFILE_DATA
 
@@ -138,17 +136,17 @@ export function Hero() {
           <a className="job-status" href="#contact">
             <span className="job-status-indicator" aria-hidden="true" />
             <span><T k="jobStatus" /></span>
-            <span aria-hidden="true">↗</span>
+            <Arrow />
           </a>
           <HeroStatement />
           <div className="hero-bio"><T k="bio" /></div>
           <div className="hero-actions">
-            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><span aria-hidden="true">↗</span></a>
+            <a className="button primary" href="#publications"><span><T k="exploreWork" /></span><Arrow /></a>
           </div>
           <div className="social-links">
-            <a id="hero-scholar" target="_blank" rel="noopener" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar ↗</a>
-            <a id="hero-github" target="_blank" rel="noopener" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub ↗</a>
-            <a id="hero-linkedin" target="_blank" rel="noopener" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn ↗</a>
+            <ExternalLink id="hero-scholar" href={profile.scholar}><SocialIcon d={SOCIAL_ICONS.scholar} />Google Scholar</ExternalLink>
+            <ExternalLink id="hero-github" href={profile.github}><SocialIcon d={SOCIAL_ICONS.github} />GitHub</ExternalLink>
+            <ExternalLink id="hero-linkedin" href={profile.linkedin}><SocialIcon d={SOCIAL_ICONS.linkedin} />LinkedIn</ExternalLink>
             <a href={`mailto:${profile.email}`}><SocialIcon d={SOCIAL_ICONS.email} /><T k="emailLink" /></a>
           </div>
         </div>
@@ -259,7 +257,7 @@ export function Hero() {
               <div>
                 <strong>
                   {'url' in item && item.url ? (
-                    <a className="affiliation-link" href={item.url} target="_blank" rel="noopener"><Dual en={item.name.en} ko={bi(item.name).ko} /></a>
+                    <ExternalLink className="affiliation-link" href={item.url}><Dual en={item.name.en} ko={bi(item.name).ko} /></ExternalLink>
                   ) : (
                     <Dual en={item.name.en} ko={bi(item.name).ko} />
                   )}

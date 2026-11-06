@@ -1,14 +1,11 @@
+import { Authors, B, CopyButton, Dual, ExternalLink, Highlight, SectionHeading, T, TopicList, useLang } from '../ui'
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import { PROFILE_DATA, type Publication } from '../../data/content'
+import { paperLinks } from '../../data/papers'
 import { TOPICS, localized, paperPath, topicLabel, type TopicFilter } from '../../data/i18n'
-import { Dual } from '../Dual'
 import { useActiveIndicator } from '../../hooks/useActiveIndicator'
 import { useMotion } from '../../hooks/useMotion'
-import { Authors } from './Authors'
-import { CopyButton } from './CopyButton'
-import { Highlight } from './Highlight'
 import { PaperDialog } from './PaperDialog'
-import { B, T, paperCodeUrl, paperLinks, useLang } from './shared'
 
 const { publications, profile } = PROFILE_DATA
 
@@ -114,15 +111,12 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
   return (
     <section className="publications-section section" id="publications">
       <div className="page-width">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow section-number">PUBLICATIONS</span>
-            <h2><T k="publicationsTitle" /></h2>
-          </div>
-          <a id="publication-scholar" className="text-button" target="_blank" rel="noopener" href={profile.scholar}>
-            <span><T k="scholarProfile" /></span><span>↗</span>
-          </a>
-        </div>
+        <SectionHeading
+          reveal={false}
+          eyebrow="PUBLICATIONS"
+          title="publicationsTitle"
+          action={<ExternalLink id="publication-scholar" className="text-button" href={profile.scholar}><span><T k="scholarProfile" /></span></ExternalLink>}
+        />
         <div className="publication-toolbar">
           <div ref={tabsRef} id="topic-filters" className="filter-tabs" role="group" aria-label="Filter by research topic / 연구 분야별 필터">
             <span className="filter-active-indicator" aria-hidden="true" />
@@ -197,7 +191,6 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
         </div>
         <div ref={listRef} id="publication-list" className="publication-list">
           {matches.map((paper) => {
-            const codeUrl = paperCodeUrl(paper)
             return (
               <article key={paper.id} className="pub-row" data-paper={paper.id}>
                 <div className="pub-meta">
@@ -222,22 +215,15 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
                   </a>
                   <p className="pub-authors"><Authors paper={paper} query={query} /></p>
                   <p className="pub-citation"><Highlight text={paper.venue} query={query} /> · <Highlight text={paper.year} query={query} /></p>
-                  <div className="pub-topics">
-                    {paper.topics.map((topic) => <span key={topic}><B value={topicLabel(topic)} /></span>)}
-                  </div>
+                  <TopicList className="pub-topics" topics={paper.topics} />
                 </div>
                 <div className="pub-actions">
                   <div className="pub-primary-actions">
                     {paperLinks(paper).map((link) => (
-                      <a key={link.url} href={link.url} target="_blank" rel="noopener">
-                        <B value={link.label} /> <span className="action-arrow" aria-hidden="true">↗</span>
-                      </a>
+                      <ExternalLink key={link.url} href={link.url}>
+                        <B value={link.label} />
+                      </ExternalLink>
                     ))}
-                    {codeUrl && (
-                      <a href={codeUrl} target="_blank" rel="noopener">
-                        <T k="code" /> <span className="action-arrow" aria-hidden="true">↗</span>
-                      </a>
-                    )}
                   </div>
                   <div className="pub-secondary-actions">
                     <button type="button" data-open={paper.id} onClick={(event) => openPaper(paper, event.currentTarget)}>

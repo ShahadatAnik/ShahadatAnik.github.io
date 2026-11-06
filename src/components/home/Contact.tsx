@@ -1,7 +1,6 @@
+import { CopyButton, Eyebrow, ExternalLink, Reveal, T, useLang } from '../ui'
 import { PROFILE_DATA } from '../../data/content'
 import { localized } from '../../data/i18n'
-import { CopyButton } from './CopyButton'
-import { Reveal, T, useLang } from './shared'
 
 const { profile } = PROFILE_DATA
 
@@ -12,7 +11,7 @@ export function Contact() {
       <div className="page-width">
         <Reveal className="contact-top">
           <div>
-            <span className="eyebrow">GET IN TOUCH</span>
+            <Eyebrow>GET IN TOUCH</Eyebrow>
             <h2><T k="contactTitle" /></h2>
             <p><T k="contactIntro" /></p>
           </div>
@@ -43,9 +42,9 @@ function Footer() {
     <div className="footer">
       <span>© {new Date().getFullYear()} {profile.nameEn}</span>
       <div>
-        <a id="footer-github" target="_blank" rel="noopener" href={profile.github}>GitHub ↗</a>
-        <a id="footer-linkedin" target="_blank" rel="noopener" href={profile.linkedin}>LinkedIn ↗</a>
-        <a id="footer-scholar" target="_blank" rel="noopener" href={profile.scholar}>Scholar ↗</a>
+        <ExternalLink id="footer-github" href={profile.github}>GitHub</ExternalLink>
+        <ExternalLink id="footer-linkedin" href={profile.linkedin}>LinkedIn</ExternalLink>
+        <ExternalLink id="footer-scholar" href={profile.scholar}>Scholar</ExternalLink>
         <a href="#home"><T k="backTop" /></a>
       </div>
     </div>

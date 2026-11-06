@@ -148,6 +148,7 @@ export const siteConfig = {
 				en: 'M.S.+Ph.D. · Industrial AI Lab · 2026-present',
 				ko: '석박통합과정 · 산업AI연구실 · 2026-현재',
 			},
+			url: 'https://www.khu.ac.kr/kor/user/main/view.do',
 		},
 		{
 			mark: 'ST',

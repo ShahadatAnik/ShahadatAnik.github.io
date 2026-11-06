@@ -1,9 +1,35 @@
+import { B, Dual, ExternalLink, Period, Reveal, SectionHeading, T } from '../ui'
 import { useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { PROFILE_DATA } from '../../data/content'
-import { B, Period, Reveal, T } from './shared'
 
-const { education, honors } = PROFILE_DATA
+const { education, honors, publications, research, profile } = PROFILE_DATA
+const totalCitations = publications.reduce((sum, paper) => sum + (paper.citations ?? 0), 0)
+
+/** Numbers that come straight from the config, so they never go stale by hand. */
+function Glance() {
+  const stats = [
+    { value: publications.length, label: { en: 'Publications', ko: '논문' } },
+    { value: totalCitations, label: { en: 'Citations', ko: '피인용' } },
+    { value: research.length, label: { en: 'Research areas', ko: '연구 분야' } },
+  ]
+  return (
+    <Reveal className="glance-panel">
+      <h3 className="subheading"><Dual en="At a glance" ko="한눈에 보기" /></h3>
+      <dl className="glance-stats">
+        {stats.map((stat) => (
+          <div key={stat.label.en}>
+            <dd>{stat.value}</dd>
+            <dt><Dual en={stat.label.en} ko={stat.label.ko} /></dt>
+          </div>
+        ))}
+      </dl>
+      <ExternalLink className="glance-link" href={profile.scholar}>
+        <Dual en="See all on Google Scholar" ko="Google Scholar에서 전체 보기" />
+      </ExternalLink>
+    </Reveal>
+  )
+}
 const honorYears = [...new Set(honors.map((honor) => honor.year))]
 
 /** One timeline entry; it is "reached" once it passes 72% of the viewport height. */
@@ -18,7 +44,7 @@ function EducationItem({ entry, current, onReach }: { entry: (typeof education)[
       <p className="period"><Period text={entry.period} /></p>
       <h4>
         {entry.url ? (
-          <a href={entry.url} target="_blank" rel="noopener" className="school-link"><B value={entry.school} /> <span aria-hidden="true">↗</span></a>
+          <ExternalLink href={entry.url} className="school-link"><B value={entry.school} /></ExternalLink>
         ) : (
           <B value={entry.school} />
         )}
@@ -35,13 +61,7 @@ export function Journey() {
 
   return (
     <section className="journey-section section page-width" id="journey">
-      <Reveal className="section-heading">
-        <div>
-          <span className="eyebrow section-number">JOURNEY</span>
-          <h2><T k="journeyTitle" /></h2>
-        </div>
-        <p className="section-intro"><T k="journeyIntro" /></p>
-      </Reveal>
+      <SectionHeading eyebrow="JOURNEY" title="journeyTitle" intro="journeyIntro" />
       <div className="journey-grid">
         <Reveal>
           <h3 className="subheading"><T k="educationTitle" /></h3>
@@ -56,6 +76,7 @@ export function Journey() {
             ))}
           </div>
         </Reveal>
+        <div className="journey-aside">
         <Reveal className="honors-panel">
           <h3 className="subheading"><T k="honorsTitle" /></h3>
           <div id="honors-list">
@@ -73,6 +94,8 @@ export function Journey() {
             ))}
           </div>
         </Reveal>
+        <Glance />
+        </div>
       </div>
     </section>
   )

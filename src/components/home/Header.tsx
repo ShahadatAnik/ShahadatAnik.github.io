@@ -1,26 +1,15 @@
-import { Name } from '../Name'
-import { Link } from '@tanstack/react-router'
+import { B, Brand, LanguageSwitch, ThemeToggle, useLang } from '../ui'
 import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion'
 import { useRef, useState, type CSSProperties } from 'react'
 import { NAV_ITEMS, localized } from '../../data/i18n'
-import type { Lang } from '../../lib/lang'
 import { PROFILE_DATA } from '../../data/content'
 import { useActiveIndicator } from '../../hooks/useActiveIndicator'
 import { useActiveSection } from '../../hooks/useActiveSection'
-import { useTheme } from '../../hooks/useTheme'
-import { writeStorage } from '../../hooks/storage'
-import { B, useLang } from './shared'
-
-const LANGUAGES = [
-  { lang: 'en', locale: undefined, label: 'EN', aria: 'English' },
-  { lang: 'ko', locale: 'kr', label: 'KR', aria: '한국어' },
-] as const satisfies readonly { lang: Lang; locale: 'kr' | undefined; label: string; aria: string }[]
 
 const NAV_HASHES = NAV_ITEMS.map((item) => item.hash)
 
 export function Header() {
   const lang = useLang()
-  const { theme, toggle: toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const [compact, setCompact] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
@@ -59,37 +48,14 @@ export function Header() {
       <motion.div className="scroll-progress" style={{ scaleX: progress }} aria-hidden="true" />
       <header ref={headerRef} className={compact ? 'header is-compact' : 'header'}>
         <div className="header-inner">
-          <a href="#home" className="brand" aria-label={`${PROFILE_DATA.profile.shortName} — Home`}>
-            <span className="brand-symbol" aria-hidden="true">a<span>·</span></span>
-            <span><Name name={PROFILE_DATA.profile.nameEn} /></span>
-          </a>
+          <Brand href="#home" ariaLabel={`${PROFILE_DATA.profile.shortName} — Home`} />
           <nav ref={navRef} className="desktop-nav" aria-label="Main navigation" data-has-active={String(Boolean(activeHash))} style={navStyle}>
             <span className="nav-active-indicator" aria-hidden="true" />
             {links(true)}
           </nav>
           <div className="header-tools">
-            <div ref={switchRef} className="language-switch" role="group" aria-label="Language / 언어">
-              <span className="language-active-indicator" aria-hidden="true" />
-              {LANGUAGES.map((item) => (
-                <Link
-                  key={item.lang}
-                  to="/{-$locale}"
-                  params={{ locale: item.locale }}
-                  resetScroll={false}
-                  data-lang={item.lang}
-                  aria-label={item.aria}
-                  className={lang === item.lang ? 'active' : undefined}
-                  aria-current={lang === item.lang ? 'page' : undefined}
-                  onClick={() => writeStorage('zz-language', item.lang)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <button id="theme-toggle" type="button" className="icon-button" aria-label="Switch color theme / 테마 전환" aria-pressed={theme === 'dark'} onClick={toggleTheme}>
-              <svg className="moon" viewBox="0 0 24 24"><path d="M20.5 14A8.6 8.6 0 0 1 10 3.5 8.7 8.7 0 1 0 20.5 14Z" /></svg>
-              <svg className="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" /></svg>
-            </button>
+            <LanguageSwitch innerRef={switchRef} lang={lang} target={{ to: '/{-$locale}' }} className="language-switch" indicator />
+            <ThemeToggle />
             <button
               id="menu-toggle"
               type="button"
@@ -105,25 +71,7 @@ export function Header() {
         </div>
         <nav id="mobile-nav" className="mobile-nav" aria-label={localized(lang, 'Mobile navigation', '모바일 내비게이션')} hidden={!menuOpen}>
           {links(false, () => setMenuOpen(false))}
-          <div className="mobile-language" role="group" aria-label="Language / 언어">
-            {LANGUAGES.map((item) => (
-              <Link
-                key={item.lang}
-                to="/{-$locale}"
-                params={{ locale: item.locale }}
-                resetScroll={false}
-                aria-label={item.aria}
-                className={lang === item.lang ? 'active' : undefined}
-                aria-current={lang === item.lang ? 'page' : undefined}
-                onClick={() => {
-                  writeStorage('zz-language', item.lang)
-                  setMenuOpen(false)
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+          <LanguageSwitch lang={lang} target={{ to: '/{-$locale}' }} className="mobile-language" onSelect={() => setMenuOpen(false)} />
         </nav>
       </header>
     </>

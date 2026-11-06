@@ -1,11 +1,10 @@
+import { B, Dual, Eyebrow, ExternalLink, Period, Reveal, SectionHeading, T } from '../ui'
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { PROFILE_DATA, bi } from '../../data/content'
 import { siteConfig } from '../../site.config'
-import { Dual } from '../Dual'
 import { useMotion } from '../../hooks/useMotion'
 import { motion } from 'framer-motion'
 import { useReveal } from '../../hooks/useReveal'
-import { B, Period, Reveal, T } from './shared'
 
 const { experience } = PROFILE_DATA
 
@@ -66,7 +65,7 @@ function ExperienceItem({ entry, defaultOpen = false }: { entry: ExperienceEntry
         <div className="experience-detail">
           <B value={entry.detail} />
           {'url' in entry && entry.url ? (
-            <a className="experience-link" href={entry.url} target="_blank" rel="noopener">{entry.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')} ↗</a>
+            <ExternalLink className="experience-link" href={entry.url}>{entry.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</ExternalLink>
           ) : null}
         </div>
       </div>
@@ -91,21 +90,21 @@ function Skills() {
 
 export function Experience() {
   return (
-    <section className="experience-section section page-width" id="experience">
-      <div className="experience-grid">
-        <Reveal className="experience-heading">
-          <span className="eyebrow section-number">BEYOND RESEARCH</span>
-          <h2><T k="experienceTitle" /></h2>
-          <p><T k="experienceIntro" /></p>
-          <div className="skills-block">
-            <span className="eyebrow"><T k="toolbox" /></span>
-            <Skills />
+    <section className="experience-section section" id="experience">
+      <div className="page-width">
+        <SectionHeading eyebrow="BEYOND RESEARCH" title="experienceTitle" intro="experienceIntro" />
+        <div className="experience-grid">
+          <Reveal className="experience-aside">
+            <div className="skills-block">
+              <Eyebrow><T k="toolbox" /></Eyebrow>
+              <Skills />
+            </div>
+          </Reveal>
+          <div id="experience-list" className="experience-list">
+            {experience.map((entry, index) => (
+              <ExperienceItem key={`${entry.period}-${entry.title.en}`} entry={entry} defaultOpen={index === 0} />
+            ))}
           </div>
-        </Reveal>
-        <div id="experience-list" className="experience-list">
-          {experience.map((entry, index) => (
-            <ExperienceItem key={`${entry.period}-${entry.title.en}`} entry={entry} defaultOpen={index === 0} />
-          ))}
         </div>
       </div>
     </section>

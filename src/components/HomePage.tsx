@@ -17,7 +17,7 @@ import { Hero } from './home/Hero'
 import { Journey } from './home/Journey'
 import { DEFAULT_FILTERS, Publications, type PublicationFilters } from './home/Publications'
 import { Research } from './home/Research'
-import { LangContext } from './home/shared'
+import { LangContext } from './ui'
 
 function Page() {
   const { allowed } = useMotion()

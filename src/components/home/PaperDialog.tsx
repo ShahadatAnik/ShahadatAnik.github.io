@@ -1,11 +1,9 @@
+import { Arrow, Authors, B, CopyButton, Dual, ExternalLink, Eyebrow, T, useLang } from '../ui'
 import { useEffect, useRef } from 'react'
 import type { Publication } from '../../data/content'
+import { paperLinks } from '../../data/papers'
 import { SITE_ORIGIN, localized, paperPath } from '../../data/i18n'
-import { Dual } from '../Dual'
 import { useMotion } from '../../hooks/useMotion'
-import { CopyButton } from './CopyButton'
-import { B, T, paperCodeUrl, paperLinks, useLang } from './shared'
-import { Authors } from './Authors'
 
 interface PaperDialogProps {
   paper: Publication | null
@@ -104,7 +102,6 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
     onClosed()
   }
 
-  const codeUrl = paper ? paperCodeUrl(paper) : undefined
   const corresponding = ((paper?.correspondingAuthors as string[] | undefined)?.length ?? 0) > 0
 
   return (
@@ -125,7 +122,7 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
       }}
     >
       <div className="dialog-top">
-        <span className="eyebrow"><T k="paperDetails" /></span>
+        <Eyebrow><T k="paperDetails" /></Eyebrow>
         <button ref={closeRef} id="close-dialog" type="button" className="icon-button" aria-label="Close / 닫기" onClick={close}>×</button>
       </div>
       <div id="dialog-body">
@@ -150,22 +147,17 @@ export function PaperDialog({ paper, trigger, onClosed }: PaperDialogProps) {
             <div className="dialog-actions">
               <div className="dialog-primary-actions">
                 {paperLinks(paper).map((link, i) => (
-                  <a key={link.url} className={`button ${i === 0 ? 'primary' : 'secondary'}`} href={link.url} target="_blank" rel="noopener">
-                    <B value={link.label} /> <span className="action-arrow" aria-hidden="true">↗</span>
-                  </a>
+                  <ExternalLink key={link.url} className={`button ${i === 0 ? 'primary' : 'secondary'}`} href={link.url}>
+                    <B value={link.label} />
+                  </ExternalLink>
                 ))}
-                {codeUrl && (
-                  <a className="button secondary" href={codeUrl} target="_blank" rel="noopener">
-                    <T k="code" /> <span className="action-arrow" aria-hidden="true">↗</span>
-                  </a>
-                )}
               </div>
               <div className="dialog-secondary-actions">
                 <CopyButton className="text-button" text={paper.bibtex} message={localized(lang, 'BibTeX copied', 'BibTeX를 복사했습니다')}>
                   <T k="copyBibtex" /> <span aria-hidden="true">⧉</span>
                 </CopyButton>
                 <CopyButton className="text-button" text={SITE_ORIGIN + paperPath(lang, paper.id)} message={localized(lang, 'Paper link copied', '논문 링크를 복사했습니다')}>
-                  <T k="copyLink" /> <span aria-hidden="true">↗</span>
+                  <T k="copyLink" /><Arrow />
                 </CopyButton>
               </div>
             </div>

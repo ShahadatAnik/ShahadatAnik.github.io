@@ -1,55 +1,16 @@
-import { Name } from '../Name'
-import { Link } from '@tanstack/react-router'
+import { Brand, LanguageSwitch, ThemeToggle } from '../ui'
 import { langPrefix, type Lang } from '../../lib/lang'
-import { PROFILE_DATA } from '../../data/content'
 
-const LANGS: { lang: Lang; label: string; aria: string }[] = [
-  { lang: 'en', label: 'EN', aria: 'English' },
-  { lang: 'ko', label: 'KR', aria: '한국어' },
-]
+type Props = { id: string; lang: Lang }
 
-type Props = { id: string; lang: Lang; theme: 'dark' | 'light'; onToggleTheme: () => void }
-
-export function PaperHeader({ id, lang, theme, onToggleTheme }: Props) {
+export function PaperHeader({ id, lang }: Props) {
   return (
     <header className="header">
       <div className="header-inner">
-        <a className="brand" href={`${langPrefix(lang)}/`}>
-          <span className="brand-symbol" aria-hidden="true">
-            a<span>·</span>
-          </span>
-          <span>
-            <Name name={PROFILE_DATA.profile.nameEn} />
-          </span>
-        </a>
+        <Brand href={`${langPrefix(lang)}/`} />
         <div className="header-tools">
-          <nav className="paper-language" aria-label="Language / 언어">
-            <span className="language-active-indicator" aria-hidden="true"></span>
-            {LANGS.map((l) => (
-              <Link
-                key={l.lang}
-                data-lang={l.lang}
-                to="/{-$locale}/publications/$id"
-                params={{ id, locale: l.lang === 'ko' ? 'kr' : undefined }}
-                resetScroll={false}
-                aria-label={l.aria}
-                className={l.lang === lang ? 'active' : undefined}
-                aria-current={l.lang === lang ? 'page' : undefined}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-          <button
-            id="paper-theme"
-            className="paper-theme"
-            type="button"
-            aria-label="Switch color theme / 테마 전환"
-            aria-pressed={theme === 'dark'}
-            onClick={onToggleTheme}
-          >
-            ◐
-          </button>
+          <LanguageSwitch lang={lang} target={{ to: '/{-$locale}/publications/$id', id }} className="paper-language" indicator />
+          <ThemeToggle id="paper-theme" />
         </div>
       </div>
     </header>
