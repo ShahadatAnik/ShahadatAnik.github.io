@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import type { Ref } from 'react'
 import { writeStorage } from '@/hooks/storage'
+import { rememberScrollAnchor } from '@/lib/scrollAnchor'
 import type { Lang } from '@/lib/lang'
 
 const LANGUAGES = [
@@ -34,6 +35,7 @@ export function LanguageSwitch({ lang, target, className, indicator = false, inn
           'aria-current': lang === item.lang ? ('page' as const) : undefined,
           resetScroll: false,
           onClick: () => {
+            rememberScrollAnchor()
             writeStorage('zz-language', item.lang)
             onSelect?.()
           },

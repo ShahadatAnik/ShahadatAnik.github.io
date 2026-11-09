@@ -1141,3 +1141,41 @@ html .glance-link, html .experience-link { padding-block: 9px; margin-block: -9p
 html .email-row > a { padding-block: 8px; margin-block: -8px; }
 html .footer a { padding-block: 9px; margin-block: -9px; }
 html .footer a::after { bottom: 6px; }
+
+/* ===================== No layout jump when the language changes ===================== */
+/* Menu links: both languages share one grid cell, so a link is as wide as the wider label and never moves. */
+html[data-language] .desktop-nav a { display: inline-grid; justify-items: center; align-items: center; }
+html[data-language] .desktop-nav a > .en, html[data-language] .desktop-nav a > .ko { display: block !important; grid-area: 1 / 1; margin: 0; }
+html[data-language=en] .desktop-nav a > .ko, html[data-language=ko] .desktop-nav a > .en { visibility: hidden; }
+/* Hero text: reserve four lines for the bio, so the shorter Korean text does not pull everything below it up. */
+.hero-bio { min-height: 4lh; }
+@media (max-width: 720px) { .hero-bio { min-height: 5lh; } }
+/* Korean hero text uses the same size and line height as the English text (older rules made it a different size). */
+html[data-language=ko] .hero-statement span.ko { font-size: inherit; line-height: inherit; }
+html[data-language=ko] .hero .eyebrow span.ko { margin: 0; }
+
+/* Language switch: the pill starts exactly where JavaScript will put it, so a refresh shows no squeeze-then-grow. */
+html[data-language] .language-switch { --language-x: 2px; --language-width: 40px; }
+html[data-language=ko] .language-switch { --language-x: 44px; }
+html .language-active-indicator { top: 2px; bottom: 2px; }
+@media (max-width: 650px) {
+  html[data-language] .language-switch { --language-width: 36px; }
+  html[data-language=ko] .language-switch { --language-x: 39px; }
+}
+
+/* The header's bottom line appears only once the page has scrolled. */
+html .header { border-bottom-color: transparent; transition: border-color .2s; }
+html .header.is-compact { border-bottom-color: var(--line); }
+@media (prefers-reduced-motion: reduce) { html .header { transition: none; } }
+
+/* Less empty space between the navbar and the hero. */
+@media (min-width: 651px) { html .hero { padding-top: 36px; } }
+
+/* A slimmer navbar. */
+html .header-inner { height: 66px; }
+html .header.is-compact .header-inner { height: 58px; }
+html { scroll-padding-top: 84px; }
+@media (max-width: 900px) { html .header-inner, html .header.is-compact .header-inner { height: 58px; } }
+@media (max-width: 650px) { html .header-inner, html .header.is-compact .header-inner { height: 56px; } }
+@media (max-width: 650px) { html .hero { padding-top: 24px; } }
+

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import '@/styles/styles.css'
 import '@/styles/readability.css'
 import '@/styles/motion.css'
@@ -18,12 +18,16 @@ import { Hero } from './home/Hero'
 import { Journey } from './home/Journey'
 import { DEFAULT_FILTERS, Publications, type PublicationFilters } from './home/Publications'
 import { Research } from './home/Research'
-import { LangContext } from './ui'
+import { LangContext, useLang } from './ui'
+import { restoreScrollAnchor } from '@/lib/scrollAnchor'
 
 function Page() {
   const { allowed } = useMotion()
   useScrollingFlag()
   const [filters, setFilters] = useState<PublicationFilters>(DEFAULT_FILTERS)
+  // After a language switch, scroll by how far the block you were reading moved.
+  const lang = useLang()
+  useLayoutEffect(restoreScrollAnchor, [lang])
 
   // "Explore related work" on a research node filters the publication list and scrolls to it.
   const explore = useCallback(
