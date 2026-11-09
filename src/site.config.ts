@@ -74,9 +74,7 @@ export interface Experience {
 	detail: Text;
 }
 
-export interface GalleryItem {
-	/** Photo path under /public, e.g. '/assets/gallery/kaist-talk.jpg'. Landscape 4:3 photos look best (about 1200x900). */
-	image: string;
+interface GalleryBase {
 	/** Short description of the photo for people who cannot see it. Falls back to the event name. */
 	alt?: Text;
 	/** What happened: the event name, one short line. */
@@ -91,7 +89,20 @@ export interface GalleryItem {
 	url?: string;
 	/** Marks a placeholder. Sample cards show a "Sample" badge until you delete them. */
 	sample?: boolean;
+	/** True when `image` is a logo, not a photo: it is shown whole on a plain panel instead of cropped to fill. */
+	logo?: boolean;
 }
+
+/**
+ * Give each event either one `image` or several `images`. With several, the first is the cover, the card shows a
+ * "1/3" badge, and clicking it opens a viewer with arrows, keyboard and swipe. Landscape 4:3 photos look best
+ * (about 1600x1200, WebP, under 300 KB each), e.g. '/assets/gallery/kaist-talk-1.webp'.
+ */
+export type GalleryItem = GalleryBase &
+	(
+		| { image: string; images?: undefined }
+		| { images: [string, ...string[]]; image?: undefined }
+	);
 
 export interface Affiliation {
 	/** Logo image, as a path under /public (for example '/assets/logos/khu.png'). */
@@ -568,18 +579,44 @@ export const siteConfig = {
 	 */
 	gallery: [
 		{
-			image: '/assets/gallery/cum-laude.svg',
+			image: '/assets/logos/skku.png',
+			logo: true,
+			event: { en: '1st Korea BCI Conference', ko: '제1회 한국 BCI 학술대회' },
+			description: {
+				en: 'Attended with Myeonggu: a full day of back-to-back talks on where Brain-Computer Interfaces stand and where they are heading. We did not present this time, but seeing the work happening across Korea was genuinely motivating.',
+				ko: '명구와 함께 참석했습니다. 뇌-컴퓨터 인터페이스의 현재와 앞으로의 방향을 다룬 발표를 하루 종일 들었습니다. 이번에는 발표하지 않았지만, 국내 연구 현장을 직접 보며 큰 동기부여를 받았습니다.',
+			},
+			date: '2026-10-01',
+			place: { en: 'Sungkyunkwan University, Seoul', ko: '성균관대학교, 서울' },
+		},
+		{
+			image: '/assets/logos/khu.webp',
+			logo: true,
+			event: { en: 'President’s Scholarship', ko: '총장 장학금' },
+			description: {
+				en: 'Awarded the President’s Scholarship at Kyung Hee University, with full tuition waived for my graduate studies.',
+				ko: '경희대학교 총장 장학금을 받아 대학원 등록금 전액을 면제받았습니다.',
+			},
+			date: '2026-09',
+			place: { en: 'Kyung Hee University, Korea', ko: '경희대학교, 대한민국' },
+		},
+		{
+			image: '/assets/logos/ewu.png',
+			logo: true,
 			event: { en: 'Convocation · Cum Laude', ko: '졸업식 · 우등 졸업' },
 			description: {
 				en: 'Receiving my degree from the Vice-Chancellor of East West University, graduating Cum Laude.',
 				ko: '이스트웨스트대학교 총장님께 학위를 받으며 우등(Cum Laude)으로 졸업했습니다.',
 			},
 			date: '2024-02',
-			place: { en: 'East West University, Dhaka', ko: '이스트웨스트대학교, 다카' },
-			sample: true,
+			place: {
+				en: 'East West University, Dhaka',
+				ko: '이스트웨스트대학교, 다카',
+			},
 		},
 		{
-			image: '/assets/gallery/miet-2022.svg',
+			image: '/assets/logos/miet.webp',
+			logo: true,
 			event: { en: 'MIET 2022 conference', ko: 'MIET 2022 학술대회' },
 			description: {
 				en: 'With my co-authors, holding the certificate for our e-waste management paper.',
@@ -587,18 +624,23 @@ export const siteConfig = {
 			},
 			date: '2022-09',
 			place: { en: 'Noakhali, Bangladesh', ko: '방글라데시 노아칼리' },
-			sample: true,
 		},
 		{
-			image: '/assets/gallery/merit-scholarship.svg',
-			event: { en: 'Merit Scholarship award day', ko: '성적우수 장학금 수여식' },
+			image: '/assets/logos/ewu.png',
+			logo: true,
+			event: {
+				en: 'Merit Scholarship award day',
+				ko: '성적우수 장학금 수여식',
+			},
 			description: {
-				en: 'With fellow recipients on award day. Full tuition waived for outstanding results, kept with a 3.50+ CGPA.',
-				ko: '동료 수상자들과 함께. 우수한 성적에 대한 등록금 전액 면제이며 CGPA 3.50 이상 유지가 조건입니다.',
+				en: 'With fellow recipients on award day. Full tuition waived for outstanding results, kept with a 3.90+ CGPA.',
+				ko: '동료 수상자들과 함께. 우수한 성적에 대한 등록금 전액 면제이며 CGPA 3.90 이상 유지가 조건입니다.',
 			},
 			date: '2022',
-			place: { en: 'East West University, Dhaka', ko: '이스트웨스트대학교, 다카' },
-			sample: true,
+			place: {
+				en: 'East West University, Dhaka',
+				ko: '이스트웨스트대학교, 다카',
+			},
 		},
 	] satisfies GalleryItem[],
 

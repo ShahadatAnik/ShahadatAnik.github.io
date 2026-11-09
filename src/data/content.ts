@@ -132,7 +132,8 @@ const research: ResearchRecord[] = siteConfig.research.map((r) => ({
 }))
 
 export interface GalleryRecord {
-  image: string
+  /** One or more photos; the first is the cover. */
+  images: string[]
   alt: Bi
   event: Bi
   description: Bi
@@ -140,11 +141,12 @@ export interface GalleryRecord {
   place?: Bi
   url?: string
   sample: boolean
+  logo: boolean
 }
 
 // Newest first, whatever order they are written in the config.
 const gallery: GalleryRecord[] = [...(siteConfig.gallery as GalleryItem[])].sort((a, b) => b.date.localeCompare(a.date)).map((g) => ({
-  image: g.image,
+  images: g.images ?? [g.image],
   alt: bi(g.alt ?? g.event),
   event: bi(g.event),
   description: bi(g.description),
@@ -152,6 +154,7 @@ const gallery: GalleryRecord[] = [...(siteConfig.gallery as GalleryItem[])].sort
   place: g.place ? bi(g.place) : undefined,
   url: g.url,
   sample: g.sample ?? false,
+  logo: g.logo ?? false,
 }))
 
 export const PROFILE_DATA = {

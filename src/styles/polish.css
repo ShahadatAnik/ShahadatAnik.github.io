@@ -1038,6 +1038,35 @@ html .year-field::after { content: none; }
 .gallery-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--soft); }
 .gallery-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease-out); }
 .gallery-item:hover .gallery-photo img { transform: scale(1.04); }
+/* A logo instead of a photo: shown whole, centred on a white panel. */
+.gallery-photo.is-logo { display: grid; place-items: center; background: #fff; }
+.gallery-photo.is-logo img { width: auto; height: auto; max-width: 68%; max-height: 62%; object-fit: contain; }
+.gallery-item { position: relative; }
+.gallery-count { position: absolute; right: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 72%, transparent); color: var(--paper); font-size: 12px; font-weight: 600; backdrop-filter: blur(6px); }
+.gallery-count .glyph { width: 14px; height: 14px; }
+.gallery-open { position: absolute; inset: 0; z-index: 2; margin: 0; padding: 0; border: 0; border-radius: 11px; background: transparent; cursor: zoom-in; }
+.gallery-open:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+/* Photo viewer */
+.gallery-viewer { width: min(1040px, calc(100vw - 24px)); max-width: none; max-height: calc(100dvh - 24px); margin: auto; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: visible; }
+.gallery-viewer::backdrop { background: color-mix(in srgb, #0a0a0f 82%, transparent); backdrop-filter: blur(4px); }
+.viewer-card { display: grid; grid-template-rows: minmax(0, 1fr) auto; max-height: calc(100dvh - 24px); overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 24px 60px #0006; }
+.viewer-stage { position: relative; height: min(calc(min(1040px, 100vw - 24px) * .75), calc(100dvh - 214px)); min-height: 0; background: #0d0d12; touch-action: pan-y; user-select: none; }
+.viewer-stage img { display: block; width: 100%; height: 100%; object-fit: contain; animation: viewer-in .25s var(--ease-out); }
+@keyframes viewer-in { from { opacity: 0; } }
+.viewer-close, .viewer-nav { position: absolute; display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%; background: color-mix(in srgb, #0a0a0f 62%, transparent); color: #fff; cursor: pointer; backdrop-filter: blur(6px); transition: background .2s; }
+.viewer-close:hover, .viewer-nav:hover { background: color-mix(in srgb, #0a0a0f 85%, transparent); }
+.viewer-close:focus-visible, .viewer-nav:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.viewer-close { top: 12px; right: 12px; }
+.viewer-nav { top: 50%; transform: translateY(-50%); }
+.viewer-nav.prev { left: 12px; }
+.viewer-nav.next { right: 12px; }
+.viewer-count { position: absolute; left: 12px; bottom: 12px; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, #0a0a0f 62%, transparent); color: #fff; font-size: 12px; font-weight: 600; }
+.viewer-caption { padding: 16px 20px 20px; overflow-y: auto; }
+.viewer-caption h3 { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.35; letter-spacing: -.2px; }
+.viewer-desc { margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--muted); max-width: 70ch; }
+.viewer-link { display: inline-block; margin-top: 10px; font-weight: 600; }
+@media (max-width: 650px) { .viewer-nav { width: 38px; height: 38px; } .viewer-caption { padding: 14px 16px 18px; } }
+@media (prefers-reduced-motion: reduce) { .viewer-stage img { animation: none; } }
 .gallery-sample { position: absolute; top: 12px; left: 12px; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--paper) 78%, transparent); color: var(--ink); font-size: 12px; font-weight: 600; backdrop-filter: blur(6px); }
 .gallery-card figcaption { padding: 16px 18px 20px; }
 .gallery-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 10px; font-size: 13px; line-height: 1.4; color: var(--muted); }
