@@ -160,6 +160,8 @@ const gallery: GalleryRecord[] = [...(siteConfig.gallery as GalleryItem[])].sort
   logo: g.logo ?? false,
 }))
 
+const monthOf = (h: { month?: number }) => h.month ?? 0
+
 export const PROFILE_DATA = {
   profile: {
     nameEn: siteConfig.profile.name,
@@ -176,8 +178,13 @@ export const PROFILE_DATA = {
   education,
   // Newest first, whatever order they are written in the config (equal years keep their written order).
   honors: [...siteConfig.honors]
-    .sort((a, b) => b.year - a.year)
-    .map((h) => ({ year: h.year, title: bi(h.title), detail: bi(h.detail) })),
+    .sort((a, b) => b.year - a.year || monthOf(b) - monthOf(a))
+    .map((h) => ({
+      year: h.year,
+      when: monthOf(h) ? `${h.year}.${String(monthOf(h)).padStart(2, '0')}` : String(h.year),
+      title: bi(h.title),
+      detail: bi(h.detail),
+    })),
   experience,
   skills: siteConfig.skills.flatMap((g) => g.items.map((name) => ({ name, level: bi(g.group) }))),
   interests: {

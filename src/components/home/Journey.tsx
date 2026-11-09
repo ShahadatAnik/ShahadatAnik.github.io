@@ -30,7 +30,7 @@ function Glance() {
     </Reveal>
   )
 }
-const honorYears = [...new Set(honors.map((honor) => honor.year))]
+const honorDates = [...new Set(honors.map((honor) => honor.when))]
 
 /** One timeline entry; it is "reached" once it passes 72% of the viewport height. */
 function EducationItem({ entry, current, onReach }: { entry: (typeof education)[number]; current: boolean; onReach: () => void }) {
@@ -80,11 +80,11 @@ export function Journey() {
         <Reveal className="honors-panel">
           <h3 className="subheading"><T k="honorsTitle" /></h3>
           <div id="honors-list">
-            {honorYears.map((year) => (
-              <div key={year} className="honor-group">
-                <div className="honor-year">{year}</div>
+            {honorDates.map((when) => (
+              <div key={when} className="honor-group">
+                <div className="honor-year">{when}</div>
                 <div className="honor-items">
-                  {honors.filter((honor) => honor.year === year).map((honor) => (
+                  {honors.filter((honor) => honor.when === when).map((honor) => (
                     <div key={honor.title.en} className="honor-item">
                       <div className="title"><B value={honor.title} /></div>
                       <div className="honor-detail"><B value={honor.detail} /></div>

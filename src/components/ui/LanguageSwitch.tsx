@@ -50,3 +50,26 @@ export function LanguageSwitch({ lang, target, className, indicator = false, inn
     </div>
   )
 }
+
+/**
+ * Phones: one small button that shows the other language ("KR" on the English page, "EN" on the Korean one) and
+ * switches to it when tapped. Hidden on wider screens, where the full EN / KR switch is in the header.
+ */
+export function LanguageToggle({ lang, target, className }: { lang: Lang; target: SwitchTarget; className: string }) {
+  const next = lang === 'en' ? LANGUAGES[1] : LANGUAGES[0]
+  const shared = {
+    'aria-label': lang === 'en' ? 'KR, switch to Korean' : 'EN, 영어로 전환',
+    className,
+    resetScroll: false,
+    onClick: () => {
+      rememberScrollAnchor()
+      writeStorage('zz-language', next.lang)
+    },
+    children: next.label,
+  }
+  return target.to === '/{-$locale}' ? (
+    <Link to="/{-$locale}" params={{ locale: next.locale }} {...shared} />
+  ) : (
+    <Link to="/{-$locale}/publications/$id" params={{ id: target.id, locale: next.locale }} {...shared} />
+  )
+}

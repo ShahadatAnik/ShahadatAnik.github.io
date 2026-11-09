@@ -1,5 +1,5 @@
 import { Menu } from 'lucide-react'
-import { B, Brand, LanguageSwitch, ThemeToggle, useLang } from '@/components/ui'
+import { B, Brand, LanguageSwitch, LanguageToggle, ThemeToggle, useLang } from '@/components/ui'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { NAV_ITEMS, localized } from '@/data/i18n'
 import { PROFILE_DATA } from '@/data/content'
@@ -76,6 +76,7 @@ export function Header() {
           </nav>
           <div className="header-tools">
             <LanguageSwitch innerRef={switchRef} lang={lang} target={{ to: '/{-$locale}' }} className="language-switch" indicator />
+            <LanguageToggle lang={lang} target={{ to: '/{-$locale}' }} className="language-toggle" />
             <ThemeToggle />
             <button
               id="menu-toggle"

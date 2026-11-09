@@ -159,8 +159,8 @@ export const siteConfig = {
 			ko: '공동 연구 환영',
 		} satisfies Text,
 		bio: {
-			en: 'I am a combined M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. I build brain-AI interfaces and a brainwave-language model that help people communicate without speaking.',
-			ko: '경희대학교 산업AI연구실 연구조교이자 석박사 통합과정 학생입니다. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
+			en: 'I am a combined M.S.+Ph.D. student and Graduate Research Assistant at the Industrial AI Lab, Kyung Hee University. I build brain-AI interfaces and a brainwave-language model that help people communicate without speaking.',
+			ko: '경희대학교 산업AI연구실 대학원 연구조교이자 석박사 통합과정 학생입니다. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
 		} satisfies Text,
 		/** Line under the portrait. */
 		role: {
@@ -178,8 +178,8 @@ export const siteConfig = {
 			relation: { en: 'Studying and researching at', ko: '현재 소속' },
 			name: { en: 'Kyung Hee University', ko: '경희대학교' },
 			detail: {
-				en: 'M.S.+Ph.D. · Industrial AI Lab · 2026-present',
-				ko: '석박통합과정 · 산업AI연구실 · 2026-현재',
+				en: 'M.S.+Ph.D. · Industrial AI Lab · 2026.09-present',
+				ko: '석박통합과정 · 산업AI연구실 · 2026.09-현재',
 			},
 			url: 'https://www.khu.ac.kr/kor/user/main/view.do',
 		},
@@ -202,10 +202,10 @@ export const siteConfig = {
 			ko: 'Md Shahadat Anik Sheikh | 경희대학교 | 뇌-AI & BCI',
 		} satisfies Text,
 		description: {
-			en: 'M.S.+Ph.D. student and Research Assistant at the Industrial AI Lab, Kyung Hee University. Building brain-AI interfaces and a brainwave-language model for non-verbal communication.',
-			ko: '경희대학교 산업AI연구실 연구조교, 석박사 통합과정. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
+			en: 'M.S.+Ph.D. student and Graduate Research Assistant at the Industrial AI Lab, Kyung Hee University. Building brain-AI interfaces and a brainwave-language model for non-verbal communication.',
+			ko: '경희대학교 산업AI연구실 대학원 연구조교, 석박사 통합과정. 말하지 않고도 소통할 수 있도록 돕는 뇌-AI 인터페이스와 뇌파-언어 모델을 연구합니다.',
 		} satisfies Text,
-		jobTitle: 'Research Assistant, M.S.+Ph.D. student',
+		jobTitle: 'Graduate Research Assistant, M.S.+Ph.D. student',
 		organization: 'Kyung Hee University',
 		knowsAbout: [
 			'Brain-computer interfaces',
@@ -431,7 +431,7 @@ export const siteConfig = {
 
 	education: [
 		{
-			period: '2026-present',
+			period: '2026.09-present',
 			school: {
 				en: 'Kyung Hee University, Yongin, South Korea',
 				ko: '경희대학교, 대한민국 용인',
@@ -490,6 +490,7 @@ export const siteConfig = {
 	honors: [
 		{
 			year: 2026,
+			month: 9,
 			title: { en: 'President’s Scholarship', ko: '총장 장학금' },
 			detail: {
 				en: 'Full tuition waiver · Kyung Hee University',
@@ -506,25 +507,27 @@ export const siteConfig = {
 		},
 		{
 			year: 2025,
+			month: 5,
 			title: { en: 'IELTS', ko: 'IELTS' },
 			detail: { en: 'Overall band 7.0', ko: '종합 밴드 7.0' },
 		},
 		{
 			year: 2024,
+			month: 2,
 			title: { en: 'Cum Laude', ko: 'Cum Laude' },
 			detail: {
 				en: 'CGPA 3.7+, no retakes · East West University',
 				ko: 'CGPA 3.7 이상, 재수강 없음 · 이스트웨스트대학교',
 			},
 		},
-	] satisfies { year: number; title: Text; detail: Text }[],
+	] satisfies { year: number; month?: number; title: Text; detail: Text }[],
 
 	experience: [
 		{
 			period: '2026.09-present',
 			title: {
-				en: 'Research Assistant · Industrial AI Lab, Kyung Hee University',
-				ko: '연구조교 · 경희대학교 산업AI연구실',
+				en: 'Graduate Research Assistant · Industrial AI Lab, Kyung Hee University',
+				ko: '대학원 연구조교 · 경희대학교 산업AI연구실',
 			},
 			detail: {
 				en: 'Developing a brain-AI interface and a brainwave-language model for non-verbal communication.',

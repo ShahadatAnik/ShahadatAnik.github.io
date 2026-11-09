@@ -1,5 +1,5 @@
 import { ArrowDown, BriefcaseBusiness, CodeXml, GraduationCap, Plus } from 'lucide-react'
-import { Arrow, CopyButton, Dual, ExternalLink, Glyph, Name, ShareIcon, T, useLang } from '@/components/ui'
+import { CopyButton, Dual, ExternalLink, Glyph, Name, ShareIcon, T, useLang } from '@/components/ui'
 import { SITE_ORIGIN, localized } from '@/data/i18n'
 import { langPrefix } from '@/lib/lang'
 import { Fragment, useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
@@ -57,39 +57,6 @@ function HeroStatement() {
         ))}
       </span>
     </h2>
-  )
-}
-
-type AffiliationItem = (typeof siteConfig.affiliations)[number]
-
-/** One institution. With a url the whole card is the link: it lifts, follows the pointer with a soft glow, and underlines the name. */
-function AffiliationCard({ item, current }: { item: AffiliationItem; current: boolean }) {
-  const className = current ? 'affiliation is-current' : 'affiliation'
-  const spot = (event: ReactPointerEvent<HTMLElement>) => {
-    const node = event.currentTarget
-    const bounds = node.getBoundingClientRect()
-    node.style.setProperty('--spot-x', `${event.clientX - bounds.left}px`)
-    node.style.setProperty('--spot-y', `${event.clientY - bounds.top}px`)
-  }
-  const body = (
-    <>
-      <span className="institution-mark"><img src={item.logo} alt="" loading="lazy" /></span>
-      <div>
-        <span className="affiliation-relation"><Dual en={item.relation.en} ko={bi(item.relation).ko} /></span>
-        <strong>
-          <span className="affiliation-name">
-            <Dual en={item.name.en} ko={bi(item.name).ko} />
-            {'url' in item && item.url && <Arrow />}
-          </span>
-        </strong>
-        <span><Dual en={item.detail.en} ko={bi(item.detail).ko} /></span>
-      </div>
-    </>
-  )
-  return 'url' in item && item.url ? (
-    <ExternalLink className={className} href={item.url} arrow={false} onPointerMove={spot}>{body}</ExternalLink>
-  ) : (
-    <div className={className} onPointerMove={spot}>{body}</div>
   )
 }
 
@@ -288,12 +255,6 @@ export function Hero() {
           */}
         </div>
       </section>
-      <div className="affiliation-strip page-width">
-        {siteConfig.affiliations.map((item, index) => (
-          <AffiliationCard key={item.name.en} item={item} current={index === 0} />
-        ))}
-        <div className="research-keywords">{siteConfig.hero.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
-      </div>
     </>
   )
 }

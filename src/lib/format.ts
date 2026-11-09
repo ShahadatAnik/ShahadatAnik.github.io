@@ -1,18 +1,16 @@
 import type { Lang } from './lang'
 
-/** '2023-12-01' -> 'Dec 1, 2023' (en) or '2023년 12월 1일' (ko). */
+/** Every date on the site is written YYYY.MM (or YYYY.MM.DD), in both languages. '2023-12-01' -> '2023.12.01'. */
 export function formatDate(date: string, lang: Lang): string {
   const [y, m, d] = date.split('-').map(Number)
   if (!y || !m || !d) return date
-  if (lang === 'ko') return `${y}년 ${m}월 ${d}일`
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
+  return `${y}.${String(m).padStart(2, '0')}.${String(d).padStart(2, '0')}`
 }
 
-/** '2026-05' (or '2026-05-14') -> 'May 2026' (en) or '2026년 5월' (ko). A bare year ('2022') stays '2022'. */
+/** '2026-05' (or '2026-05-14') -> '2026.05'. A bare year ('2022') stays '2022'. */
 export function formatMonth(date: string, lang: Lang): string {
   const [y, m] = date.split('-').map(Number)
-  if (y && !m) return lang === 'ko' ? `${y}년` : String(y)
+  if (y && !m) return String(y)
   if (!y || !m) return date
-  if (lang === 'ko') return `${y}년 ${m}월`
-  return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-US', { year: 'numeric', month: 'short', timeZone: 'UTC' })
+  return `${y}.${String(m).padStart(2, '0')}`
 }

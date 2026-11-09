@@ -1179,3 +1179,158 @@ html { scroll-padding-top: 84px; }
 @media (max-width: 650px) { html .header-inner, html .header.is-compact .header-inner { height: 56px; } }
 @media (max-width: 650px) { html .hero { padding-top: 24px; } }
 
+
+/* ===================== Affiliations: a flat band, text only ===================== */
+/* Two columns between hairlines: clearly its own strip, between the hero above and Research below. */
+html .affiliation-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 44px; padding: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+html .affiliation { display: block; padding: 24px 28px 24px 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; transform: none; overflow: visible; }
+html .affiliation + .affiliation { padding-left: 32px; border-left: 1px solid var(--line); }
+html .affiliation::before, html .affiliation.is-current::after { display: none; }
+html a.affiliation:hover { transform: none; box-shadow: none; border-color: var(--line); }
+html .affiliation + .affiliation:hover { border-left-color: var(--line); }
+html .affiliation > div > .affiliation-relation { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; }
+html .affiliation > div > .affiliation-relation::before { content: ''; width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--muted); opacity: .6; }
+html .affiliation.is-current > div > .affiliation-relation::before { background: var(--purple); opacity: 1; }
+html .affiliation strong { font-size: 18px; }
+/* The research tags sit under the two columns, inside the band. */
+html .affiliation-strip .research-keywords { grid-column: 1 / -1; margin: 0; padding: 16px 0 18px; border-top: 1px solid var(--line); }
+@media (max-width: 650px) {
+  html .affiliation-strip { grid-template-columns: minmax(0, 1fr); margin-top: 28px; }
+  html .affiliation { padding: 18px 0; }
+  html .affiliation + .affiliation { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  html .affiliation-strip .research-keywords { padding: 14px 0 16px; }
+}
+/* Korean text in the band matches the English size. */
+html[data-language=ko] .affiliation strong .affiliation-name > .ko { font-size: 18px; }
+html[data-language=ko] .affiliation > div > span:last-child > .ko { font-size: 13px; }
+@media (max-width: 650px) { html[data-language=ko] .affiliation strong .affiliation-name > .ko { font-size: 17px; } }
+
+/* ===================== Affiliations: logo on the left; name, role and year, then status on the right ===================== */
+html .affiliation { display: flex; align-items: center; gap: 18px; }
+html .affiliation .institution-mark { width: 60px; height: 60px; padding: 6px; border-radius: 10px; flex: none; }
+html .affiliation > div { min-width: 0; }
+html .affiliation > div > .affiliation-detail { display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; }
+html .affiliation > div > .affiliation-relation { display: flex; margin: 10px 0 0; font-size: 12px; }
+html[data-language=ko] .affiliation > div > .affiliation-detail > .ko { font-size: 13px; }
+@media (max-width: 650px) {
+  html .affiliation .institution-mark { width: 52px; height: 52px; padding: 5px; }
+  html .affiliation { gap: 14px; }
+}
+
+/* The band's horizontal lines run edge to edge across the screen while the text keeps the page margins. */
+main { overflow-x: clip; }
+html .affiliation-strip { position: relative; border-top: 0; border-bottom: 0; }
+html .affiliation-strip::before, html .affiliation-strip::after,
+html .affiliation-strip .research-keywords::before { content: ''; position: absolute; left: calc(50% - 50vw); width: 100vw; height: 1px; background: var(--line); pointer-events: none; }
+html .affiliation-strip::before { top: 0; }
+html .affiliation-strip::after { bottom: 0; }
+html .affiliation-strip .research-keywords { position: relative; border-top: 0; }
+html .affiliation-strip .research-keywords::before { top: 0; }
+@media (max-width: 650px) {
+  html .affiliation + .affiliation { border-top: 0; }
+  html .affiliation + .affiliation::before { display: block; content: ''; position: absolute; inset: auto; top: 0; left: calc(50% - 50vw); width: 100vw; height: 1px; background: var(--line); opacity: 1; z-index: 0; border-radius: 0; }
+}
+
+/* The affiliation band has its own background, edge to edge (white in the light theme, the card colour in the dark one). */
+html .affiliation-strip { background: var(--surface); box-shadow: 0 0 0 100vmax var(--surface); clip-path: inset(0 -100vmax); }
+
+/* Softer borders: fainter outer lines, a fading divider between the two columns, and no line above the tags. */
+html .affiliation-strip { --band-line: color-mix(in srgb, var(--ink) 13%, transparent); }
+html .affiliation-strip::before, html .affiliation-strip::after { background: var(--band-line); }
+html .affiliation-strip .research-keywords::before { display: none; }
+html .affiliation-strip .research-keywords { padding: 2px 0 26px; }
+@media (min-width: 651px) {
+  html .affiliation + .affiliation { border-left: 0; }
+  html .affiliation + .affiliation::before { display: block; content: ''; position: absolute; inset: auto; left: 0; top: 20px; bottom: 20px; width: 1px; height: auto; opacity: 1; z-index: 0; border-radius: 0; background: linear-gradient(to bottom, transparent, var(--band-line) 28%, var(--band-line) 72%, transparent); }
+}
+@media (max-width: 650px) {
+  html .affiliation + .affiliation::before { background: var(--band-line); }
+  html .affiliation-strip .research-keywords { padding: 2px 0 20px; }
+}
+
+/* Band lines use the same border colour as the cards (for example the research card). */
+html .affiliation-strip { --band-line: var(--line); }
+
+/* ===================== Affiliations: a card like the research card, instead of a full-width strip ===================== */
+html .affiliation-strip { background: var(--surface); border: 1px solid var(--line); border-radius: 17px; box-shadow: 0 12px 45px color-mix(in srgb, var(--ink) 3%, transparent); clip-path: none; margin-top: 40px; overflow: hidden; }
+html .affiliation-strip::before, html .affiliation-strip::after, html .affiliation-strip .research-keywords::before { display: none; }
+html .affiliation { padding: 26px 30px; }
+html .affiliation + .affiliation { padding-left: 34px; }
+html .affiliation-strip .research-keywords { padding: 0 30px 24px; }
+@media (max-width: 650px) {
+  html .affiliation-strip { margin-top: 24px; border-radius: 14px; }
+  html .affiliation { padding: 20px 20px; }
+  html .affiliation + .affiliation { padding-left: 20px; border-top: 1px solid var(--line); }
+  html .affiliation + .affiliation::before { display: none; }
+  html .affiliation-strip .research-keywords { padding: 0 20px 20px; }
+}
+
+/* The hero ends with the same space as every other section, so the gap before Research matches the gaps between the rest. */
+html .hero { padding-bottom: 104px; }
+@media (max-width: 900px) { html .hero { padding-bottom: 80px; } }
+@media (max-width: 650px) { html .hero { padding-bottom: 62px; } }
+
+/* ===================== Alternating section backgrounds, starting at Research ===================== */
+/* Research, Education and Gallery sit on white bands; Publications and Experience on the page colour. */
+html #research, html #journey { position: relative; background: var(--surface); box-shadow: 0 0 0 100vmax var(--surface); clip-path: inset(0 -100vmax); }
+html #research::before, html #research::after, html #journey::before, html #journey::after { content: ''; position: absolute; left: calc(50% - 50vw); width: 100vw; height: 1px; background: var(--line); pointer-events: none; }
+html #research::before, html #journey::before { top: 0; }
+html #research::after, html #journey::after { bottom: 0; }
+html .gallery-section.section { background: var(--surface); border-block: 1px solid var(--line); }
+html .experience-section.section { background: transparent; border-block: 0; }
+
+/* Publications and Experience sit on a soft grey band; Research, Education and Gallery stay white. */
+html { --band-gray: var(--soft); }
+html[data-theme=dark] { --band-gray: #1f2521; }
+html .publications-section.section, html .experience-section.section { background: var(--band-gray); border-block: 1px solid var(--line); }
+
+/* ===================== The white bands now start at the hero and alternate from there ===================== */
+/* Hero white, Research grey, Publications white, Education grey, Experience white, Gallery grey. */
+html #home { position: relative; background: var(--surface); box-shadow: 0 0 0 100vmax var(--surface); clip-path: inset(0 -100vmax); }
+html #research, html #journey { background: var(--band-gray); box-shadow: 0 0 0 100vmax var(--band-gray); }
+html .publications-section.section, html .experience-section.section { background: var(--surface); }
+html .gallery-section.section { background: var(--band-gray); }
+/* At the top of the page the navbar is white too, so it melts into the hero. */
+html .header:not(.is-compact) { background: var(--surface); }
+
+/* Publications toolbar: filters, search and year stay on one line; the filter labels wrap onto two lines when space runs short. */
+@media (min-width: 901px) {
+  html .publication-toolbar { flex-wrap: nowrap; }
+  html .filter-tabs { flex: 1 1 auto; min-width: 0; flex-wrap: nowrap; }
+  html .filter-tabs button { flex: 0 1 auto; min-width: 0; white-space: normal; text-align: center; line-height: 1.25; padding: 6px 10px; }
+  html .publication-tools { flex: none; flex-wrap: nowrap; }
+  html .search-field input { width: 170px; }
+}
+
+/* The honors and "At a glance" cards are white, so they stand out on the grey Education band. */
+html .honors-panel, html .glance-panel { background: var(--surface); }
+
+/* Phones: a single language button in the header (shows the other language; tap to switch). */
+.language-toggle { display: none; }
+@media (max-width: 650px) {
+  html .header-tools .language-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 40px; margin-right: 4px; padding: 0 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--ink); font-size: 13px; font-weight: 600; letter-spacing: .3px; text-decoration: none; transition: color .2s, border-color .2s; }
+  html .header-tools .language-toggle:is(:hover, :focus-visible) { color: var(--purple); border-color: color-mix(in srgb, var(--purple) 45%, var(--line)); }
+  html .header-tools .language-toggle:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+}
+
+/* Phones: the three header buttons (language, theme, menu) share one style. */
+@media (max-width: 650px) {
+  html .header-tools { gap: 8px; }
+  html .header-tools :is(.icon-button, .language-toggle) { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; min-width: 44px; min-height: 44px; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); transform: none; }
+  html .header-tools :is(.icon-button, .language-toggle):is(:hover, :active, :focus) { background: var(--surface); color: var(--ink); border-color: var(--line); }
+  html .header-tools :is(.icon-button, .language-toggle):focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+}
+@media (max-width: 650px) and (hover: hover) {
+  html .header-tools :is(.icon-button, .language-toggle):hover { color: var(--purple); border-color: color-mix(in srgb, var(--purple) 45%, var(--line)); }
+}
+
+/* Narrow screens: the name is shortened with an ellipsis instead of pushing the header buttons off screen. */
+html .brand { min-width: 0; flex: 0 1 auto; }
+html .brand-symbol { flex: none; }
+html .brand-name { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+html .header-tools { flex: none; }
+/* Slightly smaller phone buttons, so the whole name still fits on a 390px-wide screen. */
+@media (max-width: 650px) {
+  html .header-tools { gap: 6px; }
+  html .header-tools :is(.icon-button, .language-toggle) { width: 40px; height: 40px; min-width: 40px; min-height: 40px; }
+}

@@ -8,7 +8,7 @@ export function Brand({ href, ariaLabel }: { href: string; ariaLabel?: string })
       <span className="brand-symbol" aria-hidden="true">
         <img src="/assets/favicon.svg?v=2" alt="" width={36} height={36} />
       </span>
-      <span><Name name={PROFILE_DATA.profile.nameEn} /></span>
+      <span className="brand-name"><Name name={PROFILE_DATA.profile.nameEn} /></span>
     </a>
   )
 }

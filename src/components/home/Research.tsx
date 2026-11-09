@@ -106,16 +106,23 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
   const index = research.indexOf(current)
   const relatedCount = publications.filter((paper) => current.topics.some((topic) => (paper.topics as string[]).includes(topic))).length
 
-  // Pause / resume running route pulses with the rest of the decorative motion.
+  // The active node's beam travels along its line again and again. Picking another node moves the beam there;
+  // when decorative motion is off or the map is off screen, no beam runs.
   useEffect(() => {
-    for (const route of Object.values(routeRefs.current)) {
-      route?.getAnimations().forEach((animation) => {
-        if (active) {
-          if (animation.playState === 'paused') animation.play()
-        } else if (animation.playState === 'running') animation.pause()
-      })
-    }
-  }, [active])
+    const routes = routeRefs.current
+    for (const route of Object.values(routes)) route?.getAnimations().forEach((animation) => animation.cancel())
+    if (!active) return
+    routes[direction]?.animate(
+      [
+        { strokeDashoffset: '110', opacity: 0 },
+        { strokeDashoffset: '100', opacity: 1, offset: 0.1 },
+        { strokeDashoffset: '-10', opacity: 1, offset: 0.7 },
+        { strokeDashoffset: '-20', opacity: 0, offset: 0.78 },
+        { strokeDashoffset: '-20', opacity: 0 },
+      ],
+      { duration: 2000, easing: 'linear', iterations: Infinity },
+    )
+  }, [direction, active])
   useEffect(() => {
     const routes = routeRefs.current
     return () => {
@@ -127,20 +134,6 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
     setDirection(id)
     if (!active) return
     setSignaling(id)
-    const route = routeRefs.current[id]
-    if (route) {
-      // Restart a short, local pulse.
-      route.getAnimations().forEach((animation) => animation.cancel())
-      route.animate(
-        [
-          { strokeDashoffset: '110', opacity: 0 },
-          { strokeDashoffset: '100', opacity: 1, offset: 0.12 },
-          { strokeDashoffset: '-10', opacity: 1, offset: 0.88 },
-          { strokeDashoffset: '-20', opacity: 0 },
-        ],
-        { duration: 1400, easing: 'linear', iterations: 2 },
-      )
-    }
     panelRef.current?.animate([{ opacity: 0.65, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 260, easing: 'ease-out' })
   }
 
