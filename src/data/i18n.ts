@@ -13,7 +13,7 @@ export interface Bilingual {
 export const T = {
   navResearch: { en: 'Research', ko: '연구' },
   navPublications: { en: 'Publications', ko: '논문' },
-  navJourney: { en: 'Journey', ko: '이력' },
+  navJourney: { en: 'Education', ko: '학력·수상' },
   navExperience: { en: 'Experience', ko: '경력' },
   navGallery: { en: 'Gallery', ko: '갤러리' },
   navContact: { en: 'Contact', ko: '연락처' },
@@ -56,6 +56,8 @@ export const T = {
   galleryPrev: { en: 'Previous photo', ko: '이전 사진' },
   galleryNext: { en: 'Next photo', ko: '다음 사진' },
   galleryOpenLink: { en: 'Open link', ko: '링크 열기' },
+  skipPublications: { en: 'Skip the publication list', ko: '논문 목록 건너뛰기' },
+  emailMe: { en: 'Email me', ko: '이메일 보내기' },
   experienceIntro: { en: 'Research, production software, and the projects in between.', ko: '연구, 실무 소프트웨어, 그리고 그 사이의 프로젝트들.' },
   toolbox: { en: 'Technical skills', ko: '기술 스택' },
   rolesTitle: { en: 'Roles and projects', ko: '경력 및 프로젝트' },

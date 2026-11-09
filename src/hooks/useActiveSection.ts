@@ -18,7 +18,22 @@ export function useActiveSection(ids: readonly string[]) {
       }
     }, { rootMargin: `-${line}px 0px -${Math.max(innerHeight - line - 1, 0)}px 0px` })
     targets.forEach((target) => observer.observe(target))
-    return () => observer.disconnect()
+    // The observer only reports changes, so an instant jump back to the top (logo link, Home key) would leave the
+    // last section marked. This cheap check clears it once the first section is below the reading line again.
+    let frame = 0
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        if (targets[0].getBoundingClientRect().top > line) setActive(null)
+      })
+    }
+    addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      observer.disconnect()
+      removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
   }, [ids])
   return active
 }

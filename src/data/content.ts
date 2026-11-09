@@ -57,6 +57,8 @@ export interface ResearchRecord {
   id: TopicId
   title: Bi
   detail: Bi
+  /** Shown when the area has no published papers yet, e.g. "Work in progress". */
+  status?: Bi
   topics: TopicId[]
 }
 
@@ -128,6 +130,7 @@ const research: ResearchRecord[] = siteConfig.research.map((r) => ({
   id: r.id,
   title: bi(r.title),
   detail: bi(r.detail),
+  status: 'status' in r && r.status ? bi(r.status) : undefined,
   topics: [r.id],
 }))
 

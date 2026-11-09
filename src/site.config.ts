@@ -244,7 +244,10 @@ export const siteConfig = {
 		{ en: 'Multimodal learning', ko: '멀티모달 학습' },
 	] satisfies Text[],
 
-	/** The four research areas (ids must stay as they are; edit the text). */
+	/**
+	 * The four research areas (ids must stay as they are; edit the text). `status` is optional: shown in place of
+	 * "No papers on this topic yet" while an area has no published paper.
+	 */
 	research: [
 		{
 			id: 'eeg',
@@ -252,6 +255,10 @@ export const siteConfig = {
 			detail: {
 				en: 'Brain-AI interfaces and a brainwave-language model for non-verbal communication.',
 				ko: '비언어 의사소통을 위한 뇌-AI 인터페이스와 뇌파-언어 모델.',
+			},
+			status: {
+				en: 'Active research at the Industrial AI Lab. Papers are in progress.',
+				ko: '산업 AI 연구실에서 진행 중인 연구입니다. 논문은 준비 중입니다.',
 			},
 		},
 		{
@@ -278,7 +285,7 @@ export const siteConfig = {
 				ko: '지속가능성 지향 도구, 요구사항 모델링, 실무 ERP 소프트웨어.',
 			},
 		},
-	] satisfies { id: TopicId; title: Text; detail: Text }[],
+	] satisfies { id: TopicId; title: Text; detail: Text; status?: Text }[],
 
 	publications: [
 		{

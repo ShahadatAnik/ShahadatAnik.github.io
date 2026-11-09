@@ -202,6 +202,8 @@ export function Research({ onExplore }: { onExplore: (topic: TopicId) => void })
           <div className="direction-papers" id="direction-papers">
             {relatedCount > 0 ? (
               <Dual en={`${relatedCount} related ${relatedCount === 1 ? 'paper' : 'papers'}`} ko={`관련 논문 ${relatedCount}편`} />
+            ) : current.status ? (
+              <B value={current.status} />
             ) : (
               <Dual en="No papers on this topic yet" ko="아직 이 주제의 논문이 없습니다" />
             )}

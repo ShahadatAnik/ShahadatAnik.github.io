@@ -105,7 +105,7 @@ export function Experience() {
   return (
     <section className="experience-section section" id="experience">
       <div className="page-width">
-        <SectionHeading eyebrow="BEYOND RESEARCH" title="experienceTitle" intro="experienceIntro" />
+        <SectionHeading eyebrow="EXPERIENCE" title="experienceTitle" intro="experienceIntro" />
         <div className="experience-grid">
           <Reveal className="experience-aside">
             <div className="skills-block">

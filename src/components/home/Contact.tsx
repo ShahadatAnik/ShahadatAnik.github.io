@@ -16,9 +16,13 @@ export function Contact() {
             <h2><T k="contactTitle" /></h2>
             <p><T k="contactIntro" /></p>
           </div>
-          <a className="contact-arrow" href={`mailto:${profile.email}`} aria-label="Send an email / 이메일 보내기">
-            <Glyph icon={ArrowUpRight} className="contact-arrow-glyph" strokeWidth={1.6} />
-          </a>
+          <div className="contact-cta">
+            <a className="contact-arrow" href={`mailto:${profile.email}`} aria-label="Email me / 이메일 보내기">
+              <Glyph icon={ArrowUpRight} className="contact-arrow-glyph" strokeWidth={1.6} />
+            </a>
+            {/* Visible words for the button above; a duplicate link for the mouse only, so screen readers and Tab skip it. */}
+            <a className="contact-cta-label" href={`mailto:${profile.email}`} tabIndex={-1} aria-hidden="true"><T k="emailMe" /></a>
+          </div>
         </Reveal>
         <div className="email-row">
           <a href={`mailto:${profile.email}`}>{profile.email}</a>

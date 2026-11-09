@@ -61,7 +61,7 @@ export function Journey() {
 
   return (
     <section className="journey-section section page-width" id="journey">
-      <SectionHeading eyebrow="JOURNEY" title="journeyTitle" intro="journeyIntro" />
+      <SectionHeading eyebrow="EDUCATION & HONORS" title="journeyTitle" intro="journeyIntro" />
       <div className="journey-grid">
         <Reveal>
           <h3 className="subheading"><T k="educationTitle" /></h3>

@@ -4,8 +4,8 @@ import { writeStorage } from '@/hooks/storage'
 import type { Lang } from '@/lib/lang'
 
 const LANGUAGES = [
-  { lang: 'en', locale: undefined, label: 'EN', aria: 'English' },
-  { lang: 'ko', locale: 'kr', label: 'KR', aria: '한국어' },
+  { lang: 'en', locale: undefined, label: 'EN', aria: 'EN, English' },
+  { lang: 'ko', locale: 'kr', label: 'KR', aria: 'KR, 한국어' },
 ] as const satisfies readonly { lang: Lang; locale: 'kr' | undefined; label: string; aria: string }[]
 
 /** Which route the switch stays on: the home page, or one paper page. */

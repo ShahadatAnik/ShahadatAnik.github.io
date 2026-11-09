@@ -118,6 +118,7 @@ export function Publications({ filters, onFilters }: { filters: PublicationFilte
           title="publicationsTitle"
           action={<ExternalLink id="publication-scholar" className="text-button" href={profile.scholar}><span><T k="scholarProfile" /></span></ExternalLink>}
         />
+        <a className="skip-inline" href="#journey"><T k="skipPublications" /></a>
         <div className="publication-toolbar">
           <div ref={tabsRef} id="topic-filters" className="filter-tabs" role="group" aria-label="Filter by research topic / 연구 분야별 필터">
             <span className="filter-active-indicator" aria-hidden="true" />

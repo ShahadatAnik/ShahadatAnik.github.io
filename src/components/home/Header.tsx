@@ -69,7 +69,7 @@ export function Header() {
       <div ref={progressRef} className="scroll-progress" style={{ transform: 'scaleX(0)' }} aria-hidden="true" />
       <header ref={headerRef} className={compact ? 'header is-compact' : 'header'}>
         <div className="header-inner">
-          <Brand href="#home" ariaLabel={`${PROFILE_DATA.profile.shortName} — Home`} />
+          <Brand href="#home" ariaLabel={localized(lang, `${PROFILE_DATA.profile.nameEn}, home`, `${PROFILE_DATA.profile.nameEn}, 홈`)} />
           <nav ref={navRef} className="desktop-nav" aria-label="Main navigation" data-has-active={String(Boolean(activeHash))} style={navStyle}>
             <span className="nav-active-indicator" aria-hidden="true" />
             {links(true)}
