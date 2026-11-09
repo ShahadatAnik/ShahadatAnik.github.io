@@ -1027,7 +1027,8 @@ html .year-field::after { content: none; }
 /* ===================== Gallery ===================== */
 .gallery-section { padding-inline: 0; overflow: hidden; }
 .gallery-marquee { position: relative; outline: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
-.gallery-track { --gap: 20px; display: flex; gap: var(--gap); width: max-content; margin: 0; padding: 6px 0 10px; list-style: none; animation: gallery-scroll calc(var(--count) * 9s) linear infinite; will-change: transform; }
+.gallery-track { --gap: 20px; display: flex; gap: var(--gap); width: max-content; margin: 0; padding: 6px 0 10px; list-style: none; }
+.gallery-track.is-running { animation: gallery-scroll calc(var(--count) * 9s) linear infinite; will-change: transform; }
 @keyframes gallery-scroll { to { transform: translateX(calc(-50% - (var(--gap) / 2))); } }
 .gallery-marquee:is(:hover, :focus-within) .gallery-track, .gallery-marquee:active .gallery-track { animation-play-state: paused; }
 .gallery-item { flex: none; width: 340px; }
@@ -1052,7 +1053,7 @@ html[data-motion-paused=true] .gallery-item { scroll-snap-align: start; }
 html[data-motion-paused=true] .gallery-item[aria-hidden=true] { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .gallery-marquee { overflow-x: auto; scroll-snap-type: x proximity; -webkit-mask-image: none; mask-image: none; padding-inline: 20px; }
-  .gallery-track { animation: none; }
+  .gallery-track, .gallery-track.is-running { animation: none; }
   .gallery-item { scroll-snap-align: start; }
   .gallery-item[aria-hidden=true] { display: none; }
   .gallery-card, .gallery-photo img { transition: none; }

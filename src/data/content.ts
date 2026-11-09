@@ -142,7 +142,8 @@ export interface GalleryRecord {
   sample: boolean
 }
 
-const gallery: GalleryRecord[] = (siteConfig.gallery as GalleryItem[]).map((g) => ({
+// Newest first, whatever order they are written in the config.
+const gallery: GalleryRecord[] = [...(siteConfig.gallery as GalleryItem[])].sort((a, b) => b.date.localeCompare(a.date)).map((g) => ({
   image: g.image,
   alt: bi(g.alt ?? g.event),
   event: bi(g.event),

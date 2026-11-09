@@ -101,7 +101,7 @@ The auto-scrolling gallery sits below "Research and engineering". Add photos in 
 }
 ```
 
-The five cards with `sample: true` are placeholders and show a "Sample" badge. Delete them (and the `sample-*.svg` files) when you add real photos. Newest first reads best. It scrolls on its own, pauses on hover or keyboard focus, and becomes a swipeable row for visitors who prefer reduced motion. With no entries the section disappears.
+Cards with `sample: true` still use a demo image and show a "Demo photo" badge. When you have the real photo, put it in `public/assets/gallery/`, change `image` to its path and delete `sample: true` (and the demo `.svg`). The cards sort themselves newest first. It scrolls on its own, pauses on hover or keyboard focus, and becomes a swipeable row for visitors who prefer reduced motion. With no entries the section disappears.
 
 ## Speed
 

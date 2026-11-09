@@ -49,8 +49,8 @@ export const T = {
   honorsFoot: { en: 'With gratitude for the people and institutions supporting this journey.', ko: '이 여정을 지지해 준 모든 분과 기관에 감사드립니다.' },
   experienceTitle: { en: 'Research and engineering.', ko: '연구와 개발' },
   galleryTitle: { en: 'Moments along the way.', ko: '함께한 순간들' },
-  galleryIntro: { en: 'Conferences, lab days and the people behind the research.', ko: '학회, 연구실의 하루, 그리고 연구를 함께하는 사람들.' },
-  sampleBadge: { en: 'Sample', ko: '예시' },
+  galleryIntro: { en: 'Awards, graduation day and conferences: the days behind the milestones.', ko: '시상식, 졸업식, 학회: 이정표 뒤의 순간들.' },
+  sampleBadge: { en: 'Demo photo', ko: '예시 사진' },
   experienceIntro: { en: 'Research, production software, and the projects in between.', ko: '연구, 실무 소프트웨어, 그리고 그 사이의 프로젝트들.' },
   toolbox: { en: 'Technical skills', ko: '기술 스택' },
   rolesTitle: { en: 'Roles and projects', ko: '경력 및 프로젝트' },
@@ -107,6 +107,6 @@ export const NAV_ITEMS = [
   { hash: 'publications', label: T.navPublications },
   { hash: 'journey', label: T.navJourney },
   { hash: 'experience', label: T.navExperience },
-  // { hash: 'gallery', label: T.navGallery }, // uncomment together with <Gallery /> in HomePage.tsx
+  { hash: 'gallery', label: T.navGallery },
   { hash: 'contact', label: T.navContact },
 ] as const

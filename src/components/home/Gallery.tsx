@@ -1,5 +1,5 @@
 import { CalendarDays, MapPin } from 'lucide-react'
-import type { CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { B, ExternalLink, Glyph, SectionHeading, T, useLang } from '@/components/ui'
 import { PROFILE_DATA, type GalleryRecord } from '@/data/content'
 import { formatMonth } from '@/lib/format'
@@ -33,21 +33,30 @@ function GalleryCard({ item, clone = false }: { item: GalleryRecord; clone?: boo
 }
 
 /**
- * Auto-scrolling photo strip. The list is repeated once so the loop has no jump; the copy is hidden from
- * screen readers and the keyboard. It pauses on hover or focus, and becomes a plain swipeable row when
- * motion is reduced or paused.
+ * Auto-scrolling photo strip. The cards are repeated so each half of the track is wider than any screen (otherwise
+ * the loop would show a gap with only a few photos). The copies are added after the page has loaded, so the HTML stays
+ * small and search engines see each photo once; they are hidden from screen readers and the keyboard. It pauses on hover
+ * or focus, and becomes a plain swipeable row when motion is reduced or paused.
  */
+const MIN_CARDS_PER_HALF = 8
+
 export function Gallery() {
   if (gallery.length === 0) return null
+  const [running, setRunning] = useState(false)
+  useEffect(() => setRunning(true), [])
+  const repeat = Math.max(1, Math.ceil(MIN_CARDS_PER_HALF / gallery.length))
+  // Before the page is interactive there is just one copy and the strip is still; then the copies appear and it starts.
+  const copies = Array.from({ length: running ? repeat * 2 : 1 }, (_, copy) => copy)
   return (
     <section className="gallery-section section" id="gallery">
       <div className="page-width">
         <SectionHeading eyebrow="GALLERY" title="galleryTitle" intro="galleryIntro" />
       </div>
       <div className="gallery-marquee" role="region" aria-label="Photo gallery / 사진 갤러리" tabIndex={0}>
-        <ul className="gallery-track" style={{ '--count': gallery.length } as CSSProperties}>
-          {gallery.map((item) => <GalleryCard key={`${item.image}-${item.date}`} item={item} />)}
-          {gallery.map((item) => <GalleryCard key={`clone-${item.image}-${item.date}`} item={item} clone />)}
+        <ul className={running ? 'gallery-track is-running' : 'gallery-track'} style={{ '--count': gallery.length * repeat } as CSSProperties}>
+          {copies.map((copy) =>
+            gallery.map((item) => <GalleryCard key={`${copy}-${item.image}-${item.date}`} item={item} clone={copy > 0} />),
+          )}
         </ul>
       </div>
     </section>

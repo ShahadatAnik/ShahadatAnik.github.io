@@ -8,9 +8,10 @@ export function formatDate(date: string, lang: Lang): string {
   return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
 }
 
-/** '2026-05' (or '2026-05-14') -> 'May 2026' (en) or '2026년 5월' (ko). */
+/** '2026-05' (or '2026-05-14') -> 'May 2026' (en) or '2026년 5월' (ko). A bare year ('2022') stays '2022'. */
 export function formatMonth(date: string, lang: Lang): string {
   const [y, m] = date.split('-').map(Number)
+  if (y && !m) return lang === 'ko' ? `${y}년` : String(y)
   if (!y || !m) return date
   if (lang === 'ko') return `${y}년 ${m}월`
   return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-US', { year: 'numeric', month: 'short', timeZone: 'UTC' })

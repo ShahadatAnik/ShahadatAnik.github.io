@@ -561,61 +561,43 @@ export const siteConfig = {
 	] satisfies Experience[],
 
 	/** Skills, grouped (the group name shows when a chip is clicked). */
-	/** Photos shown in the auto-scrolling gallery. Newest first reads best. Delete the sample cards when you add your own. */
+	/**
+	 * Photos shown in the auto-scrolling gallery (newest first, sorted automatically).
+	 * `sample: true` means the photo is still a demo image: the card shows a "Demo photo" badge. Put the real photo in
+	 * public/assets/gallery/, point `image` at it and delete `sample: true`.
+	 */
 	gallery: [
 		{
-			image: '/assets/gallery/sample-1.svg',
-			event: { en: 'Conference talk', ko: '학회 발표' },
+			image: '/assets/gallery/cum-laude.svg',
+			event: { en: 'Convocation · Cum Laude', ko: '졸업식 · 우등 졸업' },
 			description: {
-				en: 'Presenting our brain–AI interface work and answering questions from the audience.',
-				ko: '뇌-AI 인터페이스 연구를 발표하고 청중의 질문에 답했습니다.',
-			},
-			date: '2026-05',
-			place: { en: 'Seoul, South Korea', ko: '대한민국 서울' },
-			sample: true,
-		},
-		{
-			image: '/assets/gallery/sample-2.svg',
-			event: { en: 'Lab seminar', ko: '연구실 세미나' },
-			description: {
-				en: 'Weekly Industrial AI Lab seminar: sharing results and getting feedback.',
-				ko: '산업AI연구실 주간 세미나에서 결과를 공유하고 피드백을 받았습니다.',
-			},
-			date: '2026-03',
-			place: { en: 'Yongin, South Korea', ko: '대한민국 용인' },
-			sample: true,
-		},
-		{
-			image: '/assets/gallery/sample-3.svg',
-			event: { en: 'Award ceremony', ko: '시상식' },
-			description: {
-				en: 'Receiving the scholarship with the people who supported the journey.',
-				ko: '여정을 응원해 준 사람들과 함께 장학금을 받았습니다.',
-			},
-			date: '2026-02',
-			place: { en: 'Kyung Hee University', ko: '경희대학교' },
-			sample: true,
-		},
-		{
-			image: '/assets/gallery/sample-4.svg',
-			event: { en: 'Team day', ko: '팀 데이' },
-			description: {
-				en: 'A day away from the screen with the SynapTech team.',
-				ko: 'SynapTech 팀과 함께 화면에서 벗어난 하루.',
-			},
-			date: '2025-11',
-			place: { en: 'Dhaka, Bangladesh', ko: '방글라데시 다카' },
-			sample: true,
-		},
-		{
-			image: '/assets/gallery/sample-5.svg',
-			event: { en: 'Graduation', ko: '졸업식' },
-			description: {
-				en: 'Graduating from East West University with Cum Laude honors.',
-				ko: '이스트웨스트대학교를 우등으로 졸업했습니다.',
+				en: 'Receiving my degree from the Vice-Chancellor of East West University, graduating Cum Laude.',
+				ko: '이스트웨스트대학교 총장님께 학위를 받으며 우등(Cum Laude)으로 졸업했습니다.',
 			},
 			date: '2024-02',
-			place: { en: 'Dhaka, Bangladesh', ko: '방글라데시 다카' },
+			place: { en: 'East West University, Dhaka', ko: '이스트웨스트대학교, 다카' },
+			sample: true,
+		},
+		{
+			image: '/assets/gallery/miet-2022.svg',
+			event: { en: 'MIET 2022 conference', ko: 'MIET 2022 학술대회' },
+			description: {
+				en: 'With my co-authors, holding the certificate for our e-waste management paper.',
+				ko: '공저자들과 함께 전자폐기물 관리 시스템 논문 인증서를 들고.',
+			},
+			date: '2022-09',
+			place: { en: 'Noakhali, Bangladesh', ko: '방글라데시 노아칼리' },
+			sample: true,
+		},
+		{
+			image: '/assets/gallery/merit-scholarship.svg',
+			event: { en: 'Merit Scholarship award day', ko: '성적우수 장학금 수여식' },
+			description: {
+				en: 'With fellow recipients on award day. Full tuition waived for outstanding results, kept with a 3.50+ CGPA.',
+				ko: '동료 수상자들과 함께. 우수한 성적에 대한 등록금 전액 면제이며 CGPA 3.50 이상 유지가 조건입니다.',
+			},
+			date: '2022',
+			place: { en: 'East West University, Dhaka', ko: '이스트웨스트대학교, 다카' },
 			sample: true,
 		},
 	] satisfies GalleryItem[],
