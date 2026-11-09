@@ -1,5 +1,5 @@
 import { B, Dual, ExternalLink, Period, Reveal, SectionHeading, T } from '@/components/ui'
-import { useInView } from 'framer-motion'
+import { useReached } from '@/hooks/useInView'
 import { useEffect, useRef, useState } from 'react'
 import { PROFILE_DATA } from '@/data/content'
 
@@ -35,7 +35,7 @@ const honorYears = [...new Set(honors.map((honor) => honor.year))]
 /** One timeline entry; it is "reached" once it passes 72% of the viewport height. */
 function EducationItem({ entry, current, onReach }: { entry: (typeof education)[number]; current: boolean; onReach: () => void }) {
   const ref = useRef<HTMLElement>(null)
-  const reached = useInView(ref, { once: true, margin: '0px 0px -28% 0px' })
+  const reached = useReached(ref, '0px 0px -28% 0px')
   useEffect(() => {
     if (reached) onReach()
   }, [reached, onReach])

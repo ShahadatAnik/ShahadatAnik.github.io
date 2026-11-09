@@ -21,11 +21,8 @@ const IMAGE_ALT = {
 } as const
 const GOOGLE_VERIFICATION = siteConfig.site.googleVerification
 const ANALYTICS_ID = siteConfig.site.analyticsId
-const FONTS =
-  'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap'
-
 type Meta = { title: string } | { name: string; content: string } | { property: string; content: string }
-type HeadLink = { rel: string; href: string; hrefLang?: string; crossOrigin?: 'anonymous' }
+type HeadLink = { rel: string; href: string; hrefLang?: string; crossOrigin?: 'anonymous'; as?: string; type?: string }
 type Json = Record<string, unknown>
 export type HeadResult = {
   meta: Meta[]
@@ -36,10 +33,10 @@ export type HeadResult = {
 const name = (n: string, content: string): Meta => ({ name: n, content })
 const prop = (p: string, content: string): Meta => ({ property: p, content })
 
+// The two latin fonts the first screen uses are fetched in parallel with the stylesheet instead of after it.
 const fontLinks = (): HeadLink[] => [
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
-  { rel: 'stylesheet', href: FONTS },
+  { rel: 'preload', href: '/assets/fonts/dm-sans-latin.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
+  { rel: 'preload', href: '/assets/fonts/manrope-latin.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
 ]
 
 const pathFor = (lang: Lang, suffix: string) => `${SITE}${lang === 'ko' ? '/kr' : ''}${suffix}`

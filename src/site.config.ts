@@ -163,7 +163,7 @@ export const siteConfig = {
 	/** The two organisations shown under the hero. */
 	affiliations: [
 		{
-			logo: '/assets/logos/khu.png',
+			logo: '/assets/logos/khu.webp',
 			relation: { en: 'Studying and researching at', ko: '현재 소속' },
 			name: { en: 'Kyung Hee University', ko: '경희대학교' },
 			detail: {

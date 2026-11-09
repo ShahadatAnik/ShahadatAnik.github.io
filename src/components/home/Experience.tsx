@@ -4,8 +4,6 @@ import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { PROFILE_DATA, bi } from '@/data/content'
 import { siteConfig } from '@/site.config'
 import { useMotion } from '@/hooks/useMotion'
-import { motion } from 'framer-motion'
-import { useReveal } from '@/hooks/useReveal'
 
 const { experience } = PROFILE_DATA
 
@@ -22,7 +20,6 @@ function ExperienceItem({ entry, open, onToggle }: { entry: ExperienceEntry; ope
   const animation = useRef<Animation | null>(null)
   const initiallyOpen = useRef(open)
   const mounted = useRef(false)
-  const reveal = useReveal()
   useEffect(() => () => animation.current?.cancel(), [])
 
   useEffect(() => {
@@ -61,7 +58,7 @@ function ExperienceItem({ entry, open, onToggle }: { entry: ExperienceEntry; ope
   }, [open])
 
   return (
-    <motion.details ref={detailsRef} className="experience-item" open={initiallyOpen.current} {...reveal} data-expanded={String(open)}>
+    <details ref={detailsRef} className="experience-item" open={initiallyOpen.current} data-expanded={String(open)}>
       <summary
         aria-expanded={open}
         onClick={(event: MouseEvent) => {
@@ -83,7 +80,7 @@ function ExperienceItem({ entry, open, onToggle }: { entry: ExperienceEntry; ope
           ) : null}
         </div>
       </div>
-    </motion.details>
+    </details>
   )
 }
 

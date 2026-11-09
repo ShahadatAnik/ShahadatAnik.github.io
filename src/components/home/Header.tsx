@@ -1,7 +1,6 @@
 import { Menu } from 'lucide-react'
 import { B, Brand, LanguageSwitch, ThemeToggle, useLang } from '@/components/ui'
-import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion'
-import { useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { NAV_ITEMS, localized } from '@/data/i18n'
 import { PROFILE_DATA } from '@/data/content'
 import { useActiveIndicator } from '@/hooks/useActiveIndicator'
@@ -17,12 +16,33 @@ export function Header() {
   const navRef = useRef<HTMLElement>(null)
   const switchRef = useRef<HTMLDivElement>(null)
 
-  // Scroll progress is a compositor-only scaleX; compact state flips only when it crosses the threshold.
-  const { scrollY, scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 40, restDelta: 0.001 })
-  useMotionValueEvent(scrollY, 'change', (y) => setCompact((previous) => (previous === y > 90 ? previous : y > 90)))
+  // One passive, frame-throttled scroll listener: the progress bar is a compositor-only scaleX set directly on the element,
+  // and React state changes only when a threshold is crossed.
+  const progressRef = useRef<HTMLDivElement>(null)
   const [atBottom, setAtBottom] = useState(false)
-  useMotionValueEvent(scrollYProgress, 'change', (p) => setAtBottom((previous) => (previous === p > 0.985 ? previous : p > 0.985)))
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const y = window.scrollY
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${p})`
+      setCompact((previous) => (previous === y > 90 ? previous : y > 90))
+      setAtBottom((previous) => (previous === p > 0.985 ? previous : p > 0.985))
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
   const section = useActiveSection(NAV_HASHES)
   const activeHash = atBottom ? NAV_HASHES[NAV_HASHES.length - 1] : section
 
@@ -46,7 +66,7 @@ export function Header() {
   return (
     <>
       <a className="skip" href="#main">Skip to content / 본문으로 건너뛰기</a>
-      <motion.div className="scroll-progress" style={{ scaleX: progress }} aria-hidden="true" />
+      <div ref={progressRef} className="scroll-progress" style={{ transform: 'scaleX(0)' }} aria-hidden="true" />
       <header ref={headerRef} className={compact ? 'header is-compact' : 'header'}>
         <div className="header-inner">
           <Brand href="#home" ariaLabel={`${PROFILE_DATA.profile.shortName} — Home`} />

@@ -102,3 +102,15 @@ The auto-scrolling gallery sits below "Research and engineering". Add photos in 
 ```
 
 The five cards with `sample: true` are placeholders and show a "Sample" badge. Delete them (and the `sample-*.svg` files) when you add real photos. Newest first reads best. It scrolls on its own, pauses on hover or keyboard focus, and becomes a swipeable row for visitors who prefer reduced motion. With no entries the section disappears.
+
+## Speed
+
+Measured with Lighthouse (mobile, simulated slow 4G, 4x slower CPU): home page 99, paper pages 100, desktop 100; first paint about 1.7 s on mobile, 0.4 s on desktop; nothing blocks the main thread. What keeps it fast:
+
+- **Pages are prerendered HTML**, so text and layout show before any JavaScript runs.
+- **Fonts are served from this site** (`public/assets/fonts/`, latin only, preloaded). There is no Google Fonts request. Korean text uses the visitor's own Korean system font, so `/kr` downloads no font either.
+- **No animation library.** The scroll bar, header and portrait tilt are a few lines of plain code. Do not add `framer-motion` back; it was about 50 KB of the page's JavaScript.
+- **Images are small:** the portrait is a 520 px WebP (about 13 KB) and the Kyung Hee logo a 152 px WebP. Keep new photos under about 300 KB. The `.jpg`/`.png` originals stay in `public/` for the link-preview images and structured data.
+- **Google Analytics is off** until you set an ID; when on it loads after the page.
+
+To re-measure: `bun run build`, serve `dist/client`, then run Lighthouse on it. Re-check after adding the photo gallery (use `loading="lazy"` and keep each image small).

@@ -2,7 +2,6 @@ import { ArrowDown, BriefcaseBusiness, CodeXml, GraduationCap, Plus } from 'luci
 import { Arrow, CopyButton, Dual, ExternalLink, Glyph, Name, ShareIcon, T, useLang } from '@/components/ui'
 import { SITE_ORIGIN, localized } from '@/data/i18n'
 import { langPrefix } from '@/lib/lang'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Fragment, useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
 import { PROFILE_DATA, bi } from '@/data/content'
 import { siteConfig } from '@/site.config'
@@ -111,22 +110,31 @@ export function Hero() {
     else orbit.pauseAnimations()
   }, [active])
 
-  // Pointer parallax: motion values + springs drive transforms directly, with no React renders
-  // and no CSS-variable invalidation across the large SVG.
-  const pointerX = useMotionValue(0)
-  const pointerY = useMotionValue(0)
-  const springX = useSpring(pointerX, { stiffness: 140, damping: 20, mass: 0.6 })
-  const springY = useSpring(pointerY, { stiffness: 140, damping: 20, mass: 0.6 })
-  const rotateX = useTransform(springY, (v) => -v * 3)
-  const rotateY = useTransform(springX, (v) => v * 3)
-  const artX = useTransform(springX, (v) => v * -7)
-  const artY = useTransform(springY, (v) => v * -7)
+  // Pointer parallax: a small frame loop eases toward the pointer and writes transforms straight to the DOM
+  // (no React renders, no CSS-variable invalidation across the large SVG). It stops by itself once settled.
+  const portraitRef = useRef<HTMLElement>(null)
+  const atmosphereRef = useRef<SVGGElement>(null)
+  const pointer = useRef({ x: 0, y: 0, tx: 0, ty: 0, frame: 0 })
   const bounds = useRef<DOMRect | null>(null)
 
-  const resetDepth = () => {
-    pointerX.set(0)
-    pointerY.set(0)
+  const paint = () => {
+    const p = pointer.current
+    p.frame = 0
+    p.x += (p.tx - p.x) * 0.14
+    p.y += (p.ty - p.y) * 0.14
+    if (portraitRef.current) portraitRef.current.style.transform = `translateX(-50%) rotate(-3deg) rotateX(${-p.y * 3}deg) rotateY(${p.x * 3}deg)`
+    atmosphereRef.current?.setAttribute('transform', `translate(${p.x * -7} ${p.y * -7})`)
+    if (Math.abs(p.tx - p.x) > 0.001 || Math.abs(p.ty - p.y) > 0.001) p.frame = requestAnimationFrame(paint)
   }
+  const aim = (x: number, y: number) => {
+    const p = pointer.current
+    p.tx = x
+    p.ty = y
+    if (!p.frame) p.frame = requestAnimationFrame(paint)
+  }
+  useEffect(() => () => cancelAnimationFrame(pointer.current.frame), [])
+
+  const resetDepth = () => aim(0, 0)
   useEffect(() => {
     if (!active) resetDepth()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -138,8 +146,7 @@ export function Hero() {
   const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     const rect = bounds.current
     if (!rect || !active || event.pointerType !== 'mouse') return
-    pointerX.set((event.clientX - rect.left) / rect.width - 0.5)
-    pointerY.set((event.clientY - rect.top) / rect.height - 0.5)
+    aim((event.clientX - rect.left) / rect.width - 0.5, (event.clientY - rect.top) / rect.height - 0.5)
   }
 
   const paused = userPaused || reduced
@@ -184,7 +191,7 @@ export function Hero() {
                   <stop offset="1" stopColor="currentColor" stopOpacity="0" />
                 </radialGradient>
               </defs>
-              <motion.g className="signal-atmosphere" style={{ x: artX, y: artY }}>
+              <g ref={atmosphereRef} className="signal-atmosphere">
                 <circle className="signal-aura" cx="336" cy="142" r="172" />
                 <g className="signal-ambient-lines">
                   <path d="M25 264C82 264 73 107 129 107M333 95C392 95 375 260 432 260" />
@@ -196,7 +203,7 @@ export function Hero() {
                   <circle cx="378" cy="135" r="3" /><circle cx="412" cy="165" r="3" /><circle cx="381" cy="204" r="3" /><circle cx="410" cy="212" r="2" />
                   <circle cx="46" cy="158" r="3" /><circle cx="74" cy="310" r="3" /><circle cx="398" cy="317" r="3" />
                 </g>
-              </motion.g>
+              </g>
               <g className="signal-pipeline" transform="translate(16 0)">
                 <path className="signal-track" d="M24 414H38L44 407L50 425L57 397L64 422L71 414H113C141 414 146 414 170 414M170 414L199 402L227 414L199 426L170 414M199 402L199 426M227 414H297M297 414H324" />
                 <path className="signal-flow" pathLength="100" d="M24 414H38L44 407L50 425L57 397L64 422L71 414H113C141 414 146 414 170 414L199 402L227 414H297H324" />
@@ -235,10 +242,10 @@ export function Hero() {
                 </g>
               ))}
             </svg>
-            <motion.figure className="portrait" style={{ x: '-50%', rotate: -3, rotateX, rotateY }}>
-              <img src="/assets/portrait.jpg" alt={siteConfig.profile.name} width={335} height={447} fetchPriority="high" />
+            <figure ref={portraitRef} className="portrait" style={{ transform: 'translateX(-50%) rotate(-3deg)' }}>
+              <img src="/assets/portrait.webp" alt={siteConfig.profile.name} width={335} height={447} fetchPriority="high" />
               <figcaption><span className="portrait-name">{siteConfig.profile.name}</span><span><Dual en={siteConfig.hero.role.en} ko={bi(siteConfig.hero.role).ko} /></span></figcaption>
-            </motion.figure>
+            </figure>
             <span className="floating-label label-one"><Dual en="Human cognition" ko="인간의 인지" /></span>
             <span className="floating-label label-two"><Dual en="Artificial intelligence" ko="인공지능" /></span>
             <div className="signal-line">
